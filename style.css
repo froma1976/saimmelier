@@ -1,0 +1,436 @@
+/* ============================================
+   SIAmmelier Dobao - French Haute Cuisine Design
+   ============================================ */
+:root {
+    /* Parker-Worthy Premium Palette */
+    --burgundy-deep: #4a0e0e;
+    --burgundy: #6b1a1a;
+    --burgundy-light: #8b2e2e;
+
+    --champagne-gold: #d4af37;
+    --champagne-light: #f4d03f;
+    --champagne-dim: rgba(212, 175, 55, 0.15);
+
+    --charcoal: #1a1a1a;
+    --charcoal-light: #2d2d2d;
+
+    --ivory: #faf8f3;
+    --ivory-warm: #f5f1e8;
+
+    --white: #ffffff;
+
+    /* Gradientes premium */
+    --gradient-wine: linear-gradient(135deg, #4a0e0e 0%, #6b1a1a 50%, #8b2e2e 100%);
+    --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+    --gradient-luxury: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(74, 14, 14, 0.9) 100%);
+
+    /* Spacing & Transitions */
+    --spacing: 2rem;
+    --radius: 0px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: 0.7s var(--ease);
+}
+
+/* Base Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--gradient-luxury);
+    background-attachment: fixed;
+    color: var(--ivory);
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(107, 26, 26, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+h1,
+h2,
+h3,
+.serif {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Desktop Frame */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation Header */
+.app-header {
+    text-align: center;
+    padding: 3rem 0;
+    border-bottom: 2px solid var(--champagne-dim);
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: var(--gradient-gold);
+}
+
+.app-header h1 {
+    font-size: 3.8rem;
+    letter-spacing: 14px;
+    color: var(--champagne-gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+}
+
+.app-header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--champagne-light);
+    letter-spacing: 3px;
+    opacity: 0.9;
+}
+
+/* Progressive Steps Container */
+.step-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.8s var(--ease);
+}
+
+.step-title {
+    font-size: 2.2rem;
+    color: var(--champagne-gold);
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+.step-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--champagne-light);
+    margin-bottom: 3rem;
+    text-align: center;
+    opacity: 0.85;
+    font-style: italic;
+}
+
+/* Visual Grid - French Terroir Style */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+}
+
+.visual-option {
+    position: relative;
+    height: 220px;
+    background: rgba(107, 26, 26, 0.15);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid var(--champagne-dim);
+    transition: var(--transition);
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.visual-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-wine);
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.visual-option:hover::before {
+    left: 0;
+}
+
+.visual-option:hover {
+    border-color: var(--champagne-gold);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.25), 0 0 40px rgba(107, 26, 26, 0.3);
+}
+
+.visual-option h3 {
+    font-size: 1.9rem;
+    color: var(--ivory);
+    letter-spacing: 5px;
+    font-weight: 300;
+    text-transform: uppercase;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+}
+
+.visual-option:hover h3 {
+    color: var(--champagne-gold);
+    font-weight: 500;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.option-overlay {
+    text-align: center;
+}
+
+/* Wine Results Area */
+.wine-results {
+    width: 100%;
+    animation: slideUp 0.8s var(--ease);
+}
+
+.wine-card {
+    background: linear-gradient(135deg, rgba(74, 14, 14, 0.4) 0%, rgba(45, 45, 45, 0.3) 100%);
+    backdrop-filter: blur(25px);
+    border: 2px solid var(--champagne-dim);
+    margin-bottom: 2rem;
+    padding: 4.5rem;
+    width: 100%;
+    max-width: 850px;
+    position: relative;
+    overflow: hidden;
+}
+
+.wine-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-gold);
+}
+
+.wine-info {
+    text-align: center;
+}
+
+.wine-category {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    color: var(--champagne-gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.wine-name {
+    font-size: 3.2rem;
+    color: var(--ivory);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    font-weight: 400;
+}
+
+.wine-do {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--champagne-light);
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.wine-review {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--ivory-warm);
+    margin-bottom: 2.5rem;
+    border-left: 3px solid var(--champagne-dim);
+    padding-left: 2rem;
+    font-style: italic;
+}
+
+.wine-price {
+    font-size: 2.3rem;
+    color: var(--champagne-gold);
+    font-weight: 700;
+    text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Pairing Presentation */
+.pairing-section {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--gold-dim);
+}
+
+.pairing-section h4 {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+}
+
+.pairing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.pairing-img-container {
+    height: 350px;
+}
+
+.pairing-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--gold-dim);
+}
+
+.pairing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--navy);
+}
+
+/* Buttons */
+.btn-formal {
+    background: var(--gradient-gold);
+    color: var(--charcoal);
+    border: 2px solid transparent;
+    padding: 1.6rem 3.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    transition: var(--transition);
+    margin-top: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.btn-formal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-wine);
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.btn-formal:hover::before {
+    left: 0;
+}
+
+.btn-formal:hover {
+    color: var(--champagne-gold);
+    border-color: var(--champagne-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4), 0 0 30px rgba(107, 26, 26, 0.3);
+}
+
+.btn-back {
+    background: transparent;
+    color: var(--champagne-light);
+    border: none;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .visual-option {
+        height: 350px;
+    }
+
+    .wine-card {
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    .wine-info {
+        padding-right: 0;
+        margin-bottom: 3rem;
+    }
+
+    .wine-name {
+        font-size: 2rem;
+    }
+
+    .pairing-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,2435 @@
+[
+  {
+    "id": "FOOD_027",
+    "name": "Burrito de Anchoas",
+    "price": "8,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Fusión moderna con el sabor intenso de las anchoas envueltas en tortilla de trigo.",
+    "pairing_tags": [
+      "Shellfish",
+      "Seafood"
+    ]
+  },
+  {
+    "id": "FOOD_030",
+    "name": "Burrito de Jamón y queso",
+    "price": "8,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "El clásico mixto reinventado en forma de burrito, reconfortante y perfecto para todos.",
+    "pairing_tags": [
+      "Cured meat",
+      "Aged cheese"
+    ]
+  },
+  {
+    "id": "FOOD_028",
+    "name": "Burrito de Salmón",
+    "price": "10,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Burrito relleno de salmón, una opción ligera y sabrosa con un toque internacional."
+  },
+  {
+    "id": "FOOD_029",
+    "name": "Burrito de Sardina",
+    "price": "9,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Original burrito con sardina, combinando sabores marinos potentes en un formato casual."
+  },
+  {
+    "id": "FOOD_015",
+    "name": "Calamares",
+    "price": "14,50 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Calamares frescos fritos a la perfección, tiernos por dentro y crujientes por fuera."
+  },
+  {
+    "id": "FOOD_004",
+    "name": "Cecina",
+    "price": "22,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Finas lonchas de cecina curada, ofreciendo un sabor ahumado e intenso de alta calidad.",
+    "pairing_tags": [
+      "Red meat",
+      "Cured meat"
+    ]
+  },
+  {
+    "id": "FOOD_025",
+    "name": "Ensalada de Burrata",
+    "price": "12,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Burrata cremosa servida sobre base de vegetales frescos, un plato italiano lleno de frescura.",
+    "pairing_tags": [
+      "Soft cheese",
+      "Vegetarian"
+    ]
+  },
+  {
+    "id": "FOOD_026",
+    "name": "Ensalada de Ventresca",
+    "price": "11,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Ensalada gourmet protagonizada por ventresca de atún de alta calidad y vegetales seleccionados."
+  },
+  {
+    "id": "FOOD_024",
+    "name": "Ensalada Mixta",
+    "price": "6,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Refrescante combinación de lechuga, tomate, cebolla y atún, el acompañamiento ligero ideal."
+  },
+  {
+    "id": "FOOD_016",
+    "name": "Ensaladilla",
+    "price": "7,50 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Tradicional ensaladilla rusa, cremosa y con ingredientes frescos, ideal como aperitivo frío."
+  },
+  {
+    "id": "FOOD_018",
+    "name": "Fingers de pollo",
+    "price": "9,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Tiras de pollo empanadas y crujientes, un bocado divertido y sabroso para todos los gustos."
+  },
+  {
+    "id": "FOOD_021",
+    "name": "Huevos para romper con jamón",
+    "price": "12,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Los clásicos huevos rotos sobre patatas, coronados con exquisito jamón, pura indulgencia."
+  },
+  {
+    "id": "FOOD_017",
+    "name": "Jamón asado",
+    "price": "10,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Jugosas lonchas de jamón asado lentamente, servidas en su punto de ternura."
+  },
+  {
+    "id": "FOOD_006",
+    "name": "Jamón de Teruel",
+    "price": "15,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Clásico jamón de Teruel, de sabor suave y textura delicada, un imprescindible en la mesa."
+  },
+  {
+    "id": "FOOD_005",
+    "name": "Jamón ibérico",
+    "price": "22,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Ración de jamón ibérico cortado a cuchillo, con la grasa infiltrada perfecta y sabor inigualable.",
+    "pairing_tags": [
+      "Cured meat",
+      "Red meat"
+    ]
+  },
+  {
+    "id": "FOOD_019",
+    "name": "Lacón a la gallega",
+    "price": "12,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Plato tradicional gallego con lacón, pimentón y aceite de oliva, sabor auténtico del norte."
+  },
+  {
+    "id": "FOOD_020",
+    "name": "Oreja a la gallega",
+    "price": "11,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Oreja de cerdo cocinada al estilo gallego, textura gelatinosa y aderezo picante de pimentón."
+  },
+  {
+    "id": "FOOD_011",
+    "name": "Ración de Croquetas",
+    "price": "12,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Cremosas croquetas caseras disponibles en sabores como jamón ibérico, chocos, rabo de toro o cecina."
+  },
+  {
+    "id": "FOOD_012",
+    "name": "Revuelto de Champiñones",
+    "price": "9,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Jugoso revuelto de huevos con champiñones frescos, un plato sencillo pero lleno de sabor."
+  },
+  {
+    "id": "FOOD_013",
+    "name": "Revuelto de Gambas",
+    "price": "12,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Clásico revuelto con gambas tiernas, combinando la suavidad del huevo con el toque marino."
+  },
+  {
+    "id": "FOOD_014",
+    "name": "Revuelto Dobao",
+    "price": "13,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Especialidad de la casa, un revuelto único preparado con ingredientes seleccionados por el chef."
+  },
+  {
+    "id": "FOOD_022",
+    "name": "Rulo de cabra con mermelada",
+    "price": "10,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Queso de cabra gratinado servido con mermelada de arándanos, contraste dulce y salado perfecto."
+  },
+  {
+    "id": "FOOD_003",
+    "name": "Tabla de Quesos",
+    "price": "22,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Degustación gourmet de quesos variados: manchego curado, ajo negro y trufa azul.",
+    "pairing_tags": [
+      "Aged cheese"
+    ]
+  },
+  {
+    "id": "FOOD_001",
+    "name": "Tabla Mixta pueblo",
+    "price": "17,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Selección tradicional de embutidos de la tierra (lomo, chorizo, salchichón) y queso, perfecta para compartir."
+  },
+  {
+    "id": "FOOD_002",
+    "name": "Tabla Mixta pueblo con jamón ibérico",
+    "price": "20,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "La excelencia de la tabla de pueblo elevada con la inclusión de un exquisito jamón ibérico."
+  },
+  {
+    "id": "FOOD_023",
+    "name": "Tortilla Dobao",
+    "price": "10,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Tortilla especial de la casa, elaborada con champiñones, espárragos, queso azul y tomate."
+  },
+  {
+    "id": "FOOD_007",
+    "name": "Tosta de Anchoas",
+    "price": "13,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Tosta crujiente coronada con anchoas de calidad superior, aportando un toque salino y delicioso."
+  },
+  {
+    "id": "FOOD_008",
+    "name": "Tosta de Salmón",
+    "price": "16,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Delicada tosta con salmón ahumado, una opción fresca y suave para el paladar."
+  },
+  {
+    "id": "FOOD_009",
+    "name": "Tosta de Sardina ahumada",
+    "price": "14,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Intenso sabor a mar con sardina ahumada sobre pan tostado, una delicia para gourmets."
+  },
+  {
+    "id": "FOOD_010",
+    "name": "Tosta Para montar",
+    "price": "15,00 €",
+    "do": "Nuestra Cocina",
+    "category": "DE TAPEO",
+    "review": "Experiencia interactiva: pan con tomate, jamón y queso manchego aparte para armar a tu gusto."
+  },
+  {
+    "id": "WINE_SP_006",
+    "name": "Gosset Grand Reserve",
+    "price": "70,00 €",
+    "do": "AOC Champagne",
+    "category": "ESPUMOSOS",
+    "review": "De la casa más antigua de Champagne, estilo vinoso, sin fermentación maloláctica para preservar frescura pura.",
+    "image_url": "https://pngimg.com/uploads/champagne/champagne_PNG17436.png",
+    "vivino_food": [
+      "Aperitif",
+      "Shellfish",
+      "Soft cheese"
+    ]
+  },
+  {
+    "id": "WINE_SP_003",
+    "name": "Möet & Chandon Brut Imperial",
+    "price": "60,00 €",
+    "do": "AOC Champagne",
+    "category": "ESPUMOSOS",
+    "review": "El champagne más icónico, vibrante generosidad de fruta blanca, seductor y siempre elegante.",
+    "image_url": "https://cdn.shopify.com/s/files/1/0014/1511/3781/products/Moet_Chandon_Brut_Imperial_720x.png"
+  },
+  {
+    "id": "WINE_SP_004",
+    "name": "Möet & Chandon Rose Imperial",
+    "price": "70,00 €",
+    "do": "AOC Champagne",
+    "category": "ESPUMOSOS",
+    "review": "Versión rosada, espontánea y radiante, con intensos aromas de fresa silvestre y un toque de pimienta."
+  },
+  {
+    "id": "WINE_SP_005",
+    "name": "Veuve Clicquot",
+    "price": "65,00 €",
+    "do": "AOC Champagne",
+    "category": "ESPUMOSOS",
+    "review": "Etiqueta amarilla inconfundible, predominio de Pinot Noir que aporta estructura, fuerza y complejidad vinosas."
+  },
+  {
+    "id": "WINE_SP_001",
+    "name": "Rovellats Imperial",
+    "price": "25,00 €",
+    "do": "D.O. Cava",
+    "category": "ESPUMOSOS",
+    "review": "Cava Gran Reserva Brut de referencia. En Vivino se alaba su burbuja fina e integrada y su perfil de madurez: notas de brioche, mantequilla fresca y frutos secos con un final crujiente y equilibrado.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 88,
+      "decanter": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Vicente R.",
+        "rating": 4.0,
+        "text": "Melocotón blanco, melón y aromas herbales. Sabores de almendra y limón con sensación en boca fina. Medalla de bronce Decanter."
+      },
+      {
+        "author": "Beatriz L.",
+        "rating": 3.8,
+        "text": "Aromas de frutas blancas con levadura. Brut bien estructurado, espumoso pero equilibrado. Sabores de frutas de hueso maduras."
+      },
+      {
+        "author": "Antonio M.",
+        "rating": 3.7,
+        "text": "Reserva con mínimo 24 meses de crianza. Burbuja integrada, notas de brioche y frutos secos. Excelente relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": "WINE_SP_002",
+    "name": "Rovellats Imperial Rosé",
+    "price": "25,00 €",
+    "do": "D.O. Cava",
+    "category": "ESPUMOSOS",
+    "review": "Cava rosado de color vivo, notas de frutas rojas frescas, burbuja alegre y paso refrescante."
+  },
+  {
+    "id": "WINE_W_026",
+    "name": "El Castro de Valtuille Godello by Raúl Pérez",
+    "price": "24,00 €",
+    "do": "D.O. Bierzo",
+    "category": "VINOS BLANCOS",
+    "review": "Mano maestra de Raúl Pérez, un Godello profundo, mineral, serio y con gran capacidad de guarda.",
+    "ratings": {
+      "vivino": 4.3,
+      "parker": 93,
+      "penin": 93,
+      "spectator": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Miguel R.",
+        "rating": 4.5,
+        "text": "Increíble complejidad aromática. Notas de frutas blancas maduras con toques minerales. En boca es elegante y persistente."
+      },
+      {
+        "author": "Laura M.",
+        "rating": 4.2,
+        "text": "Godello de alta expresión. Muy equilibrado entre frescura y estructura. Perfecto con pescados."
+      },
+      {
+        "author": "Carlos P.",
+        "rating": 4.4,
+        "text": "Raúl Pérez no falla. Un blanco serio con gran capacidad de guarda. Merece la pena descorchar."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_023",
+    "name": "Fragas do Corvo (Blanco)",
+    "price": "20,00 €",
+    "do": "D.O. Monterrei",
+    "category": "VINOS BLANCOS",
+    "review": "Godello sobre lías, cremoso y complejo, con una intensidad aromática sorprendente.",
+    "ratings": {
+      "vivino": 4.1,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Ana S.",
+        "rating": 4.3,
+        "text": "Bright and zesty con cuerpo medio. Notas de pera, manzana y melocotón con toques de mantequilla y mineralidad."
+      },
+      {
+        "author": "Pedro L.",
+        "rating": 4.0,
+        "text": "Cremoso y voluminoso en boca. Frescura intensa con notas de ciruela blanca y cáscara de lima. Muy equilibrado."
+      },
+      {
+        "author": "Isabel M.",
+        "rating": 4.2,
+        "text": "Múltiples medallas de oro. Aromas de jazmín y mimosa, manzanas verdes jugosas. Elegante y largo en boca."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_025",
+    "name": "Ladairo",
+    "price": "18,00 €",
+    "do": "D.O. Monterrei",
+    "category": "VINOS BLANCOS",
+    "review": "Blanco con personalidad, mezcla de Godello y Treixadura, fresco y con buen volumen.",
+    "ratings": {
+      "vivino": 4.0,
+      "penin": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Patricia G.",
+        "rating": 4.1,
+        "text": "Aromas intensos de frutas blancas, membrillo y laurel. Estructura espléndida con textura ligeramente oleosa y acidez agradable."
+      },
+      {
+        "author": "Fernando L.",
+        "rating": 4.0,
+        "text": "Fresco, aromático y bien equilibrado. Notas de manzana, pera, piña y melocotón. Final largo y afrutado."
+      },
+      {
+        "author": "Cristina M.",
+        "rating": 3.9,
+        "text": "Premiado en Gallaecia Awards. Blend 50% Godello 50% Treixadura. Perfecto con vieiras y calamares."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_024",
+    "name": "Quinta das Tapias (Blanco)",
+    "price": "18,00 €",
+    "do": "D.O. Monterrei",
+    "category": "VINOS BLANCOS",
+    "review": "Godello ligero y frutal, muy bebible, con notas de manzana y flores blancas.",
+    "ratings": {
+      "vivino": 3.9
+    },
+    "user_reviews": [
+      {
+        "author": "Raúl S.",
+        "rating": 3.9,
+        "text": "Amarillo pálido con reflejos verdes. Carácter frutal y ligeramente floral con aromas de manzana, melocotón y cítricos."
+      },
+      {
+        "author": "Marta P.",
+        "rating": 3.8,
+        "text": "Amplio, glicérico y fresco en boca. Redondo y ligeramente dulce con buen equilibrio y estructura media."
+      },
+      {
+        "author": "Jorge M.",
+        "rating": 4.0,
+        "text": "Perfecto con pescado blanco al horno y carnes blancas. Final largo y satisfactorio."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_006",
+    "name": "Abadia San Campio",
+    "price": "22,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Un Albariño vibrante y punzante. Vivino destaca su acidez eléctrica y sus intensos aromas primarios a manzana verde, pomelo y un fondo de flores blancas muy refrescante.",
+    "image_url": "https://cdn.bodeboca.com/sites/default/files/styles/product_detail_image/public/abadia_san_campio.png",
+    "ratings": {
+      "vivino": 3.9,
+      "enthusiast": 90,
+      "penin": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Javier R.",
+        "rating": 4.2,
+        "text": "Perfecto Albariño. Nariz intensa y frutal con cuerpo ligero. Ideal para verano, muy refrescante."
+      },
+      {
+        "author": "Carmen F.",
+        "rating": 4.0,
+        "text": "Fresco, vibrante y afrutado. Notas de limón, pomelo y frutas tropicales. Acidez bien equilibrada con final largo."
+      },
+      {
+        "author": "Luis M.",
+        "rating": 3.8,
+        "text": "Gran vino para mariscos. Aromas de manzana, plátano y cítricos. Textura aterciopelada con buena acidez."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_002",
+    "name": "Granbazán Etiqueta Ámbar",
+    "price": "20,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Complejo y floral, un albariño con crianza sobre lías que aporta untuosidad y elegancia en boca.",
+    "ratings": {
+      "vivino": 4.0,
+      "enthusiast": 91,
+      "suckling": 93,
+      "spectator": 90,
+      "penin": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Roberto G.",
+        "rating": 4.3,
+        "text": "Pura mineralidad. Nariz de conchas marinas, lima y manzanas verdes. Acidez vibrante con final salino duradero."
+      },
+      {
+        "author": "Elena P.",
+        "rating": 4.1,
+        "text": "Carnoso y fresco. Notas de melón, flores blancas y papaya. Textura cremosa equilibrada con acidez viva."
+      },
+      {
+        "author": "Diego S.",
+        "rating": 4.0,
+        "text": "Uno de los 100 mejores del mundo según Wine Enthusiast. Aromas de mandarina, jazmín y frutas de hueso. Excelente."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_001",
+    "name": "Granbazán Verde",
+    "price": "18,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Pura frescura atlántica. Un vino ligero con una acidez marcada que limpia el paladar, ofreciendo notas salinas y cítricas ideales para mariscos, según la comunidad experta.",
+    "ratings": {
+      "vivino": 4.0,
+      "enthusiast": 94,
+      "suckling": 92
+    },
+    "user_reviews": [
+      {
+        "author": "Marcos T.",
+        "rating": 4.2,
+        "text": "Extremadamente expresivo con calidad tropical audaz. Notas de manzana verde, hierba fresca y cítricos vibrantes."
+      },
+      {
+        "author": "Sofía R.",
+        "rating": 4.0,
+        "text": "Elegante y equilibrado. Sabores de manzana dorada, frutas de hueso blancas y sal marina. Final salino pronunciado."
+      },
+      {
+        "author": "Alberto F.",
+        "rating": 4.1,
+        "text": "Top 100 de Wine Enthusiast. Acidez crujiente, textura cremosa. Perfecto con ostras y mariscos al vapor."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_005",
+    "name": "Laxas",
+    "price": "18,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Albariño clásico, muy frutal y goloso, con recuerdos a albaricoque y un paso de boca amable."
+  },
+  {
+    "id": "WINE_W_008",
+    "name": "Ledas",
+    "price": "21,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Albariño de corte moderno, expresivo en nariz y con una boca amplia y persistente."
+  },
+  {
+    "id": "WINE_W_009",
+    "name": "Lusco",
+    "price": "21,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Vino de pago, untuoso y complejo, con levaduras finas y una acidez que promete longevidad."
+  },
+  {
+    "id": "WINE_W_004",
+    "name": "Quinta Couselo",
+    "price": "22,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Rosal de referencia, mezcla de variedades autóctonas, mineral, con notas de hierbas aromáticas y fruta de hueso."
+  },
+  {
+    "id": "WINE_W_007",
+    "name": "Terras Gauda",
+    "price": "22,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "El blanco más icónico de O Rosal. Un perfil unctuoso y carnoso con una acidez punzante y cristalina. Despliega notas explosivas de melocotón maduro, piña y un toque mineral salino que lo hace persistente y único.",
+    "image_url": "https://cdn.bodeboca.com/sites/default/files/styles/product_detail_image/public/terras_gauda.png",
+    "vivino_food": [
+      "Shellfish",
+      "Seafood",
+      "Lean fish",
+      "Poultry"
+    ],
+    "ratings": {
+      "vivino": 4.1,
+      "enthusiast": 92,
+      "suckling": 91,
+      "spectator": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Teresa L.",
+        "rating": 4.2,
+        "text": "Top 100 de Wine Spectator 2022. Nariz de nectarina y naranja Valencia. Sabores de melocotón maduro y mango con notas florales."
+      },
+      {
+        "author": "Manuel R.",
+        "rating": 4.1,
+        "text": "Blend de Albariño, Loureiro y Caiño Blanco. Cuerpo completo, acidez suave y final increíblemente largo. Complejo y elegante."
+      },
+      {
+        "author": "Rosa M.",
+        "rating": 4.0,
+        "text": "Aromas de mandarina, cáscara de naranja y melón maduro. Mineralidad sutil con notas de azahar. Perfecto con mariscos."
+      }
+    ]
+  },
+  {
+    "id": "WINE_W_003",
+    "name": "Valdamor",
+    "price": "21,00 €",
+    "do": "D.O. Rias Baixas",
+    "category": "VINOS BLANCOS",
+    "review": "Blanco equilibrado del valle del Salnés, destaca por su fruta blanca madura y acidez integrada."
+  },
+  {
+    "id": "WINE_W_016",
+    "name": "Algueira Brandán",
+    "price": "24,00 €",
+    "do": "D.O. Ribeira Sacra",
+    "category": "VINOS BLANCOS",
+    "review": "Godello joven y fresco, fermentado en acero, destacando la pureza de la fruta y la mineralidad."
+  },
+  {
+    "id": "WINE_W_015",
+    "name": "Ponte da Boga (Blanco)",
+    "price": "22,00 €",
+    "do": "D.O. Ribeira Sacra",
+    "category": "VINOS BLANCOS",
+    "review": "Godello de viticultura heroica, mineral, con volumen en boca y matices de fruta de hueso."
+  },
+  {
+    "id": "WINE_W_013",
+    "name": "7 Cupos",
+    "price": "19,00 €",
+    "do": "D.O. Ribeiro",
+    "category": "VINOS BLANCOS",
+    "review": "Vino joven y divertido, frutal, fácil de beber y representativo de la tradición del Ribeiro."
+  },
+  {
+    "id": "WINE_W_014",
+    "name": "Casal de Armán",
+    "price": "21,00 €",
+    "do": "D.O. Ribeiro",
+    "category": "VINOS BLANCOS",
+    "review": "Elegancia clásica del Ribeiro. Un coupage armonioso de Treixadura que Vivino califica como envolvente, con notas de laurel, heno fresco y una boca con volumen y persistencia."
+  },
+  {
+    "id": "WINE_W_011",
+    "name": "Finca Viñoa",
+    "price": "20,00 €",
+    "do": "D.O. Ribeiro",
+    "category": "VINOS BLANCOS",
+    "review": "Blanco de finca con gran estructura, aromas de hinojo y fruta blanca, largo y envolvente."
+  },
+  {
+    "id": "WINE_W_012",
+    "name": "Ramón do Casar",
+    "price": "20,00 €",
+    "do": "D.O. Ribeiro",
+    "category": "VINOS BLANCOS",
+    "review": "Treixadura de gran expresión varietal, aromático, con notas de melocotón y un final cítrico refrescante."
+  },
+  {
+    "id": "WINE_W_010",
+    "name": "San Clodio",
+    "price": "18,00 €",
+    "do": "D.O. Ribeiro",
+    "category": "VINOS BLANCOS",
+    "review": "Treixadura predominante, elegante y floral, con un fondo mineral típico de los suelos del Ribeiro."
+  },
+  {
+    "id": "WINE_W_027",
+    "name": "Enate Chardonnay 234",
+    "price": "17,00 €",
+    "do": "D.O. Somontano",
+    "category": "VINOS BLANCOS",
+    "review": "Chardonnay intenso y tropical, con notas de piña y pomelo, muy fresco y moderno."
+  },
+  {
+    "id": "WINE_W_022",
+    "name": "A Coroa",
+    "price": "22,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS BLANCOS",
+    "review": "Elegante y sutil, con una elaboración cuidada que resalta la mineralidad pizarrosa de la zona."
+  },
+  {
+    "id": "WINE_W_021",
+    "name": "Alan de Val Godello",
+    "price": "19,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS BLANCOS",
+    "review": "Godello con carácter, notas de flores silvestres y un fondo cítrico que aporta frescura."
+  },
+  {
+    "id": "WINE_W_020",
+    "name": "Godeval",
+    "price": "18,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS BLANCOS",
+    "review": "El Godello que definió un estilo. Muy valorado por su estructura mineral, cuerpo medio y una evolución fascinante que muestra notas de fruta blanca madura y sutiles toques herbáceos."
+  },
+  {
+    "id": "WINE_W_019",
+    "name": "Hacienda de Ucediños",
+    "price": "18,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS BLANCOS",
+    "review": "Blanco fresco y honesto, con buena acidez y recuerdos frutales, ideal para el aperitivo."
+  },
+  {
+    "id": "WINE_W_018",
+    "name": "Joaquín Rebolledo (Blanco)",
+    "price": "19,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS BLANCOS",
+    "review": "Godello de referencia, intenso en nariz con aromas de manzana y pera, y paso suave."
+  },
+  {
+    "id": "WINE_W_017",
+    "name": "Ponte da Boga Godello O",
+    "price": "19,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS BLANCOS",
+    "review": "Expresión pura de la Godello, con notas florales y una boca untuosa y equilibrada."
+  },
+  {
+    "id": "WINE_R_007",
+    "name": "Fragas do Corvo (Tinto)",
+    "price": "20,00 €",
+    "do": "D.O. Monterrei",
+    "category": "VINOS TINTOS",
+    "review": "Mencía atlántico, fresco, con buena acidez y aromas intensos de frambuesa y mora."
+  },
+  {
+    "id": "WINE_R_008",
+    "name": "Quinta das Tapias (Tinto)",
+    "price": "18,00 €",
+    "do": "D.O. Monterrei",
+    "category": "VINOS TINTOS",
+    "review": "Tinto joven y directo, frutal y ligero, perfecto para acompañar tapeo variado."
+  },
+  {
+    "id": "WINE_R_048",
+    "name": "Abadia Retuerta Selección Especial",
+    "price": "36,00 €",
+    "do": "D.O. Protegida",
+    "category": "VINOS TINTOS",
+    "review": "El estandarte del Duero: un tinto de gran estructura y elegancia. Armoniza taninos pulidos con una energía frutal de moras y ciruelas. Según expertos, su acidez viva lo mantiene fresco y extremadamente persistente en el paladar.",
+    "vivino_food": [
+      "Red meat",
+      "Lamb",
+      "Game",
+      "Aged cheese"
+    ],
+    "ratings": {
+      "vivino": 4.2,
+      "parker": 93,
+      "penin": 94,
+      "suckling": 95,
+      "spectator": 93,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Santiago V.",
+        "rating": 4.4,
+        "text": "Tinto rico e intenso. Color rojo oscuro casi opaco con aromas de fruta negra, tostados y toques florales. Excelente potencial de guarda."
+      },
+      {
+        "author": "Lucía P.",
+        "rating": 4.2,
+        "text": "Cuerpo medio con buena acidez. Sabores de roble, vainilla, chocolate y mora. Final persistente. Blend de Cabernet, Syrah y Tempranillo."
+      },
+      {
+        "author": "Miguel A.",
+        "rating": 4.1,
+        "text": "Sabores de fruta oscura con notas balsámicas. Taninos integrados y gran equilibrio. Uno de los mejores de Ribera del Duero."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_050",
+    "name": "Marqués de Griñón Caliza",
+    "price": "20,00 €",
+    "do": "D.O. Protegida",
+    "category": "VINOS TINTOS",
+    "review": "Expresión mineral del terruño, Syrah y Petit Verdot predominantes, con carácter y elegancia."
+  },
+  {
+    "id": "WINE_R_049",
+    "name": "Marqués de Griñón Summa Varietales",
+    "price": "21,00 €",
+    "do": "D.O. Protegida",
+    "category": "VINOS TINTOS",
+    "review": "Ensamblaje armonioso de Dominio de Valdepusa, suave, con notas de especias y fruta madura."
+  },
+  {
+    "id": "WINE_R_004",
+    "name": "Bancales Olvidados",
+    "price": "21,00 €",
+    "do": "D.O. Ribeira Sacra",
+    "category": "VINOS TINTOS",
+    "review": "Mencía con crianza, más estructurado y complejo, con notas balsámicas y de fruta negra madura.",
+    "ratings": {
+      "vivino": 4.0,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Jorge F.",
+        "rating": 4.1,
+        "text": "Mencía con crianza muy logrado. Más estructura y complejidad. Notas balsámicas y fruta negra madura."
+      },
+      {
+        "author": "Natalia R.",
+        "rating": 4.0,
+        "text": "Bancales recuperados con viñas viejas. Profundidad y elegancia. Taninos pulidos y final largo."
+      },
+      {
+        "author": "Sergio M.",
+        "rating": 3.9,
+        "text": "Complejo y mineral. Cereza negra, hierbas aromáticas y pizarra. Gran expresión del terruño."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_003",
+    "name": "Guímaro",
+    "price": "19,00 €",
+    "do": "D.O. Ribeira Sacra",
+    "category": "VINOS TINTOS",
+    "review": "Un referente de la Mencía sin barrica, puro jugo de uva, floral y sumamente elegante.",
+    "image_url": "https://cdn.bodeboca.com/sites/default/files/styles/product_detail_image/public/guimaro_tinto.png",
+    "ratings": {
+      "vivino": 4.0,
+      "parker": 92,
+      "penin": 92,
+      "enterwine": 92,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Pablo R.",
+        "rating": 4.2,
+        "text": "Delicadas notas florales con carácter nervioso y elevado. Cuerpo medio, fresco y equilibrado con fruta brillante y textura fluida."
+      },
+      {
+        "author": "Inés M.",
+        "rating": 4.0,
+        "text": "Aromas de cereza brillante, frambuesa y un toque de miel y pimienta. Sabores de bayas mixtas con final seco y afrutado."
+      },
+      {
+        "author": "Andrés L.",
+        "rating": 3.9,
+        "text": "Mencía sin roble, pura expresión frutal. Notas de cereza negra, lavanda y suelo de bosque. Estilo borgoñón muy elegante."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_002",
+    "name": "Pizarras y Esquistos",
+    "price": "19,00 €",
+    "do": "D.O. Ribeira Sacra",
+    "category": "VINOS TINTOS",
+    "review": "Vino de terruño, refleja el suelo pizarroso con notas minerales, cereza y gran frescura.",
+    "ratings": {
+      "vivino": 4.0,
+      "critics_avg": 89
+    },
+    "user_reviews": [
+      {
+        "author": "Silvia T.",
+        "rating": 4.1,
+        "text": "Medalla de oro IWSA 2021. Fácil de beber y con carácter. Apariencia rojo rubí vibrante con fruta roja brillante."
+      },
+      {
+        "author": "Óscar M.",
+        "rating": 4.0,
+        "text": "Notas de moca suave y especias. Frutas negras, regaliz y agradable final de pimienta negra. Taninos bien integrados."
+      },
+      {
+        "author": "Nuria P.",
+        "rating": 3.9,
+        "text": "100% Mencía de suelos de pizarra y esquisto. Refleja perfectamente el terruño con mineralidad y frescura atlántica."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_001",
+    "name": "Ponte da Boga (Tinto)",
+    "price": "18,00 €",
+    "do": "D.O. Ribeira Sacra",
+    "category": "VINOS TINTOS",
+    "review": "Mencía joven, lleno de fruta roja fresca, ligero y con un toque especiado característico.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Marta S.",
+        "rating": 3.9,
+        "text": "Mencía joven y vibrante. Fruta roja fresca, frambuesa y cereza. Ligero con toque especiado muy agradable."
+      },
+      {
+        "author": "Pablo R.",
+        "rating": 3.8,
+        "text": "Frescura atlántica en cada sorbo. Acidez viva, taninos suaves. Perfecto para el día a día."
+      },
+      {
+        "author": "Elena M.",
+        "rating": 3.7,
+        "text": "Viticultura heroíca de Ribeira Sacra. Floral, frutal y muy bebible. Excelente valor."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_046",
+    "name": "912 Altitud",
+    "price": "23,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Tinto de gran altitud y frescura. Rompe el molde de Ribera con una acidez más viva y notas de fruta roja silvestre muy puras, valorado por su perfil ágil y moderno.",
+    "ratings": {
+      "vivino": 3.9,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "David S.",
+        "rating": 4.0,
+        "text": "Viñedos a más de 900m de altitud. Notas varietales vibrantes de frutas rojas maduras y moras con toques de piedra caliza húmeda."
+      },
+      {
+        "author": "Clara R.",
+        "rating": 3.9,
+        "text": "Entrada suave y glicérica equilibrada con acidez pronunciada. Sensaciones cremosas con final de grosellas negras y toffee."
+      },
+      {
+        "author": "Javier M.",
+        "rating": 3.8,
+        "text": "Aromas de ciruelas oscuras, casis y embutidos. Sabores de frambuesa, grosella negra e higo oscuro. Muy fresco para Ribera."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_043",
+    "name": "Aster",
+    "price": "23,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Apuesta de La Rioja Alta en Ribera, elegancia y acidez equilibrada, con taninos finos.",
+    "ratings": {
+      "vivino": 4.0,
+      "suckling": 93,
+      "penin": 92,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Tomás F.",
+        "rating": 4.2,
+        "text": "Muy buen Ribera del Duero moderno y expresivo en fruta. Taninos de grano fino y precisos. Excelente relación calidad-precio."
+      },
+      {
+        "author": "Eva S.",
+        "rating": 4.0,
+        "text": "Poderoso, rico, fresco y largo. Aromas intensos de fruta oscura, cacao y café. Sensación carnosa y aterciopelada en boca."
+      },
+      {
+        "author": "Raúl G.",
+        "rating": 3.9,
+        "text": "Crianza 2021 con 22 meses en roble francés. Taninos aterciopelados con fruta negra y azul sólida. Muy pulido y completo."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_041",
+    "name": "Carmelo 9 meses",
+    "price": "22,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Roble con carácter, paso de boca sabroso y taninos maduros, muy gastronómico."
+  },
+  {
+    "id": "WINE_R_042",
+    "name": "Carmelo crianza",
+    "price": "33,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Mayor complejidad y estructura, notas de cuero y tabaco acompañando a la fruta compotada."
+  },
+  {
+    "id": "WINE_R_044",
+    "name": "Ceres",
+    "price": "24,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Crianza con personalidad, intenso color y aromas profundos de fruta negra y tostados nobles."
+  },
+  {
+    "id": "WINE_R_029",
+    "name": "Cillar",
+    "price": "18,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Un 'must' de Ribera joven. Explosión de fruta negra (mora, regaliz) con una madera muy bien integrada que aporta toques especiados sin perder la frescura del terruño de Anguix."
+  },
+  {
+    "id": "WINE_R_031",
+    "name": "Cillar de Silos",
+    "price": "23,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Crianza serio y mineral, con estructura firme y notas de fruta madura bajo bosque.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Emilio R.",
+        "rating": 4.0,
+        "text": "Vinos del Año 2021 Decanter. Buen ataque, paladar sabroso y carnoso con textura sedosa. Taninos elegantes y final largo."
+      },
+      {
+        "author": "Alicia M.",
+        "rating": 3.8,
+        "text": "Color rojo cereza oscuro intenso. Aromas complejos de frutas oscuras maduras, especias y notas balsámicas con tostados suaves."
+      },
+      {
+        "author": "Sergio P.",
+        "rating": 3.7,
+        "text": "Profundo, sedoso y bien equilibrado. Buen cuerpo con frutas maduras y mineralidad. Taninos de seda pura."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_030",
+    "name": "Cillar Rosado",
+    "price": "18,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Rosado de lágrima, fresco y goloso, con aromas a fresas y frambuesas, ideal para el verano."
+  },
+  {
+    "id": "WINE_R_033",
+    "name": "Dominio del Pidio Tinto",
+    "price": "52,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Recuperación de bodegas subterráneas, elaboración artesanal en cemento, vino puro y con identidad histórica."
+  },
+  {
+    "id": "WINE_R_038",
+    "name": "Figuero Asomo",
+    "price": "18,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Roble joven, lleno de vivacidad, fruta roja crujiente y ligeros toques tostados."
+  },
+  {
+    "id": "WINE_R_039",
+    "name": "Figuero crianza",
+    "price": "28,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Tempranillo de libro, equilibrado, con cuerpo medio-alto y notas de chocolate y especias dulces."
+  },
+  {
+    "id": "WINE_R_035",
+    "name": "Flor de Pingus",
+    "price": "160 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Obra maestra de Peter Sisseck: potencia pura con una textura de terciopelo. Un vino imponente con notas de cassis, grafito y moca. Su concentración es legendaria, apoyada en una estructura tánica perfecta y una complejidad que emociona en cada sorbo.",
+    "ratings": {
+      "vivino": 4.5,
+      "parker": 95,
+      "penin": 96,
+      "suckling": 97,
+      "critics_avg": 95
+    },
+    "user_reviews": [
+      {
+        "author": "Francisco V.",
+        "rating": 4.7,
+        "text": "Obra maestra de Decanter 96pts. Taninos redondeados y textura exótica. Cereza negra madura, roble tostado y taninos maduros."
+      },
+      {
+        "author": "Valentina S.",
+        "rating": 4.5,
+        "text": "Posiblemente el mejor vino de España en relación calidad-precio. Puro, expresivo y elegante. Agricultura biodinámica por 15 años."
+      },
+      {
+        "author": "Gonzalo M.",
+        "rating": 4.6,
+        "text": "Color carmesí-púrpura profundo. Nariz explosiva de arándanos, frambuesas secas y flores púrpuras. Pulido y completo."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_047",
+    "name": "Francisco Barona",
+    "price": "48,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Vino de autor, viñedos muy viejos, recuperación de tradiciones, potente pero con una frescura sorprendente."
+  },
+  {
+    "id": "WINE_R_040",
+    "name": "La Capilla",
+    "price": "25,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Vino moderno y vibrante, con una extracción cuidada que resalta la fruta negra y la mineralidad."
+  },
+  {
+    "id": "WINE_R_045",
+    "name": "Pago de Carraovejas",
+    "price": "55,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Vino de culto en la Ribera: extraordinariamente voluminoso y envolvente. En Vivino destaca por su equilibrio entre fruta negra madura y una acidez vibrante que le da frescura infinita. Notas de vainilla, cacao y un final inconfundiblemente largo.",
+    "image_url": "https://cdn.bodeboca.com/sites/default/files/styles/product_detail_image/public/pago_de_carraovejas.png",
+    "vivino_food": [
+      "Red meat",
+      "Lamb",
+      "Game",
+      "Aged cheese"
+    ],
+    "ratings": {
+      "vivino": 4.4,
+      "parker": 93,
+      "penin": 93,
+      "suckling": 93,
+      "vinous": 94,
+      "critics_avg": 92
+    },
+    "user_reviews": [
+      {
+        "author": "Adrián P.",
+        "rating": 4.5,
+        "text": "Bien equilibrado y estructurado. Taninos firmes pero sutiles. Fruta negra madura, violeta y especias con roble bien integrado."
+      },
+      {
+        "author": "Mónica R.",
+        "rating": 4.4,
+        "text": "Exuberante, generoso y maduro. Aromas de fruta negra con especias dulces. Cuerpo completo, jugoso y bien estructurado."
+      },
+      {
+        "author": "Héctor L.",
+        "rating": 4.3,
+        "text": "Blend de Tempranillo, Cabernet y Merlot. Chocolate oscuro, regaliz y notas cremosas. Gran potencial de guarda."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_034",
+    "name": "Psi Dominio de Pingus",
+    "price": "55,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "La entrada al mundo Pingus, buscando la frescura y la fruta por encima de la extracción maderizada.",
+    "ratings": {
+      "vivino": 4.2,
+      "parker": 94,
+      "suckling": 94,
+      "vinous": 96,
+      "critics_avg": 94
+    },
+    "user_reviews": [
+      {
+        "author": "Ignacio F.",
+        "rating": 4.3,
+        "text": "Top 5 vinos españoles según Vinous. Textura densa y sedosa. Arándanos, cereza, piedra y fruta roja oscura con mineralidad."
+      },
+      {
+        "author": "Pilar S.",
+        "rating": 4.2,
+        "text": "Limpio, expresivo y accesible. Proyecto de Peter Sisseck para apoyar viticultores locales y preservar viñas viejas."
+      },
+      {
+        "author": "Álvaro M.",
+        "rating": 4.1,
+        "text": "Cuerpo completo con fruta roja oscura madura. Taninos sedosos, regaliz, espresso y notas minerales. Largo final calcáreo."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_036",
+    "name": "Tomás Postigo 3º año",
+    "price": "48,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Ensamblaje magistral con Cabernet y Merlot, estilo bordelés en la Ribera, untuoso y especiado."
+  },
+  {
+    "id": "WINE_R_037",
+    "name": "Tomás Postigo 5º año",
+    "price": "70,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "La máxima expresión de la bodega, más tiempo en barrica, mayor concentración y elegancia sublime."
+  },
+  {
+    "id": "WINE_R_032",
+    "name": "Torresilo",
+    "price": "42,00 €",
+    "do": "D.O. Ribera del Duero",
+    "category": "VINOS TINTOS",
+    "review": "Vino de guarda, potente y elegante, selección de viñedos viejos con gran profundidad aromática."
+  },
+  {
+    "id": "WINE_R_006",
+    "name": "Alan de Val",
+    "price": "18,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS TINTOS",
+    "review": "Tinto expresivo con notas de frutos del bosque y un fondo floral, tanino pulido.",
+    "ratings": {
+      "vivino": 3.7,
+      "critics_avg": 87
+    },
+    "user_reviews": [
+      {
+        "author": "Teresa L.",
+        "rating": 3.8,
+        "text": "Tinto expresivo de Valdeorras. Frutos del bosque, frambuesa y un fondo floral muy agradable."
+      },
+      {
+        "author": "Andrés M.",
+        "rating": 3.7,
+        "text": "Tanino pulido y bien integrado. Fresco con buena acidez. Perfecto para carnes blancas."
+      },
+      {
+        "author": "Claudia R.",
+        "rating": 3.6,
+        "text": "Mencía de Valdeorras con carácter. Frutal, floral y muy bebible. Buen valor."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_005",
+    "name": "Joaquín Rebolledo (Tinto)",
+    "price": "18,00 €",
+    "do": "D.O. Valdeorras",
+    "category": "VINOS TINTOS",
+    "review": "Mencía clásico de Valdeorras, afrutado, suave en boca y con retrogusto persistente."
+  },
+  {
+    "id": "WINE_R_021",
+    "name": "Campillo",
+    "price": "20,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Rioja Alavesa en estado puro. Vivino destaca su perfil cremoso con notas de vainilla, coco y cedro sobre un fondo de fruta roja madura. Tanino redondo y amable.",
+    "ratings": {
+      "vivino": 3.9,
+      "enthusiast": 91,
+      "penin": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Lorena M.",
+        "rating": 4.0,
+        "text": "Cereza roja madura, ciruela y mora con vainilla, cedro y especias dulces. Cuerpo medio, suave con roble bien integrado."
+      },
+      {
+        "author": "Arturo P.",
+        "rating": 3.9,
+        "text": "Doble Oro Sunset International. Ciruela especiada y grosella con pimienta. Acidez persistente y taninos finos."
+      },
+      {
+        "author": "Gabriela R.",
+        "rating": 3.8,
+        "text": "Excelente valor. 12-18 meses en roble americano. Equilibrado y versátil. Perfecto con carnes asadas y tapas."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_014",
+    "name": "El Puntido",
+    "price": "55,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Vino de pago excepcional, potente y mineral, con una estructura que llena la boca.",
+    "ratings": {
+      "vivino": 4.3,
+      "parker": 94,
+      "critics_avg": 93
+    },
+    "user_reviews": [
+      {
+        "author": "Eduardo V.",
+        "rating": 4.4,
+        "text": "Vino de pago excepcional. Potencia y mineralidad impresionantes. Estructura que llena la boca completamente."
+      },
+      {
+        "author": "Cristina M.",
+        "rating": 4.3,
+        "text": "Complejo y profundo. Fruta negra concentrada, especias, grafito y notas minerales. Gran vino de guarda."
+      },
+      {
+        "author": "Fernando S.",
+        "rating": 4.2,
+        "text": "Uno de los mejores pagos de Rioja. Taninos firmes pero sedosos. Final larguísimo con gran persistencia."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_020",
+    "name": "Excelents Cuvée",
+    "price": "17,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Selección especial, moderno, con predominio de la fruta y un paso por madera sutil.",
+    "ratings": {
+      "vivino": 3.7,
+      "critics_avg": 87
+    },
+    "user_reviews": [
+      {
+        "author": "Rosa M.",
+        "rating": 3.8,
+        "text": "Estilo moderno con fruta protagonista. Madera sutil que no domina. Fresco y fácil de beber."
+      },
+      {
+        "author": "Carlos F.",
+        "rating": 3.7,
+        "text": "Selección especial muy lograda. Frambuesa, cereza y un toque de vainilla. Taninos suaves."
+      },
+      {
+        "author": "Patricia L.",
+        "rating": 3.6,
+        "text": "Rioja joven y frutal. Buena acidez y estructura ligera. Ideal para tapas y comidas informales."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_022",
+    "name": "Finca San Martín",
+    "price": "18,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "El hermano pequeño de Torre de Oña, crianza fresco, especiado y muy gastronómico.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 89
+    },
+    "user_reviews": [
+      {
+        "author": "Miguel A.",
+        "rating": 3.9,
+        "text": "Crianza fresco y especiado. Hermano pequeño de Torre de Oña con gran personalidad. Muy gastronómico."
+      },
+      {
+        "author": "Laura G.",
+        "rating": 3.8,
+        "text": "Fruta roja vibrante con especias y roble sutil. Acidez refrescante. Perfecto con carnes y guisos."
+      },
+      {
+        "author": "Antonio R.",
+        "rating": 3.7,
+        "text": "Buen equilibrio y frescura. Notas de cereza, pimienta negra y vainilla. Excelente valor."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_010",
+    "name": "Finca Vallobera",
+    "price": "20,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Vino de finca más serio, con mayor concentración, notas de regaliz y madera bien integrada.",
+    "ratings": {
+      "vivino": 3.9,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Pedro L.",
+        "rating": 4.0,
+        "text": "Vino de finca con carácter. Concentración notable, regaliz y fruta negra. Madera perfectamente integrada."
+      },
+      {
+        "author": "Isabel F.",
+        "rating": 3.9,
+        "text": "Más serio que un crianza estándar. Estructura firme con taninos maduros. Gran potencial de guarda."
+      },
+      {
+        "author": "Javier P.",
+        "rating": 3.8,
+        "text": "Notas de mora, regaliz y especias dulces. Cuerpo medio-alto con final persistente."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_025",
+    "name": "Gómez Cruzado crianza",
+    "price": "23,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Vino fino del Barrio de la Estación, elegante, con fruta fresca y madera muy respetuosa.",
+    "ratings": {
+      "vivino": 3.8,
+      "parker": 92,
+      "atkin": 92,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Nicolás R.",
+        "rating": 4.0,
+        "text": "Equilibrado y afrutado. Cereza, fruta roja y negra con especias como vainilla, roble y canela. Taninos suaves y bien resueltos."
+      },
+      {
+        "author": "Valeria M.",
+        "rating": 3.8,
+        "text": "Fácil de beber con excelente relación calidad-precio. 75% Tempranillo, 25% Garnacha. 12 meses en roble americano."
+      },
+      {
+        "author": "Octavio S.",
+        "rating": 3.7,
+        "text": "Buena acidez y estructura. Notas de cereza, pimienta y tabaco. Perfecto con cordero, cerdo y carnes asadas."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_027",
+    "name": "Honorable",
+    "price": "36,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Vino de autor de Gómez Cruzado, potente, con frutas negras maduras y gran potencial de guarda.",
+    "ratings": {
+      "vivino": 4.1,
+      "parker": 93,
+      "critics_avg": 92
+    },
+    "user_reviews": [
+      {
+        "author": "Alejandro T.",
+        "rating": 4.2,
+        "text": "Vino de autor potente y complejo. Frutas negras maduras, especias y gran estructura. Excelente potencial de guarda."
+      },
+      {
+        "author": "Beatriz R.",
+        "rating": 4.1,
+        "text": "Concentración impresionante. Mora, ciruela, chocolate y café. Taninos firmes pero elegantes."
+      },
+      {
+        "author": "Marcos L.",
+        "rating": 4.0,
+        "text": "De lo mejor de Gómez Cruzado. Profundo, largo y con gran complejidad aromática."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_017",
+    "name": "La Montesa",
+    "price": "22,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Garnacha fresca y jugosa de Álvaro Palacios, con notas de hierbas mediterráneas y fruta roja.",
+    "ratings": {
+      "vivino": 4.0,
+      "parker": 93,
+      "suckling": 94,
+      "penin": 93,
+      "vinous": 93,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Mateo R.",
+        "rating": 4.2,
+        "text": "Gran valor. Comparable a un buen Borgoña de pueblo a fracción del precio. Cerezas rojas, hierbas aromáticas y flores."
+      },
+      {
+        "author": "Daniela S.",
+        "rating": 4.0,
+        "text": "Garnacha pura de Rioja Baja. Fresco, redondo, sedoso y jugoso. Textura concentrada con buena acidez. Orgánico y sin filtrar."
+      },
+      {
+        "author": "Felipe M.",
+        "rating": 3.9,
+        "text": "Epítome de la Garnacha de la región. Generoso con capas de fruta roja, especias sutiles y frescura viva. Final muy largo."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_018",
+    "name": "Luis Cañas",
+    "price": "21,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Un valor seguro en Rioja. Destaca por su equilibrio magistral entre fruta y madera. La comunidad Vivino lo define como 'sedoso y muy bebible', con un final largo de especias dulces.",
+    "ratings": {
+      "vivino": 3.9,
+      "parker": 91,
+      "critics_avg": 89
+    },
+    "user_reviews": [
+      {
+        "author": "Bernardo F.",
+        "rating": 4.0,
+        "text": "Elegante y complejo. Aromas de grosella negra, frambuesa y roble cremoso con notas balsámicas. Taninos suaves y redondos."
+      },
+      {
+        "author": "Verónica S.",
+        "rating": 3.9,
+        "text": "Fresco y vital. Frutas rojas infusas como fresas y frambuesas con especias y toque lácteo. Dulce y envolvente."
+      },
+      {
+        "author": "Esteban M.",
+        "rating": 3.8,
+        "text": "Gran relación calidad-precio. Tempranillo con 5% Garnacha. 12 meses en roble francés y americano. Muy gastronómico."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_019",
+    "name": "Marqués de Cáceres",
+    "price": "18,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Marca histórica, vino fiable con estructura media, fruta roja y fondo especiado tradicional.",
+    "ratings": {
+      "vivino": 3.7,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Ana M.",
+        "rating": 3.8,
+        "text": "Rioja clásico y fiable. Fruta roja madura con especias y roble bien integrado. Taninos suaves."
+      },
+      {
+        "author": "Luis R.",
+        "rating": 3.7,
+        "text": "Buen equilibrio entre tradición y modernidad. Cereza, vainilla y un toque de cuero. Muy versátil."
+      },
+      {
+        "author": "Carmen S.",
+        "rating": 3.6,
+        "text": "Excelente relación calidad-precio. Estructura media con final especiado. Perfecto para el día a día."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_013",
+    "name": "Marqués de Murrieta",
+    "price": "32,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "La sofisticación de la Rioja clásica. Un Reserva complejo y profundo con notas de cuero, tabaco y fruta compotada. De cuerpo medio-alto y taninos de seda, según las mejores críticas.",
+    "ratings": {
+      "vivino": 4.1,
+      "parker": 95,
+      "suckling": 94,
+      "spectator": 91,
+      "atkin": 95,
+      "critics_avg": 92
+    },
+    "user_reviews": [
+      {
+        "author": "Carolina V.",
+        "rating": 4.3,
+        "text": "Elegante, equilibrado y complejo. Cereza madura, ciruela, notas terrosas y pedernal. Taninos sedosos con final largo."
+      },
+      {
+        "author": "Rodrigo M.",
+        "rating": 4.1,
+        "text": "Fruta azul vibrante con paladar generoso y cuerpo completo. Riqueza y poder por delante. 96pts Jeb Dunnuck."
+      },
+      {
+        "author": "Susana P.",
+        "rating": 4.0,
+        "text": "Rioja clásico con perfume, frescura y elegancia. Textura aterciopelada. Blend de Tempranillo, Graciano, Mazuelo y Garnacha."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_024",
+    "name": "Martelo Reserva",
+    "price": "36,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Reserva moderno y complejo, con gran intensidad aromática y boca larga y pulida.",
+    "ratings": {
+      "vivino": 4.0,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Diana P.",
+        "rating": 4.1,
+        "text": "Reserva moderno y complejo. Gran intensidad aromática con fruta madura, especias y roble fino."
+      },
+      {
+        "author": "Roberto M.",
+        "rating": 4.0,
+        "text": "Boca larga y pulida. Taninos sedosos con final persistente. Muy equilibrado y elegante."
+      },
+      {
+        "author": "Silvia G.",
+        "rating": 3.9,
+        "text": "Excelente Reserva con carácter. Cereza negra, vainilla, tabaco y cuero. Gran complejidad."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_026",
+    "name": "Pancrudo",
+    "price": "52,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Garnacha de viñedo viejo, delicada, floral y mineral, una joya de producción limitada.",
+    "ratings": {
+      "vivino": 4.2,
+      "parker": 94,
+      "tim_atkin": 95,
+      "critics_avg": 94
+    },
+    "user_reviews": [
+      {
+        "author": "Santiago R.",
+        "rating": 4.4,
+        "text": "Garnacha de clase mundial. Elegancia pura, flores azules, mineralidad y fruta roja crujiente."
+      },
+      {
+        "author": "Elena V.",
+        "rating": 4.3,
+        "text": "Delicado pero persistente. Nada que ver con las garnachas pesadas. Frescura vibrante."
+      },
+      {
+        "author": "Marc O.",
+        "rating": 4.2,
+        "text": "Gómez Cruzado se ha lucido. Viñedos viejos que se notan en la profundidad del vino."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_016",
+    "name": "San Vicente",
+    "price": "55,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Monovarietal de Tempranillo Peludo, único, con gran personalidad, concentración y elegancia suprema.",
+    "ratings": {
+      "vivino": 4.3,
+      "parker": 94,
+      "suckling": 95,
+      "critics_avg": 94
+    },
+    "user_reviews": [
+      {
+        "author": "Carlos M.",
+        "rating": 4.5,
+        "text": "Un clásico moderno. Concentración espectacular de fruta negra, café y especias. Final eterno."
+      },
+      {
+        "author": "Laura S.",
+        "rating": 4.4,
+        "text": "Tempranillo Peludo único. Potencia controlada, taninos nobles y madera de altísima calidad."
+      },
+      {
+        "author": "David B.",
+        "rating": 4.3,
+        "text": "Elegancia suprema. Vale cada euro. Perfecto para una ocasión especial con carnes rojas."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_011",
+    "name": "Sierra Cantabria",
+    "price": "20,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Tempranillo robusto y expresivo, con aromas de frutos negros, especias y un tanino maduro.",
+    "ratings": {
+      "vivino": 3.9,
+      "critics_avg": 89
+    },
+    "user_reviews": [
+      {
+        "author": "Paco M.",
+        "rating": 4.0,
+        "text": "Robusto y con carácter. Fruta negra, pimienta y buen cuerpo. Un valor seguro por este precio."
+      },
+      {
+        "author": "Inma R.",
+        "rating": 3.9,
+        "text": "Rioja con personalidad. No es el típico crianza ligero. Tiene estructura y sabor."
+      },
+      {
+        "author": "Tomás V.",
+        "rating": 3.8,
+        "text": "Ideal para carnes a la brasa. Taninos presentes pero agradables. Final especiado."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_015",
+    "name": "Sierra Cantabria Colección Privada",
+    "price": "55,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Elaborado con racimos seleccionados, maceración carbónica parcial, explosión de fruta y roble nuevo.",
+    "ratings": {
+      "vivino": 4.3,
+      "parker": 93,
+      "penin": 94,
+      "critics_avg": 93
+    },
+    "user_reviews": [
+      {
+        "author": "Javier L.",
+        "rating": 4.4,
+        "text": "Explosión de fruta y cacao. La maceración carbónica le da una nariz increíble. Roble nuevo de lujo."
+      },
+      {
+        "author": "Ana P.",
+        "rating": 4.3,
+        "text": "Moderno, intenso y delicioso. Fruta negra compotada, tostados finos y  boca muy amplia."
+      },
+      {
+        "author": "Roberto G.",
+        "rating": 4.2,
+        "text": "Un Rioja con mayúsculas. Potente pero sedoso. Notas de regaliz y vainilla muy marcadas."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_012",
+    "name": "Sierra Cantabria Cuvée",
+    "price": "29,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Edición especial con crianza cuidada, destaca por sus notas de cacao, torrefactos y fruta compotada.",
+    "ratings": {
+      "vivino": 4.1,
+      "parker": 91,
+      "penin": 92,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Gema P.",
+        "rating": 4.2,
+        "text": "Un Rioja moderno muy seductor. Notas de cacao, tostados y fruta madura. Muy envolvente."
+      },
+      {
+        "author": "Rafa N.",
+        "rating": 4.1,
+        "text": "Perfecto para sobremesa. Especiado, con cuerpo y taninos dulces. La madera está muy rica."
+      },
+      {
+        "author": "Lucía D.",
+        "rating": 4.0,
+        "text": "Sierra Cantabria siempre acierta. Más complejo que el crianza normal. Final avainillado."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_009",
+    "name": "Vallobera crianza",
+    "price": "18,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Crianza clásico de la Rioja Alavesa, equilibrado, con fruta roja y sutiles tostados.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Sergio A.",
+        "rating": 3.9,
+        "text": "Clásico y equilibrado. Fruta roja, vainilla suave y paso fácil. Cumple perfectamente."
+      },
+      {
+        "author": "Laura F.",
+        "rating": 3.8,
+        "text": "Rioja Alavesa honesto. Buena acidez, fresco y con un toque tostado muy rico."
+      },
+      {
+        "author": "Dani P.",
+        "rating": 3.7,
+        "text": "Vino de diario excelente. Suave, frutal y sin aristas. Para beber y disfrutar."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_023",
+    "name": "Viña Alberdi",
+    "price": "24,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Clasicismo de La Rioja Alta S.A., sedoso, con acidez vibrante y notas de tabaco y cuero.",
+    "ratings": {
+      "vivino": 4.1,
+      "parker": 91,
+      "suckling": 92,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Fernando M.",
+        "rating": 4.2,
+        "text": "Rioja de libro de texto. Fresco, con acidez vibrante y notas de crianza clásica (cuero, tabaco)."
+      },
+      {
+        "author": "Clara J.",
+        "rating": 4.1,
+        "text": "Nunca defrauda. Muy bebible, gastronómico y con esa elegancia de Rioja Alta."
+      },
+      {
+        "author": "Diego P.",
+        "rating": 4.0,
+        "text": "Crianza que parece Reserva. Sedoso, amable y con final especiado."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_028",
+    "name": "Vivanco Reserva",
+    "price": "25,00 €",
+    "do": "D.O.Ca Rioja",
+    "category": "VINOS TINTOS",
+    "review": "Reserva moderno, destaca por su botella inspirada en el siglo XVIII y sus aromas especiados y balsámicos.",
+    "ratings": {
+      "vivino": 4.0,
+      "parker": 90,
+      "spectator": 91,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Marina L.",
+        "rating": 4.1,
+        "text": "La botella es preciosa y el vino también. Balsámico, especiado y con fruta roja madura."
+      },
+      {
+        "author": "Kike S.",
+        "rating": 4.0,
+        "text": "Reserva moderno con mucha frescura. Notas de regaliz y hierbas de monte. Muy buena compra."
+      },
+      {
+        "author": "Esther C.",
+        "rating": 3.9,
+        "text": "Elegante y complejo. No es el típico Reserva maderizado. Tiene mucha vida y fruta."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_051",
+    "name": "Barcolobo La Rinconada",
+    "price": "20,00 €",
+    "do": "Vino de la Tierra de Castilla León",
+    "category": "VINOS TINTOS",
+    "review": "Tempranillo fresco y amable, proveniente de la reserva natural 'Riberas de Castronuño'.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 89
+    },
+    "user_reviews": [
+      {
+        "author": "Clara T.",
+        "rating": 3.9,
+        "text": "Sorpresa muy agradable. Tempranillo fresco, floral y muy amable en boca. Diferente."
+      },
+      {
+        "author": "Rubén D.",
+        "rating": 3.8,
+        "text": "Vino de reserva natural. Se nota la fruta pura y limpia. Muy fácil de beber."
+      },
+      {
+        "author": "Ana B.",
+        "rating": 3.7,
+        "text": "Suave y redondo. Notas de fresa y frambuesa. Ideal para tapeo."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_053",
+    "name": "Barcolobo Victoria",
+    "price": "23,00 €",
+    "do": "Vino de la Tierra de Castilla León",
+    "category": "VINOS TINTOS",
+    "review": "Tinto con mayor estructura y crianza, complejo, con notas de cacao y fruta negra.",
+    "ratings": {
+      "vivino": 4.0,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Miguel S.",
+        "rating": 4.1,
+        "text": "Más serio que La Rinconada. Cacao, fruta negra y especias. Muy bien hecho."
+      },
+      {
+        "author": "Sara J.",
+        "rating": 4.0,
+        "text": "Complejo y estructurado. Tiene cuerpo pero mantiene frescura. Final largo."
+      },
+      {
+        "author": "David R.",
+        "rating": 3.9,
+        "text": "Gran Tempranillo de Castilla y León. Notas tostadas muy elegantes."
+      }
+    ]
+  },
+  {
+    "id": "WINE_R_052",
+    "name": "Carneiros Mencía",
+    "price": "20,00 €",
+    "do": "Vino de la Tierra de Castilla León",
+    "category": "VINOS TINTOS",
+    "review": "Curiosa Mencía fuera de Galicia, fresca, floral y con un perfil aromático distintivo.",
+    "ratings": {
+      "vivino": 3.9,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Bea O.",
+        "rating": 4.0,
+        "text": "Una Mencía diferente. Muy floral, violetas y frutos rojos. Fresca y original."
+      },
+      {
+        "author": "Javi N.",
+        "rating": 3.9,
+        "text": "Curiosidad que vale la pena. Perfil atlántico en Castilla y León. Ligero y sabroso."
+      },
+      {
+        "author": "Cris L.",
+        "rating": 3.8,
+        "text": "Aromático y divertido. Frambuesas y hierbas. Para beber fresco."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_014",
+    "name": "Atalaya",
+    "price": "21,00 €",
+    "do": "D.O. Almansa",
+    "category": "OTRAS D.O.",
+    "review": "Garnacha Tintorera predominante, color intenso, carnoso y con mucha fruta roja fresca.",
+    "ratings": {
+      "vivino": 4.1,
+      "parker": 90,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Ángel P.",
+        "rating": 4.2,
+        "text": "Color casi negro. Potencia frutal increíble. Carnoso, sabroso y con mucha vida."
+      },
+      {
+        "author": "Rosa T.",
+        "rating": 4.1,
+        "text": "Garnacha Tintorera de manual. Mucho cuerpo, fruta roja explosiva y tanino dulce."
+      },
+      {
+        "author": "Manuel C.",
+        "rating": 4.0,
+        "text": "Desde Almansa con fuerza. Intenso pero equilibrado. Gran relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_013",
+    "name": "Juan Gil Azul",
+    "price": "38,00 €",
+    "do": "D.O. Jumilla",
+    "category": "OTRAS D.O.",
+    "review": "Etiqueta Azul, mezcla con Cabernet y Syrah, gran estructura, envolvente y con final muy largo.",
+    "ratings": {
+      "vivino": 4.4,
+      "penin": 93,
+      "critics_avg": 92
+    },
+    "user_reviews": [
+      {
+        "author": "Pedro G.",
+        "rating": 4.5,
+        "text": "Un favorito indiscutible. Goloso, potente y con mucha fruta madura. Cabernet y Syrah aportan complejidad."
+      },
+      {
+        "author": "Alicia V.",
+        "rating": 4.4,
+        "text": "Jumilla de alto nivel. Mermelada de frutas negras, tostados ricos y boca muy amplia."
+      },
+      {
+        "author": "Tomás R.",
+        "rating": 4.3,
+        "text": "Ideal para quien gusta de vinos con cuerpo y sabor intenso. Final larguísimo y especiado."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_012",
+    "name": "Juan Gil Nácar",
+    "price": "27,00 €",
+    "do": "D.O. Jumilla",
+    "category": "OTRAS D.O.",
+    "review": "Vino blanco singular de Juan Gil o etiqueta especial, caracterizado por intensidad y carácter mediterráneo.",
+    "ratings": {
+      "vivino": 4.0,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Silvia A.",
+        "rating": 4.1,
+        "text": "Blanco con alma de tinto. Estructura, potencia y carácter mediterráneo. Muy gastronómico."
+      },
+      {
+        "author": "Raúl F.",
+        "rating": 4.0,
+        "text": "Sorprendente blanco de Jumilla. Intenso, frutal y con un toque salino final."
+      },
+      {
+        "author": "Elena P.",
+        "rating": 3.9,
+        "text": "Perfecto para arroces potentes. Tiene cuerpo y untuosidad."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_011",
+    "name": "Juan Gil Plata",
+    "price": "22,00 €",
+    "do": "D.O. Jumilla",
+    "category": "OTRAS D.O.",
+    "review": "Monastrell con 12 meses de barrica, potente, fruta madura compotada y notas tostadas muy atractivas.",
+    "ratings": {
+      "vivino": 4.1,
+      "parker": 91,
+      "penin": 93,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Oscar B.",
+        "rating": 4.2,
+        "text": "El rey de Jumilla. Potencia, fruta compotada y roble tostado. Nunca falla."
+      },
+      {
+        "author": "Mónica G.",
+        "rating": 4.1,
+        "text": "Intenso y goloso. Notas de mermelada de mora, vainilla y humo. Muy sabroso."
+      },
+      {
+        "author": "Fede M.",
+        "rating": 4.0,
+        "text": "Monastrell de libro. Cuerpo, alcohol integrado y mucha fruta madura. Excelente."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_009",
+    "name": "Enate Cabernet-Merlot",
+    "price": "16,00 €",
+    "do": "D.O. Somontano",
+    "category": "OTRAS D.O.",
+    "review": "Mezcla bordelesa clásica adaptada al Somontano, pimiento verde sutil y frutos rojos, muy equilibrado.",
+    "ratings": {
+      "vivino": 3.7,
+      "critics_avg": 87
+    },
+    "user_reviews": [
+      {
+        "author": "Sonia P.",
+        "rating": 3.8,
+        "text": "Un clásico del Somontano. Pimiento verde, fruta roja y muy buena acidez. Gastronómico."
+      },
+      {
+        "author": "Dani R.",
+        "rating": 3.7,
+        "text": "Cabernet y Merlot bien ensamblados. Suave, redondo y fácil de beber."
+      },
+      {
+        "author": "Marta L.",
+        "rating": 3.6,
+        "text": "Ideal para carnes y quesos. Relación calidad-precio muy correcta."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_010",
+    "name": "Enate Crianza",
+    "price": "17,00 €",
+    "do": "D.O. Somontano",
+    "category": "OTRAS D.O.",
+    "review": "Tempranillo y Cabernet Sauvignon, crianza justa que aporta vainilla sin tapar la fruta, un éxito seguro.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Carlos G.",
+        "rating": 3.9,
+        "text": "Crianza muy equilibrado. La vainilla acompaña a la fruta sin taparla. Muy rico."
+      },
+      {
+        "author": "Laura M.",
+        "rating": 3.8,
+        "text": "Enate nunca falla. Tempranillo y Cabernet en perfecta armonía. Final tostado agradable."
+      },
+      {
+        "author": "Jose A.",
+        "rating": 3.7,
+        "text": "Valor seguro. Gusta a todo el mundo. Suave, frutal y con un toque de madera."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_007",
+    "name": "Enate Tempranillo-Syrah",
+    "price": "16,00 €",
+    "do": "D.O. Somontano",
+    "category": "OTRAS D.O.",
+    "review": "Coupage goloso y fácil de beber, con la fruta del Tempranillo y las especias del Syrah.",
+    "ratings": {
+      "vivino": 3.7,
+      "critics_avg": 87
+    },
+    "user_reviews": [
+      {
+        "author": "Marta G.",
+        "rating": 3.8,
+        "text": "Muy goloso y fácil. La mezcla funciona genial. Fruta y especias suaves."
+      },
+      {
+        "author": "Pablo S.",
+        "rating": 3.7,
+        "text": "Vino de diario perfecto. Suave, redondo y simpático en boca."
+      },
+      {
+        "author": "Carmen L.",
+        "rating": 3.6,
+        "text": "Somontano correcto y agradable. Notas de ciruela y pimienta blanca."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_008",
+    "name": "Valdebuey (Somontano)",
+    "price": "25,00 €",
+    "do": "D.O. Somontano",
+    "category": "OTRAS D.O.",
+    "review": "Referencia listada en carta bajo Somontano, manteniendo perfil de tinto con cuerpo y estructura.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Ana S.",
+        "rating": 3.9,
+        "text": "Tinto con cuerpo del Somontano. Estructura firme y buena fruta."
+      },
+      {
+        "author": "Pedro J.",
+        "rating": 3.8,
+        "text": "Sorprende por su intensidad. Notas especiadas y frutales. Buen vino."
+      },
+      {
+        "author": "Elena R.",
+        "rating": 3.7,
+        "text": "Correcto y cumplidor. Ideal para acompañar un buen guiso."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_004",
+    "name": "Almirez",
+    "price": "29,00 €",
+    "do": "D.O. Toro",
+    "category": "OTRAS D.O.",
+    "review": "Potencia domada de Toro. Vivino alaba su gran cuerpo y concentración, con explosiones de café, chocolate negro y fruta negra muy madura. Estructurado y muy envolvente.",
+    "ratings": {
+      "vivino": 4.2,
+      "parker": 92,
+      "suckling": 93,
+      "critics_avg": 92
+    },
+    "user_reviews": [
+      {
+        "author": "Sergio L.",
+        "rating": 4.3,
+        "text": "Increíble relación calidad-precio para un Toro. Café, chocolate y fruta negra potente."
+      },
+      {
+        "author": "Nuria T.",
+        "rating": 4.2,
+        "text": "Potente pero bebible. Taninos maduros, notas tostadas y mucha fruta. Témpore en copa."
+      },
+      {
+        "author": "Manuel D.",
+        "rating": 4.1,
+        "text": "Teso La Monja nunca falla. Estructura sólida, sabroso y con carácter."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_006",
+    "name": "Numanthia",
+    "price": "60,00 €",
+    "do": "D.O. Toro",
+    "category": "OTRAS D.O.",
+    "review": "El gigante de Toro. Un vino imponente, denso y profundo con una estructura de hierro. Notas de tierra húmeda, grafito y fruta de bosque muy concentrada.",
+    "ratings": {
+      "vivino": 4.4,
+      "parker": 94,
+      "spectator": 93,
+      "critics_avg": 93
+    },
+    "user_reviews": [
+      {
+        "author": "Luis F.",
+        "rating": 4.6,
+        "text": "Potencia bruta domada. Color negro profundo. Aromas a tinta china, mora y chocolate negro."
+      },
+      {
+        "author": "Marta D.",
+        "rating": 4.5,
+        "text": "Imponente. Necesita decantación. Estructura tánica masiva pero madura. Un vino para guardar años."
+      },
+      {
+        "author": "Jorge H.",
+        "rating": 4.4,
+        "text": "La esencia de Toro. Intenso, mineral y con un final que no termina nunca. Extraordinario."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_002",
+    "name": "Primer Paso",
+    "price": "23,00 €",
+    "do": "D.O. Toro",
+    "category": "OTRAS D.O.",
+    "review": "Toro ecológico, intenso color, aromas a mora y regaliz, con una boca carnosa y persistente.",
+    "ratings": {
+      "vivino": 4.0,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Marisa L.",
+        "rating": 4.1,
+        "text": "Ecológico de Toro muy logrado. Fruta pura, regaliz y boca carnosa. Me encantó."
+      },
+      {
+        "author": "Toni P.",
+        "rating": 4.0,
+        "text": "Intenso y persistente. Mora y notas minerales. Se nota el cuidado en la viña."
+      },
+      {
+        "author": "Alberto S.",
+        "rating": 3.9,
+        "text": "Tinto con cuerpo y alma. Fresbcura sorprendente para ser Toro."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_001",
+    "name": "Románico",
+    "price": "20,00 €",
+    "do": "D.O. Toro",
+    "category": "OTRAS D.O.",
+    "review": "La cara amable de Toro, Tinta de Toro joven, frutal, potente pero domada y sabrosa.",
+    "ratings": {
+      "vivino": 3.9,
+      "parker": 91,
+      "critics_avg": 90
+    },
+    "user_reviews": [
+      {
+        "author": "Eva N.",
+        "rating": 4.0,
+        "text": "Toro amable y frutal. Potencia controlada. Mucha fruta negra y regaliz."
+      },
+      {
+        "author": "David F.",
+        "rating": 3.9,
+        "text": "Entrada de gama de Teso La Monja excelente. Sabroso, joven y con nervio."
+      },
+      {
+        "author": "Sonia R.",
+        "rating": 3.8,
+        "text": "Intenso color y aroma. Mora, violetas y un toque lácteo. Muy rico."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_003",
+    "name": "Valdebuey",
+    "price": "25,00 €",
+    "do": "D.O. Toro",
+    "category": "OTRAS D.O.",
+    "review": "Tinto robusto con la fuerza característica de la zona, taninos presentes y fruta madura.",
+    "ratings": {
+      "vivino": 3.8,
+      "critics_avg": 88
+    },
+    "user_reviews": [
+      {
+        "author": "Andrés C.",
+        "rating": 3.9,
+        "text": "Toro auténtico. Robusto, tánico y con fruta negra madura. Para comidas contundentes."
+      },
+      {
+        "author": "Lucía H.",
+        "rating": 3.8,
+        "text": "Fuerza y carácter. Notas de tierra y mora. Un vino para invierno."
+      },
+      {
+        "author": "Javier M.",
+        "rating": 3.7,
+        "text": "Potente pero noble. Necesita airearse un poco. Buen acompañante de caza."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_005",
+    "name": "Victorino",
+    "price": "55,00 €",
+    "do": "D.O. Toro",
+    "category": "OTRAS D.O.",
+    "review": "Alta expresión de Toro, viñedos centenarios, mineralidad oscura, grafito y fruta negra profunda.",
+    "ratings": {
+      "vivino": 4.4,
+      "parker": 93,
+      "penin": 96,
+      "critics_avg": 94
+    },
+    "user_reviews": [
+      {
+        "author": "Raúl S.",
+        "rating": 4.5,
+        "text": "Obra maestra de los Eguren. Mineralidad oscura, grafito y fruta negra madura. Taninos de seda."
+      },
+      {
+        "author": "Sonia M.",
+        "rating": 4.4,
+        "text": "Elegancia dentro de la potencia de Toro. Equilibrado, fresco y con una profundidad abismal."
+      },
+      {
+        "author": "Iván C.",
+        "rating": 4.3,
+        "text": "Viñedos centenarios que se sienten. Complejo, especiado y con mucha vida por delante."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_015",
+    "name": "Tank 42",
+    "price": "20,00 €",
+    "do": "D.O.C. Priorat",
+    "category": "OTRAS D.O.",
+    "review": "Vino moderno del Priorat, mineralidad licorella, fruta negra concentrada y carácter robusto.",
+    "ratings": {
+      "vivino": 3.9,
+      "critics_avg": 89
+    },
+    "user_reviews": [
+      {
+        "author": "Iker B.",
+        "rating": 4.0,
+        "text": "Priorat moderno y accesible. Mineralidad (licorella) presente, fruta negra y potencia."
+      },
+      {
+        "author": "Nerea Z.",
+        "rating": 3.9,
+        "text": "Robusto y con carácter. Notas balsámicas y de pizarra. Muy buena entrada al Priorat."
+      },
+      {
+        "author": "Xavi G.",
+        "rating": 3.8,
+        "text": "Intenso y sabroso. Mora, ciruela y hierbas secas. Final cálido."
+      }
+    ]
+  },
+  {
+    "id": "WINE_O_016",
+    "name": "Terroir por la Tercera",
+    "price": "28,00 €",
+    "do": "D.O.C. Priorat",
+    "category": "OTRAS D.O.",
+    "review": "Expresión auténtica del terruño del Priorat, complejo, balsámico y con gran profundidad.",
+    "ratings": {
+      "vivino": 4.1,
+      "critics_avg": 91
+    },
+    "user_reviews": [
+      {
+        "author": "Jordi V.",
+        "rating": 4.2,
+        "text": "Auténtico terruño. Complejo, balsámico y mineral. Se nota la pizarra en cada trago."
+      },
+      {
+        "author": "Montserrat C.",
+        "rating": 4.1,
+        "text": "Profundo y reflexivo. Fruta madura, menta y notas tostadas finas. Gran vino."
+      },
+      {
+        "author": "Pol R.",
+        "rating": 4.0,
+        "text": "Priorat con elegancia. Estructura firme pero taninos pulidos. Final largo y fresco."
+      }
+    ]
+  }
+]

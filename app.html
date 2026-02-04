@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIAmmelier Dobao - La Carta Privada</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Playfair+Display:wght@700;900&family=Raleway:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>SIAmmelier Dobao</h1>
+            <p>Excelencia en Sommellerie desde 2026</p>
+        </header>
+
+        <!-- Main Dynamic Content -->
+        <main id="mainContent">
+            <!-- Navigation Back Button -->
+            <button class="btn-back" id="btnBack" style="display:none;" onclick="app.goBack()">⇠ Volver</button>
+
+            <!-- Step: Selection Cards -->
+            <div id="step-selection" class="step-container">
+                <h2 class="step-title" id="stepTitle">Selección de Vino</h2>
+                <p class="step-subtitle" id="stepSubtitle">Elija el carácter de su experiencia</p>
+
+                <div class="options-grid" id="optionsGrid">
+                    <!-- Dynamic visual options will appear here -->
+                </div>
+            </div>
+
+            <!-- Results Step -->
+            <div id="step-results" class="step-container hidden">
+                <h2 class="step-title">La Selección de la Bodega</h2>
+                <p class="step-subtitle">Nuestras mejores recomendaciones de terruños</p>
+
+                <div class="wine-results" id="wineResults">
+                    <!-- Dynamic wine cards -->
+                </div>
+            </div>
+
+            <!-- Final Step: Pairing Choice & Confirmation -->
+            <div id="step-final" class="step-container hidden">
+                <h2 class="step-title">La Armonía Gastronómica</h2>
+                <p class="step-subtitle">Seleccione el maridaje ideal para su elección</p>
+
+                <div id="finalDisplay">
+                    <!-- Selected wine + Pairing options -->
+                </div>
+
+                <div id="pairingConfirmArea" class="hidden" style="width:100%; text-align:center;">
+                    <button class="btn-formal" onclick="app.finalize()">Confirmar Selección Final</button>
+                </div>
+
+                <button class="btn-back" onclick="app.restart()" style="display:block; margin: 2rem auto;">Nueva
+                    Experiencia</button>
+            </div>
+
+            <!-- Summary Step -->
+            <div id="step-summary" class="step-container hidden">
+                <div id="summaryDisplay" style="width: 100%;">
+                    <!-- Order summary will appear here -->
+                </div>
+                <button class="btn-formal" onclick="app.restart()" style="margin-top: 3rem;">Realizar Nuevo
+                    Pedido</button>
+            </div>
+        </main>
+
+        <footer
+            style="margin-top: 5rem; text-align: center; color: var(--gold-dim); font-size: 0.8rem; letter-spacing: 2px;">
+            SIAmmelier Dobao Private Selection
+        </footer>
+    </div>
+
+    <!-- Admin Invisible Trigger -->
+    <div onclick="app.handleAdminClick()"
+        style="position:fixed; bottom:0; left:0; width:50px; height:50px; cursor:default;"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
