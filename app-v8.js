@@ -706,3 +706,4 @@ document.head.appendChild(extraStyles);
 window.addEventListener('DOMContentLoaded', () => {
     window.app = new SommelierApp();
     window.app.init();
+});
