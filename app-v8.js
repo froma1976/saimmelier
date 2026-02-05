@@ -425,27 +425,34 @@ class SommelierApp {
         foodSuggestions = [...new Map(foodSuggestions.map(f => [f.id, f])).values()].slice(0, 4);
 
         this.finalDisplay.innerHTML = `
-            <div class="wine-card" style="margin-bottom: 2rem; border-color: var(--primary); max-width: 100%;">
+            <div class="wine-card" style="margin-bottom: 2rem; border: 2px solid var(--primary); max-width: 100%;">
                 <div class="wine-info" style="padding: 1.5rem;">
-                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">Su Elección</span>
-                    <h4 class="wine-name" style="font-size: 1.4rem;">${wine.name}</h4>
-                    <p class="wine-price">${wine.price}</p>
+                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.75rem;">✓ Su Elección</span>
+                    <h4 class="wine-name" style="font-size: 1.5rem; margin: 0.5rem 0;">${wine.name}</h4>
+                    <p class="wine-price" style="font-size: 1.3rem; font-weight: 700; color: var(--primary); margin: 0;">${wine.price}</p>
                 </div>
             </div>
-            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem;">¿Con qué maridamos?</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; padding: 0 1rem;">Recomendación del Chef para este ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
-            <div class="options-grid">
-                ${foodSuggestions.map(food => `
-                    <button class="option-button" onclick="app.selectFood('${food.name}')" style="text-align: left;">
-                        <div class="option-content">
-                            <span class="material-symbols-outlined">restaurant</span>
-                            <div>
-                                <p class="option-text" style="margin: 0; font-weight: 600;">${food.name}</p>
-                                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.25rem 0 0 0;">${food.price}</p>
-                            </div>
+            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 1rem; margin-bottom: 0.5rem;">¿Con qué maridamos?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; font-size: 0.95rem;">Recomendación del Chef para este ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
+            <div class="character-grid-v2">
+                ${foodSuggestions.map((food, i) => {
+            const gradients = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
+            ];
+            return `
+                    <button class="character-card" onclick="app.selectFood('${food.name}')">
+                        <div class="character-gradient" style="background: ${gradients[i % 4]};"></div>
+                        <div class="character-content">
+                            <span class="material-symbols-outlined character-icon">restaurant</span>
+                            <h3 class="character-title" style="font-size: 1.2rem;">${food.name}</h3>
+                            <p class="character-sublabel">${food.price}</p>
                         </div>
                     </button>
-                `).join('')}
+                `;
+        }).join('')}
             </div>
         `;
     }
@@ -461,24 +468,43 @@ class SommelierApp {
 
     finalize() {
         const { selectedWine, selectedFood } = this.state.selection;
+
+        // Buscar el plato seleccionado en el menú para obtener su precio
+        const foodItem = this.menu.find(item => item.name === selectedFood);
+        const foodPrice = foodItem ? foodItem.price : '0,00 €';
+
+        // Calcular el total
+        const winePrice = parseFloat(selectedWine.price.replace('€', '').trim().replace(',', '.'));
+        const foodPriceNum = parseFloat(foodPrice.replace('€', '').trim().replace(',', '.'));
+        const total = (winePrice + foodPriceNum).toFixed(2).replace('.', ',');
+
         this.showSection('summary');
         this.headerTitle.textContent = "Resumen del Sommelier";
 
         document.getElementById('summaryDisplay').innerHTML = `
             <div class="action-panel fade-in">
-                <span class="material-symbols-outlined panel-icon" style="font-size: 4rem;">task_alt</span>
-                <h3 class="panel-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Cata Confirmada</h3>
+                <span class="material-symbols-outlined panel-icon" style="font-size: 4rem; color: var(--primary);">task_alt</span>
+                <h3 class="panel-title" style="font-size: 1.8rem; margin-bottom: 0.5rem; font-weight: 700;">Cata Confirmada</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem;">Su selección ha sido procesada</p>
                 
-                <div style="text-align: left; background: var(--background-light); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(75,1,1,0.05);">
-                    <div style="margin-bottom: 1.5rem;">
-                        <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.25rem;">Vino Elegido</p>
-                        <p style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">${selectedWine.name}</p>
-                        <p style="font-size: 0.9rem;">${selectedWine.price}</p>
+                <div style="text-align: left; background: white; padding: 2rem; border-radius: var(--radius-lg); margin-top: 1.5rem; border: 1px solid rgba(0,0,0,0.08); box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.08);">
+                        <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 800;">Vino Elegido</p>
+                        <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.25rem;">${selectedWine.name}</p>
+                        <p style="font-size: 1.1rem; color: var(--primary); font-weight: 700;">${selectedWine.price}</p>
                     </div>
                     
-                    <div>
-                        <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.25rem;">Maridaje</p>
-                        <p style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">${selectedFood}</p>
+                    <div style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.08);">
+                        <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 800;">Maridaje</p>
+                        <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.25rem;">${selectedFood}</p>
+                        <p style="font-size: 1.1rem; color: var(--primary); font-weight: 700;">${foodPrice}</p>
+                    </div>
+                    
+                    <div style="background: var(--primary-light); padding: 1.5rem; border-radius: var(--radius-md); border: 2px solid var(--primary);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <p style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary); margin: 0; font-weight: 800;">Total a Pagar</p>
+                            <p style="font-size: 2rem; color: var(--primary); margin: 0; font-weight: 800;">${total} €</p>
+                        </div>
                     </div>
                 </div>
                 
