@@ -522,11 +522,12 @@
                 document.getElementById('edit-desc').value = item.review || item.description || '';
                 deleteBtn.style.display = 'block';
             } else {
-                // Nuevo item
+                // Nuevo item - Limpiar todo el formulario
                 currentEditingId = null;
-                document.getElementById('edit-time').value = Date.now(); // Temp ID generator
+                document.getElementById('edit-id').value = "";
                 document.getElementById('edit-name').value = '';
                 document.getElementById('edit-price').value = '';
+                document.getElementById('edit-category').value = 'VINOS TINTOS'; // Valor por defecto
                 document.getElementById('edit-do').value = '';
                 document.getElementById('edit-desc').value = '';
                 deleteBtn.style.display = 'none';
