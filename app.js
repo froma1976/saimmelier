@@ -311,4 +311,6 @@ class SommelierApp {
     }
 }
 
-const app = new SommelierApp();
+// Exponer la instancia de la aplicación al objeto global window
+// Esto es necesario para que los atributos onclick="app.method()" funcionen.
+window.app = new SommelierApp();
