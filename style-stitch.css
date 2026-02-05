@@ -1,0 +1,617 @@
+/* ============================================
+   SIAmmelier Dobao - Stitch Design System
+   ============================================ */
+
+/* CSS Variables - Stitch Style */
+:root {
+    /* Colors */
+    --primary: #4b0101;
+    --background-light: #f8f5f5;
+    --background-dark: #230f0f;
+    --accent-soft: #fdf8f8;
+    --pale-pink: #fdf8f8;
+
+    /* Text Colors */
+    --text-primary: #181111;
+    --text-secondary: #8c5f5f;
+    --text-muted: #e6dbdb;
+
+    /* Badge Colors */
+    --badge-ai: #4b0101;
+    --badge-top: #d4631f;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-2xl: 48px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(75, 1, 1, 0.05);
+    --shadow-md: 0 4px 16px rgba(75, 1, 1, 0.08);
+    --shadow-lg: 0 10px 40px -10px rgba(75, 1, 1, 0.12);
+
+    /* Transitions */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: var(--background-light);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.serif-title {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Container */
+.app-container {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.app-header {
+    background: var(--background-light);
+    padding: 1rem 1.5rem 0.5rem;
+    border-bottom: 1px solid rgba(75, 1, 1, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.app-header h1 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    flex: 1;
+}
+
+.back-button {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+/* Progress Indicators */
+.progress-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+}
+
+.progress-dots {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.progress-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background: rgba(75, 1, 1, 0.2);
+    transition: var(--transition-base);
+}
+
+.progress-dot.active {
+    width: 1.5rem;
+    background: var(--primary);
+}
+
+.progress-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(75, 1, 1, 0.6);
+    font-weight: 600;
+}
+
+/* Step Container */
+.step-container {
+    flex: 1;
+    padding: 0 1.5rem 8rem;
+}
+
+.step-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.step-subtitle {
+    font-size: 1rem;
+    color: rgba(75, 1, 1, 0.7);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+/* Selection Cards - Pill Style */
+.selection-area {
+    background: var(--accent-soft);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.option-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    padding: 0 2rem;
+    border-radius: var(--radius-full);
+    border: 1.5px solid rgba(75, 1, 1, 0.1);
+    background: white;
+    cursor: pointer;
+    transition: var(--transition-base);
+    gap: 0.75rem;
+}
+
+.option-button:active {
+    transform: scale(0.98);
+}
+
+.option-button.selected {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(75, 1, 1, 0.2);
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.option-button .material-symbols-outlined {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.option-button.selected .material-symbols-outlined {
+    color: white;
+}
+
+.option-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.option-button.selected .option-text {
+    color: white;
+}
+
+.option-check {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+}
+
+.option-button.selected .option-check {
+    opacity: 1;
+}
+
+/* Character Grid (2x2) */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.character-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 6rem;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid rgba(75, 1, 1, 0.1);
+    background: white;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.character-option:active {
+    transform: scale(0.95);
+}
+
+.character-option.selected {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.character-option .material-symbols-outlined {
+    font-size: 1.75rem;
+    color: var(--primary);
+}
+
+.character-option.selected .material-symbols-outlined {
+    color: white;
+}
+
+.character-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+}
+
+.character-option.selected .character-label {
+    color: white;
+}
+
+/* Wine Results - Grid */
+.wine-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem 1.5rem 8rem;
+}
+
+.wine-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: var(--radius-2xl);
+    padding: 0.75rem;
+    border: 1.5px solid rgba(230, 219, 219, 0.3);
+    box-shadow: var(--shadow-md);
+}
+
+.wine-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #f3eeee;
+    border-radius: calc(var(--radius-2xl) - 4px);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.wine-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.wine-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: rgba(75, 1, 1, 0.9);
+    color: white;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-full);
+}
+
+.wine-badge.top-seller {
+    background: var(--badge-top);
+}
+
+.wine-info {
+    padding: 0 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.wine-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
+}
+
+.wine-meta {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: rgba(75, 1, 1, 0.7);
+    margin-bottom: 0.75rem;
+}
+
+.wine-price {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.wine-notes {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-top: auto;
+}
+
+/* Pairing Section */
+.pairing-section {
+    background: var(--pale-pink);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+    margin-top: auto;
+}
+
+.pairing-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(75, 1, 1, 0.5);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+
+.pairing-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Action Panel */
+.action-panel {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(75, 1, 1, 0.1);
+    padding: 1.5rem;
+    margin: 1.5rem;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.panel-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.panel-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.panel-description {
+    font-size: 0.875rem;
+    color: rgba(75, 1, 1, 0.6);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    height: 3.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: 0 8px 20px rgba(75, 1, 1, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+/* Tab Bar - iOS Style */
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(75, 1, 1, 0.1);
+    padding: 0.75rem 1.5rem 2rem;
+    z-index: 100;
+    max-width: 430px;
+    margin: 0 auto;
+}
+
+.tab-bar-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.tab-item.active {
+    color: var(--primary);
+}
+
+.tab-item .material-symbols-outlined {
+    font-size: 1.75rem;
+}
+
+.tab-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tab-item-center {
+    position: relative;
+    margin-top: -3rem;
+}
+
+.tab-center-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(75, 1, 1, 0.3);
+    border: 4px solid var(--background-light);
+    cursor: pointer;
+}
+
+.tab-center-button .material-symbols-outlined {
+    font-size: 2rem;
+    color: white;
+}
+
+.tab-center-label {
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.slide-up {
+    animation: slideUp 0.4s ease-out;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 430px) {
+    .wine-results {
+        padding: 1rem 1rem 8rem;
+    }
+
+    .wine-card {
+        padding: 0.5rem;
+    }
+
+    .wine-name {
+        font-size: 1rem;
+    }
+}
