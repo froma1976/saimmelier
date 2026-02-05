@@ -490,6 +490,22 @@ h3,
         letter-spacing: 3px;
     }
 
+    /* Tarjetas de comida - altura automática para textos largos */
+    .food-option {
+        height: auto !important;
+        min-height: 140px;
+        padding: 1.2rem !important;
+    }
+
+    .food-option h3 {
+        font-size: 1.1rem !important;
+        letter-spacing: 1px !important;
+        line-height: 1.4 !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+
     /* Eliminar efectos hover en móvil */
     .visual-option:hover {
         transform: none;

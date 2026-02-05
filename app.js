@@ -295,15 +295,16 @@ class SommelierApp {
         foodSuggestions.forEach((food, index) => {
             const label = index === 0 ? "MARIDAJE ESTELAR" : "OPCIÓN ALTERNATIVA";
             html += `
-                <div class="visual-option" style="height: 150px;" id="food-card-${food.id}" onclick="app.selectFood('${food.id}')">
+                <div class="visual-option food-option" style="min-height: 150px; height: auto; padding: 1.5rem;" id="food-card-${food.id}" onclick="app.selectFood('${food.id}')">
                     <div class="option-overlay">
                         <span style="font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); font-weight: 700;">${label}</span>
-                        <h3 style="font-size: 1.3rem; margin-top: 0.5rem; color: var(--navy);">${food.name}</h3>
-                        <p style="color: var(--text-muted);">${food.price}</p>
+                        <h3 style="font-size: 1.2rem; margin-top: 0.5rem; color: var(--navy); line-height: 1.3; word-wrap: break-word;">${food.name}</h3>
+                        <p style="color: var(--text-muted); margin-top: 0.5rem;">${food.price}</p>
                     </div>
                 </div>
             `;
         });
+
 
         html += `</div>`;
         this.finalDisplay.innerHTML = html;
