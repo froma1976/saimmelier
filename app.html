@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAmmelier Dobao - AI Sommelier Advisor</title>
+    <title>SIAmmelier Dobao - Asesor Sommelier AI</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
             <button class="back-button" id="btnBack" style="display:none;" onclick="app.goBack()">
                 <span class="material-symbols-outlined">arrow_back_ios</span>
             </button>
-            <h1 id="headerTitle">AI Sommelier Advisor</h1>
+            <h1 id="headerTitle">Asesor Sommelier AI</h1>
         </header>
 
         <!-- Main Content -->
@@ -39,12 +39,12 @@
                         <div class="progress-dot active"></div>
                         <div class="progress-dot"></div>
                     </div>
-                    <p class="progress-text">Step <span id="currentStep">1</span> of 2</p>
+                    <p class="progress-text">Paso <span id="currentStep">1</span> de 2</p>
                 </div>
 
                 <!-- Selection Area -->
                 <div class="selection-area">
-                    <h3 class="step-title" id="stepTitle">What are we pouring today?</h3>
+                    <h3 class="step-title" id="stepTitle">¿Qué vamos a descorchar hoy?</h3>
 
                     <div class="options-grid" id="optionsGrid">
                         <!-- Dynamic options will be inserted here -->
@@ -54,7 +54,7 @@
                 <!-- Action Button -->
                 <div style="padding: 0 1rem; margin-top: 2rem;">
                     <button class="btn-primary" id="btnNext" onclick="app.handleNextStep()" style="display:none;">
-                        <span>Next Step</span>
+                        <span>Siguiente Paso</span>
                         <span class="material-symbols-outlined">arrow_forward</span>
                     </button>
                 </div>
@@ -67,10 +67,10 @@
                         <div class="progress-dot active"></div>
                         <div class="progress-dot active"></div>
                     </div>
-                    <p class="progress-text">AI Recommendations</p>
+                    <p class="progress-text">Sugerencias de la Bodega</p>
                 </div>
 
-                <h3 class="step-title">La Selección de la Bodega</h3>
+                <h3 class="step-title">La Selección del Sommelier</h3>
                 <p class="step-subtitle">Nuestras mejores recomendaciones basadas en tus preferencias</p>
 
                 <div class="wine-results" id="wineResults">
@@ -90,9 +90,9 @@
                 <!-- Action Panel -->
                 <div class="action-panel" id="pairingConfirmArea" style="display:none;">
                     <span class="material-symbols-outlined panel-icon">restaurant</span>
-                    <p class="panel-title">Chef's Pairing Insight</p>
-                    <p class="panel-description">Esta selección ha sido diseñada para balancear los taninos con perfiles
-                        umami sabrosos.</p>
+                    <p class="panel-title">Recomendación del Chef</p>
+                    <p class="panel-description">Esta selección ha sido diseñada para balancear los matices del vino con
+                        perfiles gastronómicos ideales.</p>
                     <button class="btn-primary" onclick="app.finalize()">
                         <span>Confirmar Selección Final</span>
                     </button>
@@ -109,7 +109,7 @@
                     <!-- Order summary will appear here -->
                 </div>
                 <button class="btn-primary" onclick="app.restart()" style="margin: 2rem 1.5rem;">
-                    <span>Realizar Nuevo Pedido</span>
+                    <span>Realizar Nueva Selección</span>
                 </button>
             </div>
 
@@ -120,11 +120,11 @@
             <div class="tab-bar-content">
                 <button class="tab-item">
                     <span class="material-symbols-outlined">home</span>
-                    <span class="tab-label">Home</span>
+                    <span class="tab-label">Inicio</span>
                 </button>
                 <button class="tab-item">
                     <span class="material-symbols-outlined">inventory_2</span>
-                    <span class="tab-label">Cellar</span>
+                    <span class="tab-label">Bodega</span>
                 </button>
                 <div class="tab-item-center">
                     <div class="tab-center-button">
@@ -146,7 +146,7 @@
         <!-- Footer -->
         <footer
             style="margin-top: auto; text-align: center; color: rgba(75, 1, 1, 0.4); font-size: 0.75rem; padding: 1rem; letter-spacing: 0.05em;">
-            SIAmmelier Dobao Private Selection
+            SIAmmelier Dobao • Selección Privada
         </footer>
     </div>
 
