@@ -118,27 +118,23 @@
         <!-- Tab Bar Navigation -->
         <nav class="tab-bar">
             <div class="tab-bar-content">
-                <button class="tab-item">
-                    <span class="material-symbols-outlined">home</span>
-                    <span class="tab-label">Inicio</span>
+                <button class="tab-item" onclick="app.showFoodMenu()">
+                    <span class="material-symbols-outlined">restaurant</span>
+                    <span class="tab-label">Tapeo</span>
                 </button>
-                <button class="tab-item">
-                    <span class="material-symbols-outlined">inventory_2</span>
+                <button class="tab-item" onclick="app.showWineMenu()">
+                    <span class="material-symbols-outlined">wine_bar</span>
                     <span class="tab-label">Bodega</span>
                 </button>
-                <div class="tab-item-center">
+                <div class="tab-item-center" onclick="app.restart()">
                     <div class="tab-center-button">
                         <span class="material-symbols-outlined">smart_toy</span>
                     </div>
-                    <span class="tab-center-label">Sommelier AI</span>
+                    <span class="tab-center-label">SAImmelier</span>
                 </div>
-                <button class="tab-item">
-                    <span class="material-symbols-outlined">favorite</span>
-                    <span class="tab-label">Favoritos</span>
-                </button>
-                <button class="tab-item">
-                    <span class="material-symbols-outlined">shopping_basket</span>
-                    <span class="tab-label">Carrito</span>
+                <button class="tab-item" onclick="app.showAdminPanel()">
+                    <span class="material-symbols-outlined">admin_panel_settings</span>
+                    <span class="tab-label">Admin</span>
                 </button>
             </div>
         </nav>

@@ -527,6 +527,57 @@ class SommelierApp {
         if (this.pairingConfirmArea) this.pairingConfirmArea.style.display = 'none';
         this.renderFamilySelection();
     }
+
+    showFoodMenu() {
+        this.showSection('selection');
+        this.headerTitle.textContent = "Carta de Tapeo";
+        this.stepTitle.textContent = "Nuestra Selección Gastronómica";
+        if (this.btnBack) this.btnBack.style.display = 'flex';
+
+        const foodItems = this.menu.filter(item => item.category && item.category.includes('TAPEO'));
+
+        this.optionsGrid.className = "wine-results slide-up";
+        this.optionsGrid.innerHTML = foodItems.map(food => `
+            <div class="wine-card">
+                <div class="wine-info" style="padding: 1.5rem;">
+                    <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.5rem;">${food.name}</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">${food.description || ''}</p>
+                    <p class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${food.price}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    showWineMenu() {
+        this.showSection('selection');
+        this.headerTitle.textContent = "Carta de Vinos";
+        this.stepTitle.textContent = "Nuestra Bodega Completa";
+        if (this.btnBack) this.btnBack.style.display = 'flex';
+
+        const wines = this.menu.filter(item =>
+            item.category === 'VINOS TINTOS' ||
+            item.category === 'VINOS BLANCOS' ||
+            item.category === 'ESPUMOSOS'
+        );
+
+        this.optionsGrid.className = "wine-results slide-up";
+        this.optionsGrid.innerHTML = wines.map(wine => `
+            <div class="wine-card">
+                <div class="wine-info" style="padding: 1.5rem;">
+                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; font-size: 0.7rem;">${wine.category}</span>
+                    <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.25rem;">${wine.name}</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">${wine.do}</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${wine.review}</p>
+                    <p class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${wine.price}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    showAdminPanel() {
+        // Redirigir a la pantalla de login de administrador
+        window.location.href = "admin.html";
+    }
 }
 
 // Estilo extra para los badges de puntuación
