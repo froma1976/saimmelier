@@ -2,455 +2,244 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - SIAmmelier</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Secure Login - Vinoteca Dobao</title>
+    <!-- Google Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="landing.css">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet" />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <!-- Reuse Stitch CSS for Consistency -->
+    <link rel="stylesheet" href="style-stitch.css">
     <style>
         body {
-            background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(74, 14, 14, 0.9) 100%);
-            background-attachment: fixed;
-            color: #faf8f3;
-            padding: 2rem;
-            position: relative;
+            background: var(--background-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(107, 26, 26, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .admin-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-box {
-            max-width: 450px;
-            margin: 10rem auto;
-            background: linear-gradient(135deg, rgba(74, 14, 14, 0.4) 0%, rgba(45, 45, 45, 0.3) 100%);
-            backdrop-filter: blur(25px);
-            padding: 3.5rem;
-            border: 2px solid rgba(212, 175, 55, 0.15);
+        /* Header specific for Login */
+        .login-header {
             text-align: center;
-            position: relative;
+            margin-bottom: 3rem;
         }
 
-        .login-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+        .lock-icon {
+            width: 4rem;
+            height: 4rem;
+            background: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-md);
+            color: white;
         }
 
-        .login-box h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.8rem;
-            color: #d4af37;
-            margin-bottom: 2rem;
-            text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+        /* PIN Display */
+        .pin-display {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0 4rem;
         }
 
-        .login-box input {
-            width: 100%;
-            padding: 1.2rem;
-            margin-bottom: 1.5rem;
-            background: rgba(107, 26, 26, 0.2);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            color: #faf8f3;
-            font-size: 1rem;
+        .pin-dot {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            border: 2px solid var(--text-muted);
+            transition: all 0.2s ease;
         }
 
-        .login-box input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+        .pin-dot.filled {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(75, 1, 1, 0.2);
+            transform: scale(1.1);
         }
 
-        .btn-admin {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
-            color: #1a1a1a;
-            border: 2px solid transparent;
-            padding: 1.2rem 2.5rem;
-            font-size: 1rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        /* Keypad Styles */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 320px;
+            width: 90%;
         }
 
-        .btn-admin::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #4a0e0e 0%, #6b1a1a 50%, #8b2e2e 100%);
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
-        }
-
-        .btn-admin:hover::before {
-            left: 0;
-        }
-
-        .btn-admin:hover {
-            color: #d4af37;
-            border-color: #d4af37;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4), 0 0 30px rgba(107, 26, 26, 0.3);
-        }
-
-        .editor-section {
-            background: linear-gradient(135deg, rgba(74, 14, 14, 0.4) 0%, rgba(45, 45, 45, 0.3) 100%);
-            backdrop-filter: blur(25px);
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(212, 175, 55, 0.15);
-            position: relative;
-        }
-
-        .editor-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
-        }
-
-        .editor-section h2 {
-            font-family: 'Cormorant Garamond', serif;
-            color: #d4af37;
-            margin-bottom: 1.5rem;
-            font-size: 2.2rem;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .wine-item,
-        .food-item {
-            background: rgba(107, 26, 26, 0.15);
-            padding: 1.8rem;
-            margin-bottom: 1.2rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.3s;
-        }
-
-        .wine-item:hover,
-        .food-item:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            background: rgba(107, 26, 26, 0.25);
-        }
-
-        .wine-item input,
-        .wine-item textarea,
-        .food-item input,
-        .food-item textarea {
-            width: 100%;
-            padding: 0.9rem;
-            margin-bottom: 0.8rem;
-            background: rgba(26, 26, 26, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            color: #faf8f3;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .wine-item textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .btn-delete {
-            background: linear-gradient(135deg, #8b2e2e 0%, #6b1a1a 100%);
-            color: #faf8f3;
-            border: 1px solid rgba(139, 46, 46, 0.5);
-            padding: 0.6rem 1.2rem;
-            cursor: pointer;
-            margin-top: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .btn-delete:hover {
-            background: linear-gradient(135deg, #6b1a1a 0%, #4a0e0e 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(139, 46, 46, 0.4);
-        }
-
-        .btn-save {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
-            color: #1a1a1a;
-            border: 2px solid transparent;
-            padding: 1.8rem 4rem;
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-weight: 700;
-            margin-top: 3rem;
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-        }
-
-        .btn-save::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #4a0e0e 0%, #6b1a1a 50%, #8b2e2e 100%);
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
-        }
-
-        .btn-save:hover::before {
-            left: 0;
-        }
-
-        .btn-save:hover {
-            color: #d4af37;
-            border-color: #d4af37;
-            transform: translateY(-4px);
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.5), 0 0 40px rgba(107, 26, 26, 0.4);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .error {
-            color: #f4d03f;
-            margin-top: 1rem;
+        .key-btn {
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            font-size: 1.5rem;
             font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.1s ease;
+            user-select: none;
         }
 
-        .success {
-            color: #d4af37;
+        .key-btn:active {
+            background: var(--primary);
+            color: white;
+            transform: scale(0.9);
+        }
+
+        .key-btn.empty {
+            background: transparent;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        .key-btn.special {
+            background: transparent;
+            box-shadow: none;
+            color: var(--text-primary);
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.875rem;
             margin-top: 1rem;
-            text-align: center;
-            font-size: 1.3rem;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.4);
+            height: 1.5rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
     </style>
 </head>
 
 <body>
-    <div class="admin-container">
-        <!-- Login Screen -->
-        <div id="loginScreen" class="login-box">
-            <h1>Panel de Administración</h1>
-            <input type="password" id="passwordInput" placeholder="Contraseña" />
-            <button class="btn-admin" onclick="login()">Acceder</button>
-            <p id="errorMsg" class="error hidden">Contraseña incorrecta</p>
+
+    <div class="login-header slide-up">
+        <div class="lock-icon">
+            <span class="material-symbols-outlined" style="font-size: 2.5rem;">lock</span>
         </div>
+        <h1 class="serif-title" style="font-size: 1.5rem; color: var(--text-primary);">Acceso de Administración</h1>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">Vinoteca Dobao • Sommelier
+            Digital</p>
+    </div>
 
-        <!-- Editor Screen -->
-        <div id="editorScreen" class="hidden">
-            <h1
-                style="font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold-bright); text-align: center; margin-bottom: 3rem;">
-                Editor de Menú
-            </h1>
+    <div class="pin-section slide-up">
+        <p style="text-align: center; font-weight: 600; color: var(--primary); font-size: 0.9rem;">Introduzca su código
+            de seguridad</p>
 
-            <div class="editor-section">
-                <h2>Vinos</h2>
-                <div id="winesList"></div>
-                <button class="btn-admin" onclick="addWine()">+ Añadir Vino</button>
-            </div>
-
-            <div class="editor-section">
-                <h2>Maridajes</h2>
-                <div id="foodsList"></div>
-                <button class="btn-admin" onclick="addFood()">+ Añadir Maridaje</button>
-            </div>
-
-            <button class="btn-save" onclick="saveMenu()">Guardar Cambios</button>
-            <p id="successMsg" class="success hidden">✓ Menú guardado correctamente</p>
-
-            <button class="btn-admin" onclick="logout()"
-                style="margin-top: 2rem; background: transparent; border: 1px solid var(--gold);">
-                Cerrar Sesión
-            </button>
+        <div class="pin-display" id="pinDisplay">
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
         </div>
     </div>
 
+    <div class="keypad slide-up">
+        <button class="key-btn" onclick="addNumber(1)">1</button>
+        <button class="key-btn" onclick="addNumber(2)">2</button>
+        <button class="key-btn" onclick="addNumber(3)">3</button>
+        <button class="key-btn" onclick="addNumber(4)">4</button>
+        <button class="key-btn" onclick="addNumber(5)">5</button>
+        <button class="key-btn" onclick="addNumber(6)">6</button>
+        <button class="key-btn" onclick="addNumber(7)">7</button>
+        <button class="key-btn" onclick="addNumber(8)">8</button>
+        <button class="key-btn" onclick="addNumber(9)">9</button>
+        <div class="key-btn empty"></div>
+        <button class="key-btn" onclick="addNumber(0)">0</button>
+        <button class="key-btn special" onclick="deleteNumber()">
+            <span class="material-symbols-outlined">backspace</span>
+        </button>
+    </div>
+
+    <div class="error-message" id="errorMessage">Código de seguridad incorrecto</div>
+
+    <footer style="margin-top: 4rem; text-align: center;">
+        <p style="color: var(--primary); font-size: 0.8rem; font-weight: 600; cursor: pointer;">¿Olvidó su código?</p>
+        <div
+            style="display: flex; align-items: center; gap: 0.5rem; color: rgba(0,0,0,0.3); font-size: 0.75rem; margin-top: 1rem; justify-content: center;">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">verified_user</span>
+            Sesión encriptada
+        </div>
+    </footer>
+
     <script>
-        const ADMIN_PASSWORD = "dobao2026"; // Cambia esta contraseña
-        let menuData = null;
+        let currentPin = "";
+        const CORRECT_PIN = "2026"; // Nueva Clave solicitada
 
-        function login() {
-            const password = document.getElementById('passwordInput').value;
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('editorScreen').classList.remove('hidden');
-                loadMenu();
+        function addNumber(num) {
+            if (currentPin.length < 4) {
+                currentPin += num;
+                updateDots();
+
+                if (currentPin.length === 4) {
+                    setTimeout(verifyPin, 150);
+                }
+            }
+        }
+
+        function deleteNumber() {
+            if (currentPin.length > 0) {
+                currentPin = currentPin.slice(0, -1);
+                updateDots();
+                document.getElementById('errorMessage').style.opacity = "0";
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.pin-dot');
+            dots.forEach((dot, i) => {
+                if (i < currentPin.length) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            });
+        }
+
+        function verifyPin() {
+            if (currentPin === CORRECT_PIN) {
+                // Éxito: Guardar sesión y redirigir
+                localStorage.setItem('admin_access', 'granted');
+                window.location.href = 'admin-panel.html';
             } else {
-                document.getElementById('errorMsg').classList.remove('hidden');
+                // Error: Animación de "shake"
+                const pinDisplay = document.getElementById('pinDisplay');
+                pinDisplay.style.animation = 'none';
+                void pinDisplay.offsetWidth; // Trigger reflow
+                pinDisplay.style.animation = 'shake 0.4s';
+
+                document.getElementById('errorMessage').style.opacity = "1";
+
+                // Limpiar después de un error
+                setTimeout(() => {
+                    currentPin = "";
+                    updateDots();
+                }, 500);
             }
         }
 
-        function logout() {
-            document.getElementById('loginScreen').classList.remove('hidden');
-            document.getElementById('editorScreen').classList.add('hidden');
-            document.getElementById('passwordInput').value = '';
-        }
-
-        async function loadMenu() {
-            const response = await fetch('menu.json');
-            const allItems = await response.json();
-
-            // Separar vinos y comida
-            menuData = {
-                wines: allItems.filter(item => item.id && item.id.startsWith('WINE_')),
-                food: allItems.filter(item => item.id && item.id.startsWith('FOOD_'))
-            };
-
-            renderWines();
-            renderFoods();
-        }
-
-        function renderWines() {
-            const container = document.getElementById('winesList');
-            container.innerHTML = '';
-
-            menuData.wines.forEach((wine, index) => {
-                const div = document.createElement('div');
-                div.className = 'wine-item';
-
-                div.innerHTML = `
-                    <input type="text" value="${wine.name || ''}" onchange="updateWine(${index}, 'name', this.value)" placeholder="Nombre del vino">
-                    <input type="text" value="${wine.category || ''}" onchange="updateWine(${index}, 'category', this.value)" placeholder="Categoría">
-                    <input type="text" value="${wine.do || ''}" onchange="updateWine(${index}, 'do', this.value)" placeholder="D.O.">
-                    <input type="text" value="${wine.profile || ''}" onchange="updateWine(${index}, 'profile', this.value)" placeholder="Perfil">
-                    <textarea onchange="updateWine(${index}, 'review', this.value)" placeholder="Nota de cata">${wine.review || ''}</textarea>
-                    <input type="text" value="${wine.price || ''}" onchange="updateWine(${index}, 'price', this.value)" placeholder="Precio">
-                    <button class="btn-delete" onclick="deleteWine(${index})">Eliminar</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-
-        function renderFoods() {
-            const container = document.getElementById('foodsList');
-            container.innerHTML = '';
-
-            menuData.food.forEach((food, index) => {
-                const pairingTags = food.pairing_tags ? food.pairing_tags.join(', ') : '';
-                const div = document.createElement('div');
-                div.className = 'food-item';
-                div.innerHTML = `
-                    <input type="text" value="${food.name || ''}" onchange="updateFood(${index}, 'name', this.value)" placeholder="Nombre del plato">
-                    <input type="text" value="${food.category || ''}" onchange="updateFood(${index}, 'category', this.value)" placeholder="Categoría">
-                    <input type="text" value="${food.price || ''}" onchange="updateFood(${index}, 'price', this.value)" placeholder="Precio">
-                    <input type="text" value="${pairingTags}" onchange="updateFoodPairing(${index}, this.value)" placeholder="Tags de maridaje (separados por coma)">
-                    <textarea onchange="updateFood(${index}, 'review', this.value)" placeholder="Descripción">${food.review || ''}</textarea>
-                    <button class="btn-delete" onclick="deleteFood(${index})">Eliminar</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function updateWine(index, field, value) {
-            menuData.wines[index][field] = value;
-        }
-
-        function updateFood(index, field, value) {
-            menuData.food[index][field] = value;
-        }
-
-        function updateFoodPairing(index, value) {
-            menuData.food[index].pairing_tags = value.split(',').map(s => s.trim()).filter(s => s);
-        }
-
-        function addWine() {
-            const newWine = {
-                id: `WINE_NEW_${Date.now()}`,
-                name: "Nuevo Vino",
-                category: "VINOS TINTOS",
-                do: "D.O. Rioja",
-                profile: "Elegante y Equilibrado",
-                review: "Descripción del vino",
-                price: "0,00 €"
-            };
-            menuData.wines.push(newWine);
-            renderWines();
-        }
-
-        function addFood() {
-            const newFood = {
-                id: `FOOD_NEW_${Date.now()}`,
-                name: "Nuevo Plato",
-                price: "0,00 €",
-                wine_pairing: []
-            };
-            menuData.food.push(newFood);
-            renderFoods();
-        }
-
-        function deleteWine(index) {
-            if (confirm('¿Eliminar este vino?')) {
-                menuData.wines.splice(index, 1);
-                renderWines();
+        // Estilos de animación extra
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-10px); }
+                40%, 80% { transform: translateX(10px); }
             }
-        }
-
-        function deleteFood(index) {
-            if (confirm('¿Eliminar este maridaje?')) {
-                menuData.food.splice(index, 1);
-                renderFoods();
-            }
-        }
-
-        async function saveMenu() {
-            // Combinar vinos y comida en un solo array como en el formato original
-            const combinedMenu = [...menuData.wines, ...menuData.food];
-
-            console.log('Menú actualizado:', JSON.stringify(combinedMenu, null, 2));
-
-            // Crear un blob y descargarlo
-            const blob = new Blob([JSON.stringify(combinedMenu, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'menu.json';
-            a.click();
-
-            document.getElementById('successMsg').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('successMsg').classList.add('hidden');
-            }, 3000);
-        }
-
-        // Login con Enter
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') login();
-            });
-        });
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 
