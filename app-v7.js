@@ -234,24 +234,25 @@ class SommelierApp {
             }
 
             return `
-                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2.5rem;">
-                    <div class="wine-image-container">
-                        ${isTop ? '<div class="wine-badge">MEJOR VALORADO</div>' : ''}
-                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=400" class="wine-image" alt="${w.name}">
-                    </div>
-                    <div class="wine-info" style="padding: 1.8rem;">
-                        <h4 class="wine-name" style="font-size: 1.7rem; margin-bottom: 0.4rem;">${w.name}</h4>
-                        <p class="wine-meta" style="font-size: 1rem; margin-bottom: 1.2rem;">${w.do}</p>
-                        <p class="wine-price" style="font-size: 1.6rem; color: #1a1a1a;">${w.price}</p>
-                        <div class="ratings-container" style="margin: 1.2rem 0;">${ratingsHtml}</div>
+                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2rem;">
+                    ${isTop ? '<div class="wine-badge" style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">MEJOR VALORADO</div>' : ''}
+                    
+                    <div class="wine-info" style="padding: 2rem;">
+                        <h4 class="wine-name" style="font-size: 1.8rem; margin-bottom: 0.5rem; line-height: 1.2;">${w.name}</h4>
+                        <p class="wine-meta" style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--text-secondary);">${w.do}</p>
+                        
+                        <div class="ratings-container" style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem;">${ratingsHtml}</div>
+                        
+                        <p class="wine-price" style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 1.5rem;">${w.price}</p>
                         
                         <div class="sommelier-review-box" style="margin: 1.5rem 0;">
-                            <p>${w.review}</p>
+                            <p style="margin: 0;">${w.review}</p>
                         </div>
 
                         ${userReviewHtml}
                         
-                        <button class="btn-primary" style="margin-top: 1.5rem;">
+                        <button class="btn-primary" style="margin-top: 2rem; width: 100%;">
+                            <span class="material-symbols-outlined">check_circle</span>
                             Elegir este vino
                         </button>
                     </div>
