@@ -104,26 +104,80 @@ class SommelierApp {
         let profiles = [];
         if (this.state.selection.family === "VINOS TINTOS") {
             profiles = [
-                { label: "Fresco / Ligero", keys: ["rioja", "elegante", "fino", "mencía"], icon: "eco" },
-                { label: "Intenso / Robusto", keys: ["ribera", "toro", "cuerpo", "estructura"], icon: "star" }
+                {
+                    label: "Fresco & Elegante",
+                    keys: ["rioja", "elegante", "fino", "mencía"],
+                    icon: "eco",
+                    desc: "Tintos ligeros con acidez vibrante",
+                    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                },
+                {
+                    label: "Equilibrado",
+                    keys: ["crianza", "reserva", "equilibrado"],
+                    icon: "balance",
+                    desc: "Armonía entre fruta y madera",
+                    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                },
+                {
+                    label: "Potente & Robusto",
+                    keys: ["ribera", "toro", "cuerpo", "estructura"],
+                    icon: "star",
+                    desc: "Gran cuerpo y concentración",
+                    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+                }
             ];
         } else if (this.state.selection.family === "VINOS BLANCOS") {
             profiles = [
-                { label: "Seco / Mineral", keys: ["seco", "mineral", "godello"], icon: "mountain_flag" },
-                { label: "Frutal / Goloso", keys: ["frutal", "albariño", "treixadura"], icon: "Bakery_Dining" }
+                {
+                    label: "Seco & Mineral",
+                    keys: ["seco", "mineral", "godello"],
+                    icon: "water_drop",
+                    desc: "Frescura atlántica y salinidad",
+                    gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+                },
+                {
+                    label: "Aromático",
+                    keys: ["aromático", "floral", "albariño"],
+                    icon: "local_florist",
+                    desc: "Expresión frutal y flores blancas",
+                    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+                },
+                {
+                    label: "Frutal & Goloso",
+                    keys: ["frutal", "albariño", "treixadura"],
+                    icon: "bakery_dining",
+                    desc: "Untuoso con fruta madura",
+                    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
+                }
             ];
         } else {
             profiles = [
-                { label: "Clásico / Brut", keys: ["brut", "reserva"], icon: "auto_awesome" },
-                { label: "Rosé / Moderno", keys: ["rosé", "fresco"], icon: "local_florist" }
+                {
+                    label: "Clásico Brut",
+                    keys: ["brut", "reserva"],
+                    icon: "auto_awesome",
+                    desc: "Elegancia y burbuja fina",
+                    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+                },
+                {
+                    label: "Rosé & Moderno",
+                    keys: ["rosé", "fresco"],
+                    icon: "local_florist",
+                    desc: "Frutas rojas y frescura",
+                    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)"
+                }
             ];
         }
 
-        this.optionsGrid.className = "character-grid slide-up";
+        this.optionsGrid.className = "character-grid-v2 slide-up";
         this.optionsGrid.innerHTML = profiles.map(p => `
-            <button class="character-option" onclick="app.selectProfile('${p.keys.join(',')}')">
-                <span class="material-symbols-outlined">${p.icon}</span>
-                <p class="character-label">${p.label}</p>
+            <button class="character-card" onclick="app.selectProfile('${p.keys.join(',')}')">
+                <div class="character-gradient" style="background: ${p.gradient};"></div>
+                <div class="character-content">
+                    <span class="material-symbols-outlined character-icon">${p.icon}</span>
+                    <h3 class="character-title">${p.label}</h3>
+                    <p class="character-desc">${p.desc}</p>
+                </div>
             </button>
         `).join('');
     }
