@@ -71,20 +71,38 @@ class SommelierApp {
         this.stepTitle.textContent = "¿Qué vamos a descorchar hoy?";
 
         const families = [
-            { label: "Tinto", key: "VINOS TINTOS", icon: "wine_bar" },
-            { label: "Blanco", key: "VINOS BLANCOS", icon: "glass_cup" },
-            { label: "Espumoso", key: "ESPUMOSOS", icon: "liquor" }
+            {
+                label: "Tinto",
+                key: "VINOS TINTOS",
+                icon: "wine_bar",
+                desc: "Cuerpo, estructura y carácter",
+                gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            },
+            {
+                label: "Blanco",
+                key: "VINOS BLANCOS",
+                icon: "glass_cup",
+                desc: "Frescura, mineralidad y elegancia",
+                gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+            },
+            {
+                label: "Espumoso",
+                key: "ESPUMOSOS",
+                icon: "liquor",
+                desc: "Burbujas, celebración y finura",
+                gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+            }
         ];
 
-        this.optionsGrid.className = "options-grid slide-up";
+        this.optionsGrid.className = "character-grid-v2 slide-up";
         this.optionsGrid.innerHTML = families.map(f => `
-            <button class="option-button ${this.state.selection.family === f.key ? 'selected' : ''}" 
-                    onclick="app.selectFamily('${f.key}')">
-                <div class="option-content">
-                    <span class="material-symbols-outlined">${f.icon}</span>
-                    <p class="option-text">${f.label}</p>
+            <button class="character-card" onclick="app.selectFamily('${f.key}')">
+                <div class="character-gradient" style="background: ${f.gradient};"></div>
+                <div class="character-content">
+                    <span class="material-symbols-outlined character-icon">${f.icon}</span>
+                    <h3 class="character-title">${f.label}</h3>
+                    <p class="character-desc">${f.desc}</p>
                 </div>
-                <span class="material-symbols-outlined option-check">check_circle</span>
             </button>
         `).join('');
     }
@@ -193,17 +211,41 @@ class SommelierApp {
         this.updateProgress(2);
 
         const options = [
-            { label: "Selección Diaria (Hasta 30€)", range: [0, 30], icon: "euro_symbol" },
-            { label: "Ocasión Especial (30€ - 70€)", range: [30, 70], icon: "celebration" },
-            { label: "Joyas de la Bodega (+70€)", range: [70, 2000], icon: "diamond" }
+            {
+                label: "Selección Diaria",
+                sublabel: "Hasta 30€",
+                range: [0, 30],
+                icon: "euro_symbol",
+                desc: "Vinos del día a día, excelente relación calidad-precio",
+                gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+            },
+            {
+                label: "Ocasión Especial",
+                sublabel: "30€ - 70€",
+                range: [30, 70],
+                icon: "celebration",
+                desc: "Reservas y crianzas para momentos especiales",
+                gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+            },
+            {
+                label: "Joyas de la Bodega",
+                sublabel: "+70€",
+                range: [70, 2000],
+                icon: "diamond",
+                desc: "Gran Reserva y vinos de autor exclusivos",
+                gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+            }
         ];
 
-        this.optionsGrid.className = "options-grid slide-up";
+        this.optionsGrid.className = "character-grid-v2 slide-up";
         this.optionsGrid.innerHTML = options.map(o => `
-            <button class="option-button" onclick="app.selectOccasion(${o.range[0]}, ${o.range[1]})">
-                <div class="option-content">
-                    <span class="material-symbols-outlined">${o.icon}</span>
-                    <p class="option-text">${o.label}</p>
+            <button class="character-card" onclick="app.selectOccasion(${o.range[0]}, ${o.range[1]})">
+                <div class="character-gradient" style="background: ${o.gradient};"></div>
+                <div class="character-content">
+                    <span class="material-symbols-outlined character-icon">${o.icon}</span>
+                    <h3 class="character-title">${o.label}</h3>
+                    <p class="character-sublabel">${o.sublabel}</p>
+                    <p class="character-desc">${o.desc}</p>
                 </div>
             </button>
         `).join('');

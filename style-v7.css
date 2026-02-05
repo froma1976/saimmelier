@@ -200,6 +200,13 @@ body {
     line-height: 1.2;
 }
 
+.character-sublabel {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 0.25rem 0 0.5rem 0;
+}
+
 .character-desc {
     font-size: 0.95rem;
     color: var(--text-secondary);
