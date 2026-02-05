@@ -399,18 +399,38 @@
 
                 <div class="form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div>
-                        <label class="form-label">Precio</label>
+                        <label class="form-label">Precio Botella / Plato</label>
                         <input type="text" id="edit-price" class="form-input" placeholder="Ej: 18,00 €">
                     </div>
                     <div>
-                        <label class="form-label">Categoría</label>
-                        <select id="edit-category" class="form-select">
-                            <option value="VINOS TINTOS">Vinos Tintos</option>
-                            <option value="VINOS BLANCOS">Vinos Blancos</option>
-                            <option value="ESPUMOSOS">Espumosos</option>
-                            <option value="DE TAPEO">Tapeo</option>
-                        </select>
+                        <label class="form-label">Precio por Copa (Opcional)</label>
+                        <input type="text" id="edit-glass-price" class="form-input" placeholder="Ej: 3,50 €">
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select id="edit-category" class="form-select">
+                        <option value="VINOS TINTOS">Vinos Tintos</option>
+                        <option value="VINOS BLANCOS">Vinos Blancos</option>
+                        <option value="ESPUMOSOS">Espumosos</option>
+                        <option value="DE TAPEO">Tapeo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Foto del Producto</label>
+                    <div style="display:flex; gap:0.5rem;">
+                        <input type="text" id="edit-image" class="form-input" placeholder="nombre-foto.jpg">
+                        <label class="btn-secondary"
+                            style="background:#e5e7eb; border:none; display:flex; align-items:center; padding:0 1rem; cursor:pointer; border-radius:8px;">
+                            <span class="material-symbols-outlined">upload</span>
+                            <input type="file" id="file-upload" accept="image/*" style="display:none;"
+                                onchange="updateImageName()">
+                        </label>
+                    </div>
+                    <p style="font-size:0.75rem; color:#6b7280; margin-top:0.25rem;">*Recuerda subir el archivo JPG a la
+                        carpeta 'fotos' en tu hosting.</p>
                 </div>
 
                 <div class="form-group">
@@ -510,6 +530,9 @@
             const modal = document.getElementById('editorModal');
             const deleteBtn = document.getElementById('btnDelete');
 
+            // Limpiar input file por si acaso
+            document.getElementById('file-upload').value = "";
+
             if (id) {
                 // Editar existente
                 const item = menuData.find(i => i.id === id);
@@ -517,6 +540,8 @@
                 document.getElementById('edit-id').value = item.id;
                 document.getElementById('edit-name').value = item.name;
                 document.getElementById('edit-price').value = item.price;
+                document.getElementById('edit-glass-price').value = item.glass_price || ''; // NUEVO
+                document.getElementById('edit-image').value = item.image || ''; // NUEVO
                 document.getElementById('edit-category').value = item.category.includes('TAPEO') ? 'DE TAPEO' : item.category;
                 document.getElementById('edit-do').value = item.do || '';
                 document.getElementById('edit-desc').value = item.review || item.description || '';
@@ -527,6 +552,8 @@
                 document.getElementById('edit-id').value = "";
                 document.getElementById('edit-name').value = '';
                 document.getElementById('edit-price').value = '';
+                document.getElementById('edit-glass-price').value = ''; // NUEVO
+                document.getElementById('edit-image').value = ''; // NUEVO
                 document.getElementById('edit-category').value = 'VINOS TINTOS'; // Valor por defecto
                 document.getElementById('edit-do').value = '';
                 document.getElementById('edit-desc').value = '';
@@ -541,9 +568,18 @@
             currentEditingId = null;
         }
 
+        function updateImageName() {
+            const fileInput = document.getElementById('file-upload');
+            if (fileInput.files.length > 0) {
+                document.getElementById('edit-image').value = fileInput.files[0].name;
+            }
+        }
+
         function saveItem() {
             const name = document.getElementById('edit-name').value;
             const price = document.getElementById('edit-price').value;
+            const glassPrice = document.getElementById('edit-glass-price').value; // NUEVO
+            const image = document.getElementById('edit-image').value; // NUEVO
             const category = document.getElementById('edit-category').value;
             const origin = document.getElementById('edit-do').value;
             const desc = document.getElementById('edit-desc').value;
@@ -553,30 +589,29 @@
                 return;
             }
 
+            // Datos comunes a actualizar
+            const newData = {
+                name: name,
+                price: price,
+                glass_price: glassPrice, // NUEVO
+                image: image, // NUEVO
+                category: category,
+                do: origin,
+                review: desc,
+                description: desc
+            };
+
             if (currentEditingId) {
                 // Actualizar
                 const index = menuData.findIndex(i => i.id === currentEditingId);
                 if (index !== -1) {
-                    menuData[index] = {
-                        ...menuData[index],
-                        name: name,
-                        price: price,
-                        category: category,
-                        do: origin,
-                        review: desc, // Unificamos en review para vinos
-                        description: desc // Para comida
-                    };
+                    menuData[index] = { ...menuData[index], ...newData };
                 }
             } else {
                 // Crear nuevo
                 const newItem = {
                     id: "ITEM_" + Date.now(),
-                    name: name,
-                    price: price,
-                    category: category,
-                    do: origin,
-                    review: desc,
-                    description: desc
+                    ...newData
                 };
                 menuData.push(newItem);
             }
@@ -604,7 +639,7 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            alert("✅ Archivo descargado. Ahora súbelo a tu hosting para aplicar los cambios.");
+            alert("✅ Archivo descargado. Recuerda subir el menu.json y las FOTOS nuevas a tu hosting.");
         }
     </script>
 </body>

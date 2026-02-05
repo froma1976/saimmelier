@@ -329,9 +329,24 @@ class SommelierApp {
                 `;
             }
 
+            // Imagen del Vino (Si existe, sino usar tarjeta standard)
+            let imageHtml = '';
+            if (w.image) {
+                imageHtml = `<div style="width:100%; height:250px; overflow:hidden; border-radius:12px 12px 0 0;">
+                    <img src="fotos/${w.image}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
+                </div>`;
+            }
+
+            // Precio por copa
+            let glassPriceHtml = '';
+            if (w.glass_price) {
+                glassPriceHtml = `<span style="font-size: 0.9rem; font-weight: 600; background: #f3f4f6; color: #4b5563; padding: 4px 8px; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle;">Copa: ${w.glass_price}</span>`;
+            }
+
             return `
                 <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2rem;">
                     ${isTop ? '<div class="wine-badge" style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">MEJOR VALORADO</div>' : ''}
+                    ${imageHtml}
                     
                     <div class="wine-info" style="padding: 2rem;">
                         <h4 class="wine-name" style="font-size: 1.8rem; margin-bottom: 0.5rem; line-height: 1.2;">${w.name}</h4>
@@ -339,7 +354,10 @@ class SommelierApp {
                         
                         <div class="ratings-container" style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem;">${ratingsHtml}</div>
                         
-                        <p class="wine-price" style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 1.5rem;">${w.price}</p>
+                        <div style="margin-bottom: 1.5rem;">
+                            <span class="wine-price" style="font-size: 2rem; font-weight: 800; color: var(--primary);">${w.price}</span>
+                            ${glassPriceHtml}
+                        </div>
                         
                         <div class="sommelier-review-box" style="margin: 1.5rem 0;">
                             <p style="margin: 0;">${w.review}</p>
@@ -537,15 +555,19 @@ class SommelierApp {
         const foodItems = this.menu.filter(item => item.category && item.category.includes('TAPEO'));
 
         this.optionsGrid.className = "wine-results slide-up";
-        this.optionsGrid.innerHTML = foodItems.map(food => `
+        this.optionsGrid.innerHTML = foodItems.map(food => {
+            let imgHtml = food.image ? `<img src="fotos/${food.image}" style="width:100%; height:180px; object-fit:cover; border-radius:12px 12px 0 0;" onerror="this.style.display='none'">` : '';
+            return `
             <div class="wine-card">
+                ${imgHtml}
                 <div class="wine-info" style="padding: 1.5rem;">
                     <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.5rem;">${food.name}</h4>
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">${food.description || ''}</p>
                     <p class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${food.price}</p>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     showWineMenu() {
@@ -561,17 +583,26 @@ class SommelierApp {
         );
 
         this.optionsGrid.className = "wine-results slide-up";
-        this.optionsGrid.innerHTML = wines.map(wine => `
+        this.optionsGrid.innerHTML = wines.map(wine => {
+            let imgHtml = wine.image ? `<img src="fotos/${wine.image}" style="width:100%; height:200px; object-fit:cover; border-radius:12px 12px 0 0;" onerror="this.style.display='none'">` : '';
+            let glassHtml = wine.glass_price ? `<span style="font-size: 0.85rem; color: #666; margin-left: 0.5rem;"> | Copa: <b>${wine.glass_price}</b></span>` : '';
+
+            return `
             <div class="wine-card">
+                ${imgHtml}
                 <div class="wine-info" style="padding: 1.5rem;">
                     <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; font-size: 0.7rem;">${wine.category}</span>
                     <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.25rem;">${wine.name}</h4>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">${wine.do}</p>
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${wine.review}</p>
-                    <p class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${wine.price}</p>
+                    <div>
+                        <span class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${wine.price}</span>
+                        ${glassHtml}
+                    </div>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     showAdminPanel() {
