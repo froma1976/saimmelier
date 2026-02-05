@@ -1,6 +1,5 @@
 /**
- * SIAmmelier Dobao - Stitch Edition
- * Lógica adaptada al diseño minimalista y moderno de Stitch.
+ * SIAmmelier Dobao - Stitch Edition (v6 - Spanish + Data Integration)
  */
 
 class SommelierApp {
@@ -17,14 +16,13 @@ class SommelierApp {
             }
         };
 
-        // DOM Elements
+        // Elementos del DOM
         this.optionsGrid = document.getElementById('optionsGrid');
         this.headerTitle = document.getElementById('headerTitle');
         this.stepTitle = document.getElementById('stepTitle');
         this.wineResults = document.getElementById('wineResults');
         this.finalDisplay = document.getElementById('finalDisplay');
         this.btnBack = document.getElementById('btnBack');
-        this.btnNext = document.getElementById('btnNext');
         this.currentStepText = document.getElementById('currentStep');
         this.pairingConfirmArea = document.getElementById('pairingConfirmArea');
 
@@ -35,38 +33,17 @@ class SommelierApp {
             summary: document.getElementById('step-summary')
         };
 
-        // Verificación de seguridad
-        if (!this.optionsGrid) console.warn("Falta elemento: optionsGrid");
-        if (!this.headerTitle) console.warn("Falta elemento: headerTitle");
-        if (!this.stepTitle) console.warn("Falta elemento: stepTitle");
-        if (!this.wineResults) console.warn("Falta elemento: wineResults");
-        if (!this.finalDisplay) console.warn("Falta elemento: finalDisplay");
-        if (!this.btnBack) console.warn("Falta elemento: btnBack");
-        if (!this.btnNext) console.warn("Falta elemento: btnNext");
-        if (!this.currentStepText) console.warn("Falta elemento: currentStepText");
-        if (!this.pairingConfirmArea) console.warn("Falta elemento: pairingConfirmArea");
-        if (!this.sections.selection) console.warn("Falta elemento: sections.selection");
-        if (!this.sections.results) console.warn("Falta elemento: sections.results");
-        if (!this.sections.final) console.warn("Falta elemento: sections.final");
-        if (!this.sections.summary) console.warn("Falta elemento: sections.summary");
-
         this.init();
     }
 
     async init() {
         try {
-            console.log("Iniciando Sommelier...");
             const response = await fetch('menu.json');
             if (!response.ok) throw new Error("No se pudo cargar menu.json");
             this.menu = await response.json();
-            console.log("Menú cargado:", this.menu.length, "vinos.");
             this.renderFamilySelection();
         } catch (error) {
             console.error('Error al iniciar:', error);
-            // Fallback si falla la carga
-            if (this.optionsGrid) {
-                this.optionsGrid.innerHTML = '<p style="text-align:center; padding:2rem;">Error al cargar los datos. Por favor, recarga la página.</p>';
-            }
         }
     }
 
@@ -88,17 +65,16 @@ class SommelierApp {
         });
     }
 
-    // --- RENDERERS ---
+    // --- RENDERIZADO DE PASOS ---
 
     renderFamilySelection() {
         this.state.currentStep = 'family';
         this.showSection('selection');
         this.updateProgress(1);
         if (this.btnBack) this.btnBack.style.display = 'none';
-        if (this.btnNext) this.btnNext.style.display = 'none';
 
-        this.headerTitle.textContent = "AI Sommelier Advisor";
-        this.stepTitle.textContent = "What are we pouring today?";
+        this.headerTitle.textContent = "Asesor Sommelier AI";
+        this.stepTitle.textContent = "¿Qué vamos a descorchar hoy?";
 
         const families = [
             { label: "Tinto", key: "VINOS TINTOS", icon: "wine_bar" },
@@ -130,7 +106,7 @@ class SommelierApp {
         this.updateProgress(2);
         if (this.btnBack) this.btnBack.style.display = 'flex';
 
-        this.stepTitle.textContent = "Describe the character";
+        this.stepTitle.textContent = "Describa el carácter";
 
         let profiles = [];
         if (this.state.selection.family === "VINOS TINTOS") {
@@ -172,7 +148,7 @@ class SommelierApp {
         const options = [
             { label: "Selección Diaria (Hasta 30€)", range: [0, 30], icon: "euro_symbol" },
             { label: "Ocasión Especial (30€ - 70€)", range: [30, 70], icon: "celebration" },
-            { label: "Joyas de la Bodega (+70€)", range: [70, 1000], icon: "diamond" }
+            { label: "Joyas de la Bodega (+70€)", range: [70, 2000], icon: "diamond" }
         ];
 
         this.optionsGrid.className = "options-grid slide-up";
@@ -215,7 +191,7 @@ class SommelierApp {
             return scoreB - scoreA;
         });
 
-        this.renderWineResults(filtered.slice(0, 6));
+        this.renderWineResults(filtered.slice(0, 2)); // Solo 2 recomendaciones como pediste
     }
 
     renderWineResults(wines) {
@@ -223,26 +199,32 @@ class SommelierApp {
         if (this.btnBack) this.btnBack.style.display = 'flex';
 
         if (wines.length === 0) {
-            this.wineResults.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-secondary);">No se han encontrado vinos exactos. Intente ampliar el presupuesto.</p>`;
+            this.wineResults.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-secondary);">No se han encontrado vinos que coincidan exactamente. Pruebe a ampliar el presupuesto.</p>`;
             return;
         }
 
-        // Usamos una imagen genérica elegante si no hay fotos específicas
-        const placeholderImg = "https://images.unsplash.com/photo-1510850463344-8b577003923a?auto=format&fit=crop&q=80&w=400";
-
         this.wineResults.innerHTML = wines.map((w, i) => {
             const isTop = (i === 0);
+
+            // Generar HTML de puntuaciones si existen
+            let ratingsHtml = '';
+            if (w.ratings) {
+                if (w.ratings.vivino) ratingsHtml += `<span style="font-size:0.7rem; background:#f0f0f0; padding:2px 6px; border-radius:4px; margin-right:4px;">Vivino: ${w.ratings.vivino}</span>`;
+                if (w.ratings.parker) ratingsHtml += `<span style="font-size:0.7rem; background:#4b0101; color:white; padding:2px 6px; border-radius:4px; margin-right:4px;">Parker: ${w.ratings.parker}</span>`;
+            }
+
             return `
-                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')">
+                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer;">
                     <div class="wine-image-container">
                         ${isTop ? '<div class="wine-badge">AI Pick</div>' : ''}
-                        <img src="${placeholderImg}" class="wine-image" alt="${w.name}">
+                        <img src="https://images.unsplash.com/photo-1510850463344-8b577003923a?auto=format&fit=crop&q=80&w=400" class="wine-image" alt="${w.name}">
                     </div>
                     <div class="wine-info">
                         <h4 class="wine-name">${w.name}</h4>
-                        <p class="wine-meta">${w.do}</p>
+                        <p class="wine-meta">${w.do} ${w.year ? '· ' + w.year : ''}</p>
+                        <div style="margin: 0.5rem 0;">${ratingsHtml}</div>
                         <p class="wine-price">${w.price}</p>
-                        <p class="wine-notes">${w.review.substring(0, 45)}...</p>
+                        <p class="wine-notes" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${w.review}</p>
                     </div>
                 </div>
             `;
@@ -259,11 +241,12 @@ class SommelierApp {
         const wine = this.state.selection.selectedWine;
 
         this.finalDisplay.innerHTML = `
-            <div class="wine-card" style="margin-bottom: 2rem; border-color: var(--primary);">
+            <div class="wine-card" style="margin-bottom: 2rem; border-color: var(--primary); max-width: 100%;">
                 <div class="wine-info">
-                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">Seleccionado</span>
+                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">Vino Seleccionado</span>
                     <h4 class="wine-name" style="font-size: 1.5rem;">${wine.name}</h4>
                     <p class="wine-price">${wine.price}</p>
+                    <p class="wine-notes" style="font-style:italic;">${wine.review}</p>
                 </div>
             </div>
             <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem;">¿Con qué acompañamos?</h3>
@@ -297,7 +280,7 @@ class SommelierApp {
         document.getElementById('summaryDisplay').innerHTML = `
             <div class="action-panel fade-in">
                 <span class="material-symbols-outlined panel-icon" style="font-size: 4rem;">verified_user</span>
-                <h3 class="panel-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Pedido Confirmado</h3>
+                <h3 class="panel-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Confirmado</h3>
                 
                 <div style="text-align: left; background: var(--background-light); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(75,1,1,0.05);">
                     <div style="margin-bottom: 1.5rem;">
@@ -313,7 +296,7 @@ class SommelierApp {
                 </div>
                 
                 <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
-                    Muestre este resumen al sommelier para proceder con la cata guiada.
+                    Muestre este resumen al sommelier para proceder con el servicio.
                 </p>
             </div>
         `;
