@@ -470,14 +470,18 @@
             filtered.forEach(item => {
                 // Determinar badge de color
                 let badgeClass = 'badge-tinto';
-                if (item.category.includes('BLANCO')) badgeClass = 'badge-blanco';
-                if (item.category.includes('ESPUMOSO')) badgeClass = 'badge-espumoso';
-                if (item.category.includes('TAPEO')) badgeClass = 'badge-food';
+                if (item.category && item.category.includes('BLANCO')) badgeClass = 'badge-blanco';
+                if (item.category && item.category.includes('ESPUMOSO')) badgeClass = 'badge-espumoso';
+                if (item.category && item.category.includes('TAPEO')) badgeClass = 'badge-food';
 
                 const card = document.createElement('div');
                 card.className = 'item-card';
+
+                // Usar addEventListener o propiedad directa para evitar problemas de comillas en el HTML
                 card.onclick = (e) => {
-                    if (!e.target.closest('.action-btn')) openEditor(item.id);
+                    // Si el clic viene del botón de acción, no hagas nada (ya tiene su propio handler si existiera)
+                    // En este caso, queremos que TODA la tarjeta abra el editor
+                    openEditor(item.id);
                 };
 
                 card.innerHTML = `
@@ -488,7 +492,9 @@
                         ${item.do || ''} - ${item.review || item.description || ''}
                     </p>
                     <div class="item-actions">
-                        <button class="action-btn" title="Editar"><span class="material-symbols-outlined">edit</span></button>
+                        <button class="action-btn" title="Editar">
+                            <span class="material-symbols-outlined">edit</span>
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
