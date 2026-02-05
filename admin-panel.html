@@ -496,11 +496,16 @@
                 style="color: var(--primary); font-size: 2rem;">settings_applications</span>
             <h1 class="title-admin">Gestor de Bodega</h1>
         </div>
-        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;">
-            <button onclick="downloadJSON()" class="btn-save"
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end; align-items:center;">
+            <div id="syncStatus" style="font-size: 0.75rem; color: #6b7280; margin-right: 0.5rem;"></div>
+            <button onclick="handleSave()" class="btn-save" id="saveBtn"
                 style="background:#059669; display:flex; align-items:center; gap:0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem;">
-                <span class="material-symbols-outlined" style="font-size: 1.1rem;">download</span>
-                Guardar
+                <span class="material-symbols-outlined" style="font-size: 1.1rem;" id="saveIcon">cloud_upload</span>
+                <span id="saveText">Guardar Cambios</span>
+            </button>
+            <button onclick="setupGitHub()" class="btn-cancel" title="Configurar GitHub"
+                style="padding: 0.5rem; display:flex; align-items:center;">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem;">settings_ethernet</span>
             </button>
             <a href="index.html" class="btn-cancel"
                 style="text-decoration:none; display:flex; align-items:center; gap:0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem;">
@@ -907,6 +912,105 @@
             }
         }
 
+        // CONFIGURACIÓN DE GITHUB
+        function setupGitHub() {
+            const token = prompt("Introduce tu GitHub Personal Access Token:", localStorage.getItem('gh_token') || "");
+            const owner = prompt("Usuario de GitHub (ej: froma1976):", localStorage.getItem('gh_owner') || "froma1976");
+            const repo = prompt("Nombre del Repositorio (ej: saimmelier):", localStorage.getItem('gh_repo') || "saimmelier");
+
+            if (token && owner && repo) {
+                localStorage.setItem('gh_token', token);
+                localStorage.setItem('gh_owner', owner);
+                localStorage.setItem('gh_repo', repo);
+                alert("✅ Configuración guardada. Ahora puedes usar el botón de Guardar Cambios.");
+                updateSyncStatus();
+            }
+        }
+
+        function updateSyncStatus() {
+            const hasConfig = localStorage.getItem('gh_token');
+            const status = document.getElementById('syncStatus');
+            status.innerHTML = hasConfig
+                ? '<span style="color:#059669">GitHub Conectado</span>'
+                : '<span style="color:#ef4444">GitHub no configurado</span>';
+        }
+
+        async function handleSave() {
+            const token = localStorage.getItem('gh_token');
+            if (!token) {
+                if (confirm("GitHub no está configurado. ¿Quieres configurarlo ahora para guardar automáticamente? (Si no, se descargará el archivo)")) {
+                    setupGitHub();
+                } else {
+                    downloadJSON();
+                }
+                return;
+            }
+
+            await saveToGitHub();
+        }
+
+        async function saveToGitHub() {
+            const saveBtn = document.getElementById('saveBtn');
+            const saveText = document.getElementById('saveText');
+            const saveIcon = document.getElementById('saveIcon');
+            const token = localStorage.getItem('gh_token');
+            const owner = localStorage.getItem('gh_owner');
+            const repo = localStorage.getItem('gh_repo');
+            const path = 'menu.json';
+
+            try {
+                // Bloquear botón
+                saveBtn.disabled = true;
+                saveBtn.style.opacity = '0.7';
+                saveText.innerText = "Guardando...";
+                saveIcon.innerText = "sync";
+                saveIcon.style.animation = "spin 1s linear infinite";
+
+                const content = JSON.stringify(menuData, null, 4);
+
+                // 1. Obtener el SHA actual del archivo (necesario para actualizar)
+                const getFileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (!getFileRes.ok) throw new Error("No se pudo conectar con GitHub. Verifica el token y repositorio.");
+                const fileData = await getFileRes.json();
+                const sha = fileData.sha;
+
+                // 2. Subir nueva versión
+                const updateRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: `Admin: Actualización de menú desde el panel (${new Date().toLocaleString()})`,
+                        content: btoa(unescape(encodeURIComponent(content))), // Base64 encoding
+                        sha: sha
+                    })
+                });
+
+                if (updateRes.ok) {
+                    alert("✅ ¡Menú guardado y sincronizado con el bar con éxito!");
+                } else {
+                    const err = await updateRes.json();
+                    throw new Error(err.message || "Error al subir a GitHub");
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("❌ Error: " + error.message + "\n\nSe procederá a la descarga manual de respaldo.");
+                downloadJSON();
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.style.opacity = '1';
+                saveText.innerText = "Guardar Cambios";
+                saveIcon.innerText = "cloud_upload";
+                saveIcon.style.animation = "none";
+            }
+        }
+
         function downloadJSON() {
             const dataStr = JSON.stringify(menuData, null, 4);
             const blob = new Blob([dataStr], { type: "application/json" });
@@ -918,8 +1022,18 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            alert("✅ Archivo descargado. Recuerda subir el menu.json y las FOTOS nuevas a tu hosting.");
+            alert("✅ Archivo descargado localmente como respaldo.");
         }
+
+        // Estilo para la animación de carga
+        const style = document.createElement('style');
+        style.innerText = `
+            @keyframes spin { 100% { transform: rotate(360deg); } }
+        `;
+        document.head.appendChild(style);
+
+        // Inicializar estado de sincronización
+        updateSyncStatus();
     </script>
 </body>
 
