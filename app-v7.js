@@ -1,5 +1,5 @@
 /**
- * SIAmmelier Dobao - Stitch Edition (v6 - Spanish + Data Integration)
+ * SIAmmelier Dobao - Stitch Edition (v7 - Full Data Integration)
  */
 
 class SommelierApp {
@@ -32,12 +32,11 @@ class SommelierApp {
             final: document.getElementById('step-final'),
             summary: document.getElementById('step-summary')
         };
-
-        this.init();
     }
 
     async init() {
         try {
+            console.log("Cargando datos de menu.json...");
             const response = await fetch('menu.json');
             if (!response.ok) throw new Error("No se pudo cargar menu.json");
             this.menu = await response.json();
@@ -46,8 +45,6 @@ class SommelierApp {
             console.error('Error al iniciar:', error);
         }
     }
-
-    // --- Navegación ---
 
     showSection(key) {
         Object.values(this.sections).forEach(s => {
@@ -65,14 +62,11 @@ class SommelierApp {
         });
     }
 
-    // --- RENDERIZADO DE PASOS ---
-
     renderFamilySelection() {
         this.state.currentStep = 'family';
         this.showSection('selection');
         this.updateProgress(1);
         if (this.btnBack) this.btnBack.style.display = 'none';
-
         this.headerTitle.textContent = "Asesor Sommelier AI";
         this.stepTitle.textContent = "¿Qué vamos a descorchar hoy?";
 
@@ -105,19 +99,18 @@ class SommelierApp {
         this.showSection('selection');
         this.updateProgress(2);
         if (this.btnBack) this.btnBack.style.display = 'flex';
-
         this.stepTitle.textContent = "Describa el carácter";
 
         let profiles = [];
         if (this.state.selection.family === "VINOS TINTOS") {
             profiles = [
-                { label: "Fresco / Ligero", keys: ["rioja", "elegante", "fino"], icon: "eco" },
+                { label: "Fresco / Ligero", keys: ["rioja", "elegante", "fino", "mencía"], icon: "eco" },
                 { label: "Intenso / Robusto", keys: ["ribera", "toro", "cuerpo", "estructura"], icon: "star" }
             ];
         } else if (this.state.selection.family === "VINOS BLANCOS") {
             profiles = [
-                { label: "Seco / Mineral", keys: ["seco", "mineral"], icon: "mountain_flag" },
-                { label: "Frutal / Goloso", keys: ["frutal", "albariño", "godello"], icon: "Bakery_Dining" }
+                { label: "Seco / Mineral", keys: ["seco", "mineral", "godello"], icon: "mountain_flag" },
+                { label: "Frutal / Goloso", keys: ["frutal", "albariño", "treixadura"], icon: "Bakery_Dining" }
             ];
         } else {
             profiles = [
@@ -174,24 +167,33 @@ class SommelierApp {
 
         // Filtro por precio
         filtered = filtered.filter(w => {
-            const price = parseFloat(w.price.replace('€', '').trim().replace(',', '.'));
-            return price >= occasion[0] && price <= occasion[1];
+            const priceNum = parseFloat(w.price.replace('€', '').trim().replace(',', '.'));
+            return priceNum >= occasion[0] && priceNum <= occasion[1];
         });
 
-        // Ranking por afinidad
+        // Ranking por afinidad + Puntuaciones
         filtered.sort((a, b) => {
             let scoreA = profileKeys.reduce((acc, k) => {
-                const searchStr = (a.name + " " + a.review + " " + a.do).toLowerCase();
-                return acc + (searchStr.includes(k.toLowerCase()) ? 1 : 0);
+                const searchStr = (a.name + " " + a.review + " " + (a.do || "")).toLowerCase();
+                return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
             }, 0);
             let scoreB = profileKeys.reduce((acc, k) => {
-                const searchStr = (b.name + " " + b.review + " " + b.do).toLowerCase();
-                return acc + (searchStr.includes(k.toLowerCase()) ? 1 : 0);
+                const searchStr = (b.name + " " + b.review + " " + (b.do || "")).toLowerCase();
+                return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
             }, 0);
+
+            // Favoritos con puntuaciones críticas
+            if (a.ratings) scoreA += 5;
+            if (b.ratings) scoreB += 5;
+
+            // Vivino / Parker boost
+            if (a.ratings?.vivino >= 4.0) scoreA += 3;
+            if (b.ratings?.vivino >= 4.0) scoreB += 3;
+
             return scoreB - scoreA;
         });
 
-        this.renderWineResults(filtered.slice(0, 2)); // Solo 2 recomendaciones como pediste
+        this.renderWineResults(filtered.slice(0, 2));
     }
 
     renderWineResults(wines) {
@@ -206,25 +208,45 @@ class SommelierApp {
         this.wineResults.innerHTML = wines.map((w, i) => {
             const isTop = (i === 0);
 
-            // Generar HTML de puntuaciones si existen
+            // Recopilar Puntuaciones
             let ratingsHtml = '';
             if (w.ratings) {
-                if (w.ratings.vivino) ratingsHtml += `<span style="font-size:0.7rem; background:#f0f0f0; padding:2px 6px; border-radius:4px; margin-right:4px;">Vivino: ${w.ratings.vivino}</span>`;
-                if (w.ratings.parker) ratingsHtml += `<span style="font-size:0.7rem; background:#4b0101; color:white; padding:2px 6px; border-radius:4px; margin-right:4px;">Parker: ${w.ratings.parker}</span>`;
+                const r = w.ratings;
+                if (r.vivino) ratingsHtml += `<span class="badge-rating" style="background:#f0e9e9; color:#4b0101;">Vivino ${r.vivino}★</span> `;
+                if (r.parker) ratingsHtml += `<span class="badge-rating" style="background:#4b0101; color:white;">Parker ${r.parker}</span> `;
+                if (r.penin) ratingsHtml += `<span class="badge-rating" style="background:#000; color:gold;">Peñín ${r.penin}</span> `;
+                if (r.spectator) ratingsHtml += `<span class="badge-rating" style="background:#8b0000; color:white;">WS ${r.spectator}</span> `;
+                if (r.suckling) ratingsHtml += `<span class="badge-rating" style="background:#333; color:white;">JS ${r.suckling}</span> `;
+            }
+
+            // Recopilar una Reseña de Usuario si existe
+            let userReviewHtml = '';
+            if (w.user_reviews && w.user_reviews.length > 0) {
+                const rev = w.user_reviews[0];
+                userReviewHtml = `
+                    <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed rgba(0,0,0,0.1); font-size: 0.8rem; color: var(--text-secondary);">
+                        <p style="font-weight: 600; font-size: 0.7rem; text-transform:uppercase; margin-bottom: 0.2rem;">Reseña de Cliente (${rev.author})</p>
+                        <p style="font-style: italic;">"${rev.text.substring(0, 90)}..."</p>
+                    </div>
+                `;
             }
 
             return `
-                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer;">
+                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 1.5rem;">
                     <div class="wine-image-container">
                         ${isTop ? '<div class="wine-badge">AI Pick</div>' : ''}
-                        <img src="https://images.unsplash.com/photo-1510850463344-8b577003923a?auto=format&fit=crop&q=80&w=400" class="wine-image" alt="${w.name}">
+                        <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&q=80&w=400" class="wine-image" alt="${w.name}">
                     </div>
                     <div class="wine-info">
-                        <h4 class="wine-name">${w.name}</h4>
+                        <h4 class="wine-name" style="font-size: 1.2rem; margin-bottom: 0.25rem;">${w.name}</h4>
                         <p class="wine-meta">${w.do} ${w.year ? '· ' + w.year : ''}</p>
-                        <div style="margin: 0.5rem 0;">${ratingsHtml}</div>
-                        <p class="wine-price">${w.price}</p>
-                        <p class="wine-notes" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${w.review}</p>
+                        <div class="ratings-container" style="margin: 0.75rem 0; display:flex; flex-wrap:wrap; gap:4px;">${ratingsHtml}</div>
+                        <p class="wine-price" style="font-size: 1.1rem; color: var(--primary); font-weight: 700;">${w.price}</p>
+                        <p class="wine-notes" style="font-size: 0.85rem; margin-top: 0.5rem; color: var(--text-primary);">${w.review}</p>
+                        ${userReviewHtml}
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Seleccionar este vino</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -243,15 +265,14 @@ class SommelierApp {
         this.finalDisplay.innerHTML = `
             <div class="wine-card" style="margin-bottom: 2rem; border-color: var(--primary); max-width: 100%;">
                 <div class="wine-info">
-                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">Vino Seleccionado</span>
-                    <h4 class="wine-name" style="font-size: 1.5rem;">${wine.name}</h4>
+                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">Su Elección</span>
+                    <h4 class="wine-name" style="font-size: 1.4rem;">${wine.name}</h4>
                     <p class="wine-price">${wine.price}</p>
-                    <p class="wine-notes" style="font-style:italic;">${wine.review}</p>
                 </div>
             </div>
-            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem;">¿Con qué acompañamos?</h3>
+            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem;">¿Con qué maridamos?</h3>
             <div class="options-grid">
-                ${wine.pairing_suggestions.map(f => `
+                ${(wine.pairing_suggestions || [{ name: "Sugerencia del Chef" }]).map(f => `
                     <button class="option-button" onclick="app.selectFood('${f.name}')">
                         <div class="option-content">
                             <span class="material-symbols-outlined">restaurant</span>
@@ -275,12 +296,12 @@ class SommelierApp {
     finalize() {
         const { selectedWine, selectedFood } = this.state.selection;
         this.showSection('summary');
-        this.headerTitle.textContent = "Resumen de Selección";
+        this.headerTitle.textContent = "Resumen del Sommelier";
 
         document.getElementById('summaryDisplay').innerHTML = `
             <div class="action-panel fade-in">
-                <span class="material-symbols-outlined panel-icon" style="font-size: 4rem;">verified_user</span>
-                <h3 class="panel-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Confirmado</h3>
+                <span class="material-symbols-outlined panel-icon" style="font-size: 4rem;">task_alt</span>
+                <h3 class="panel-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Cata Confirmada</h3>
                 
                 <div style="text-align: left; background: var(--background-light); padding: 1.5rem; border-radius: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(75,1,1,0.05);">
                     <div style="margin-bottom: 1.5rem;">
@@ -296,7 +317,7 @@ class SommelierApp {
                 </div>
                 
                 <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
-                    Muestre este resumen al sommelier para proceder con el servicio.
+                    SIAmmelier Dobao ha procesado su selección. Disfrute de la experiencia.
                 </p>
             </div>
         `;
@@ -316,7 +337,23 @@ class SommelierApp {
     }
 }
 
-// Inicializar cuando el DOM esté listo
+// Estilo extra para los badges de puntuación
+const styleRatings = document.createElement('style');
+styleRatings.textContent = `
+    .badge-rating {
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+    }
+`;
+document.head.appendChild(styleRatings);
+
+// Inicializar
 window.addEventListener('DOMContentLoaded', () => {
     window.app = new SommelierApp();
+    window.app.init();
 });
