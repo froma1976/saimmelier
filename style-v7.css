@@ -1,9 +1,9 @@
-/* SISTEMA DE DISEÑO STITCH V7 - NITIDEZ TOTAL */
+/* SISTEMA DE DISEÑO STITCH V7.2 - FIX TOTAL */
 
 :root {
     --primary: #4b0101;
     --primary-light: #fdf8f8;
-    --secondary: #8b0000;
+    --secondary: #8b1a1a;
     --background: #f8f5f5;
     --background-light: #ffffff;
     --text-primary: #1a1a1a;
@@ -17,6 +17,10 @@
     --shadow-md: 0 8px 24px rgba(75, 1, 1, 0.08);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--background);
@@ -24,203 +28,241 @@ body {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
 }
 
-.serif-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-}
-
+/* Contenedor Principal Estilo Móvil */
 .app-container {
-    max-width: 500px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 480px;
     background: var(--background-light);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-bottom: 100px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+    padding-bottom: 90px;
+    /* Espacio para la tab bar */
 }
 
 /* Header */
 .app-header {
     background: var(--background-light);
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 1.25rem;
+    text-align: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 #headerTitle {
     font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* Pasos y Títulos */
+.step-container {
+    padding: 1.5rem;
+}
+
+.progress-text {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.step-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+/* Opciones de Selección (Botones Pill) */
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.option-button {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    text-align: left;
+}
+
+.option-button:active {
+    transform: scale(0.97);
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.option-content .material-symbols-outlined {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.option-text {
+    font-weight: 600;
+    font-size: 1rem;
     margin: 0;
 }
 
-/* Resultados de Vinos - Estilo Profesional 1 Columna */
+.option-check {
+    color: var(--primary);
+    opacity: 0.2;
+}
+
+/* Botón Principal */
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 1.1rem;
+    border-radius: 100px;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* --- TAB BAR ESTILO iOS (LO QUE ESTABA MAL) --- */
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 0.75rem 1rem 1.5rem;
+    /* Padding inferior para el home indicator de iOS */
+    z-index: 1000;
+}
+
+.tab-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    flex: 1;
+}
+
+.tab-item .material-symbols-outlined {
+    font-size: 1.5rem;
+}
+
+.tab-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+/* Botón Central */
+.tab-item-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -30px;
+    /* Estilo flotante */
+}
+
+.tab-center-button {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(75, 1, 1, 0.3);
+    border: 4px solid white;
+}
+
+.tab-center-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 4px;
+}
+
+/* RESULTADOS (1 Columna Nítida) */
 .wine-results {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 1.5rem;
+    gap: 1.5rem;
 }
 
 .wine-card {
     background: white;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(75, 1, 1, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.2s ease;
+    box-shadow: var(--shadow-sm);
 }
 
 .wine-image-container {
-    width: 100%;
-    height: 220px;
+    height: 180px;
     background: #fdfaf9;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
-}
-
-.wine-image {
-    height: 90%;
-    object-fit: contain;
-}
-
-.wine-badge {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: var(--primary);
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
 }
 
 .wine-info {
     padding: 1.5rem;
 }
 
-.wine-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--primary);
-    margin: 0 0 0.5rem 0;
-    line-height: 1.2;
-}
-
-.wine-meta {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    font-weight: 500;
-}
-
-.wine-price {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-/* Badge ratings */
-.ratings-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 1rem 0;
-}
-
-.badge-rating {
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.35rem 0.75rem;
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* La Reseña del Sommelier - Nitidez total */
 .sommelier-review-box {
     background: var(--primary-light);
-    padding: 1.25rem;
-    border-radius: var(--radius-md);
     border-left: 4px solid var(--primary);
+    padding: 1rem;
+    border-radius: 0 12px 12px 0;
     margin: 1rem 0;
-}
-
-.sommelier-review-box p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-primary);
+    font-size: 0.9rem;
     font-style: italic;
-}
-
-/* Botones estilo Stitch */
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    width: 100%;
-    padding: 1.25rem;
-    border: none;
-    border-radius: var(--radius-xl);
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    cursor: pointer;
-    margin-top: 1rem;
-}
-
-/* Opciones de Selección */
-.options-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
-}
-
-.option-button {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.2s ease;
-}
-
-.option-button:active {
-    background: var(--primary-light);
-    border-color: var(--primary);
-    transform: scale(0.98);
-}
-
-.progress-text {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
+    line-height: 1.5;
 }
 
 .hidden {
