@@ -270,21 +270,60 @@ class SommelierApp {
         this.showSection('final');
         const wine = this.state.selection.selectedWine;
 
+        // Buscar platos que mariden con este vino
+        let foodSuggestions = [];
+
+        // Obtener tags de maridaje del vino
+        const pairingTags = wine.pairing_tags || wine.vivino_food || [];
+
+        if (pairingTags.length > 0) {
+            // Filtrar platos de comida del menú que tengan tags coincidentes
+            const foodItems = this.menu.filter(item => item.category && item.category.includes('TAPEO'));
+
+            foodSuggestions = foodItems.filter(food => {
+                if (!food.pairing_tags) return false;
+                // Verificar si hay algún tag en común
+                return food.pairing_tags.some(tag =>
+                    pairingTags.some(wineTag =>
+                        wineTag.toLowerCase().includes(tag.toLowerCase()) ||
+                        tag.toLowerCase().includes(wineTag.toLowerCase())
+                    )
+                );
+            }).slice(0, 4); // Máximo 4 sugerencias
+        }
+
+        // Si no hay coincidencias, ofrecer platos populares
+        if (foodSuggestions.length === 0) {
+            const popularDishes = [
+                'FOOD_005', // Jamón ibérico
+                'FOOD_003', // Tabla de Quesos
+                'FOOD_001', // Tabla Mixta pueblo
+                'FOOD_011'  // Ración de Croquetas
+            ];
+            foodSuggestions = popularDishes
+                .map(id => this.menu.find(item => item.id === id))
+                .filter(item => item);
+        }
+
         this.finalDisplay.innerHTML = `
             <div class="wine-card" style="margin-bottom: 2rem; border-color: var(--primary); max-width: 100%;">
-                <div class="wine-info">
+                <div class="wine-info" style="padding: 1.5rem;">
                     <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">Su Elección</span>
                     <h4 class="wine-name" style="font-size: 1.4rem;">${wine.name}</h4>
                     <p class="wine-price">${wine.price}</p>
                 </div>
             </div>
             <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem;">¿Con qué maridamos?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; padding: 0 1rem;">Recomendación del Chef</p>
             <div class="options-grid">
-                ${(wine.pairing_suggestions || [{ name: "Sugerencia del Chef" }]).map(f => `
-                    <button class="option-button" onclick="app.selectFood('${f.name}')">
+                ${foodSuggestions.map(food => `
+                    <button class="option-button" onclick="app.selectFood('${food.name}')" style="text-align: left;">
                         <div class="option-content">
                             <span class="material-symbols-outlined">restaurant</span>
-                            <p class="option-text">${f.name}</p>
+                            <div>
+                                <p class="option-text" style="margin: 0; font-weight: 600;">${food.name}</p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.25rem 0 0 0;">${food.price}</p>
+                            </div>
                         </div>
                     </button>
                 `).join('')}
