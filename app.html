@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAmmelier Dobao - La Carta Privada</title>
+    <title>SIAmmelier Dobao - AI Sommelier Advisor</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Playfair+Display:wght@700;900&family=Raleway:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
         rel="stylesheet">
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -22,71 +22,133 @@
     <div class="app-container">
         <!-- Header -->
         <header class="app-header">
-            <h1>SIAmmelier Dobao</h1>
-            <p>Excelencia en Sommellerie desde 2026</p>
+            <button class="back-button" id="btnBack" style="display:none;" onclick="app.goBack()">
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </button>
+            <h1 id="headerTitle">AI Sommelier Advisor</h1>
         </header>
 
-        <!-- Main Dynamic Content -->
+        <!-- Main Content -->
         <main id="mainContent">
-            <!-- Navigation Back Button -->
-            <button class="btn-back" id="btnBack" style="display:none;" onclick="app.goBack()">⇠ Volver</button>
 
-            <!-- Step: Selection Cards -->
+            <!-- Step 1: Family Selection -->
             <div id="step-selection" class="step-container">
-                <h2 class="step-title" id="stepTitle">Selección de Vino</h2>
-                <p class="step-subtitle" id="stepSubtitle">Elija el carácter de su experiencia</p>
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-dots">
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot"></div>
+                    </div>
+                    <p class="progress-text">Step <span id="currentStep">1</span> of 2</p>
+                </div>
 
-                <div class="options-grid" id="optionsGrid">
-                    <!-- Dynamic visual options will appear here -->
+                <!-- Selection Area -->
+                <div class="selection-area">
+                    <h3 class="step-title" id="stepTitle">What are we pouring today?</h3>
+
+                    <div class="options-grid" id="optionsGrid">
+                        <!-- Dynamic options will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div style="padding: 0 1rem; margin-top: 2rem;">
+                    <button class="btn-primary" id="btnNext" onclick="app.handleNextStep()" style="display:none;">
+                        <span>Next Step</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Results Step -->
+            <!-- Step 2: Wine Results -->
             <div id="step-results" class="step-container hidden">
-                <h2 class="step-title">La Selección de la Bodega</h2>
-                <p class="step-subtitle">Nuestras mejores recomendaciones de terruños</p>
+                <div class="progress-indicator">
+                    <div class="progress-dots">
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot active"></div>
+                    </div>
+                    <p class="progress-text">AI Recommendations</p>
+                </div>
+
+                <h3 class="step-title">La Selección de la Bodega</h3>
+                <p class="step-subtitle">Nuestras mejores recomendaciones basadas en tus preferencias</p>
 
                 <div class="wine-results" id="wineResults">
-                    <!-- Dynamic wine cards -->
+                    <!-- Wine cards will be inserted here -->
                 </div>
             </div>
 
-            <!-- Final Step: Pairing Choice & Confirmation -->
+            <!-- Step 3: Pairing Selection -->
             <div id="step-final" class="step-container hidden">
-                <h2 class="step-title">La Armonía Gastronómica</h2>
+                <h3 class="step-title">La Armonía Gastronómica</h3>
                 <p class="step-subtitle">Seleccione el maridaje ideal para su elección</p>
 
-                <div id="finalDisplay">
-                    <!-- Selected wine + Pairing options -->
+                <div id="finalDisplay" style="padding: 0 1.5rem;">
+                    <!-- Selected wine + pairing options will be inserted here -->
                 </div>
 
-                <div id="pairingConfirmArea" class="hidden" style="width:100%; text-align:center;">
-                    <button class="btn-formal" onclick="app.finalize()">Confirmar Selección Final</button>
+                <!-- Action Panel -->
+                <div class="action-panel" id="pairingConfirmArea" style="display:none;">
+                    <span class="material-symbols-outlined panel-icon">restaurant</span>
+                    <p class="panel-title">Chef's Pairing Insight</p>
+                    <p class="panel-description">Esta selección ha sido diseñada para balancear los taninos con perfiles
+                        umami sabrosos.</p>
+                    <button class="btn-primary" onclick="app.finalize()">
+                        <span>Confirmar Selección Final</span>
+                    </button>
                 </div>
 
-                <button class="btn-back" onclick="app.restart()" style="display:block; margin: 2rem auto;">Nueva
-                    Experiencia</button>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-secondary" onclick="app.restart()">Nueva Experiencia</button>
+                </div>
             </div>
 
-            <!-- Summary Step -->
+            <!-- Step 4: Summary -->
             <div id="step-summary" class="step-container hidden">
-                <div id="summaryDisplay" style="width: 100%;">
+                <div id="summaryDisplay" style="width: 100%; padding: 1.5rem;">
                     <!-- Order summary will appear here -->
                 </div>
-                <button class="btn-formal" onclick="app.restart()" style="margin-top: 3rem;">Realizar Nuevo
-                    Pedido</button>
+                <button class="btn-primary" onclick="app.restart()" style="margin: 2rem 1.5rem;">
+                    <span>Realizar Nuevo Pedido</span>
+                </button>
             </div>
+
         </main>
 
+        <!-- Tab Bar Navigation -->
+        <nav class="tab-bar">
+            <div class="tab-bar-content">
+                <button class="tab-item">
+                    <span class="material-symbols-outlined">home</span>
+                    <span class="tab-label">Home</span>
+                </button>
+                <button class="tab-item">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <span class="tab-label">Cellar</span>
+                </button>
+                <div class="tab-item-center">
+                    <div class="tab-center-button">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                    </div>
+                    <span class="tab-center-label">Sommelier AI</span>
+                </div>
+                <button class="tab-item">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span class="tab-label">Favoritos</span>
+                </button>
+                <button class="tab-item">
+                    <span class="material-symbols-outlined">shopping_basket</span>
+                    <span class="tab-label">Carrito</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Footer -->
         <footer
-            style="margin-top: 5rem; text-align: center; color: var(--gold-dim); font-size: 0.8rem; letter-spacing: 2px;">
+            style="margin-top: auto; text-align: center; color: rgba(75, 1, 1, 0.4); font-size: 0.75rem; padding: 1rem; letter-spacing: 0.05em;">
             SIAmmelier Dobao Private Selection
         </footer>
     </div>
-
-    <!-- Admin Invisible Trigger -->
-    <div onclick="app.handleAdminClick()"
-        style="position:fixed; bottom:0; left:0; width:50px; height:50px; cursor:default;"></div>
 
     <script src="app.js"></script>
 </body>
