@@ -107,21 +107,77 @@
         /* Layout Principal con Sidebar */
         .admin-main-container {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 320px;
             gap: 2rem;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 1.5rem 2rem 4rem;
         }
 
+        /* Responsive Móvil */
         @media (max-width: 1024px) {
             .admin-main-container {
                 grid-template-columns: 1fr;
+                padding: 1rem;
             }
 
             .admin-sidebar {
-                order: -1;
-                /* Sidebar arriba en móvil */
+                display: none;
+                /* Escondido por defecto en móvil */
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 85%;
+                max-width: 320px;
+                z-index: 1000;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0;
+            }
+
+            .admin-sidebar.mobile-open {
+                display: block;
+                animation: slideIn 0.3s ease-out;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                backdrop-filter: blur(2px);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+                /* Una columna en móviles pequeños */
+            }
+
+            .title-admin {
+                font-size: 1.1rem;
+            }
+
+            #mobileFilterBtn,
+            #closeFiltersBtn {
+                display: flex !important;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
             }
         }
 
@@ -134,7 +190,7 @@
             position: sticky;
             top: 2rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .filter-section {
@@ -452,17 +508,26 @@
         </div>
     </nav>
 
+    <!-- Overlay para móvil -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleFilters()"></div>
+
     <!-- Contenedor Principal -->
     <main class="admin-main-container">
 
         <!-- Contenido Izquierdo: Buscador y Grid -->
         <section>
-            <div class="toolbar" style="padding: 1.5rem 0; max-width: 100%;">
+            <div class="toolbar"
+                style="padding: 0 0 1.5rem 0; max-width: 100%; display:flex; gap:0.75rem; align-items:center;">
                 <div class="search-box">
                     <span class="material-symbols-outlined" style="color:#9ca3af;">search</span>
-                    <input type="text" id="searchInput" class="search-input"
-                        placeholder="Buscar por nombre o precio...">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar vino o plato...">
                 </div>
+                <!-- Botón Filtrar Móvil -->
+                <button onclick="toggleFilters()" class="btn-cancel"
+                    style="display:none; align-items:center; gap:0.5rem; white-space:nowrap;" id="mobileFilterBtn">
+                    <span class="material-symbols-outlined">filter_list</span>
+                    Filtrar
+                </button>
             </div>
 
             <div id="itemsGrid" class="items-grid">
@@ -471,7 +536,14 @@
         </section>
 
         <!-- Barra Lateral Derecha: Filtros Avanzados -->
-        <aside class="admin-sidebar">
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin:0; font-size:1.1rem; color:var(--primary);">Opciones de Filtro</h2>
+                <button onclick="toggleFilters()" class="btn-cancel" style="display:none; padding:5px; border:none;"
+                    id="closeFiltersBtn">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
             <div class="filter-section">
                 <h3 class="filter-section-title">
                     <span class="material-symbols-outlined" style="font-size:1.2rem;">category</span>
@@ -604,6 +676,13 @@
     <script>
         let menuData = [];
         let currentEditingId = null;
+
+        function toggleFilters() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
 
         // Validar acceso
         if (localStorage.getItem('admin_access') !== 'granted') {
