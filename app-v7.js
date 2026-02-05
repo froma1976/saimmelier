@@ -171,7 +171,7 @@ class SommelierApp {
             return priceNum >= occasion[0] && priceNum <= occasion[1];
         });
 
-        // Ranking por afinidad + Puntuaciones
+        // Ranking por afinidad + Prioridad de Datos (Ratings y Reviews)
         filtered.sort((a, b) => {
             let scoreA = profileKeys.reduce((acc, k) => {
                 const searchStr = (a.name + " " + a.review + " " + (a.do || "")).toLowerCase();
@@ -182,13 +182,11 @@ class SommelierApp {
                 return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
             }, 0);
 
-            // Favoritos con puntuaciones críticas
-            if (a.ratings) scoreA += 5;
-            if (b.ratings) scoreB += 5;
-
-            // Vivino / Parker boost
-            if (a.ratings?.vivino >= 4.0) scoreA += 3;
-            if (b.ratings?.vivino >= 4.0) scoreB += 3;
+            // BOOST CRÍTICO: Si tiene ratings o si tiene reviews de usuarios, subirlo al top
+            if (a.ratings) scoreA += 10;
+            if (b.ratings) scoreB += 10;
+            if (a.user_reviews && a.user_reviews.length > 0) scoreA += 10;
+            if (b.user_reviews && b.user_reviews.length > 0) scoreB += 10;
 
             return scoreB - scoreA;
         });
@@ -208,7 +206,7 @@ class SommelierApp {
         this.wineResults.innerHTML = wines.map((w, i) => {
             const isTop = (i === 0);
 
-            // Recopilar Puntuaciones (Con Fallback si no hay)
+            // Recopilar Puntuaciones
             let ratingsHtml = '';
             if (w.ratings) {
                 const r = w.ratings;
@@ -216,55 +214,44 @@ class SommelierApp {
                 if (r.parker) ratingsHtml += `<span class="badge-rating" style="background:#4b0101; color:white;">Parker ${r.parker}</span> `;
                 if (r.penin) ratingsHtml += `<span class="badge-rating" style="background:#000; color:gold;">Peñín ${r.penin}</span> `;
                 if (r.spectator) ratingsHtml += `<span class="badge-rating" style="background:#8b0000; color:white;">WS ${r.spectator}</span> `;
-                if (r.suckling) ratingsHtml += `<span class="badge-rating" style="background:#333; color:white;">JS ${r.suckling}</span> `;
             } else {
-                // Si no hay ratings en el JSON para este vino específico
-                ratingsHtml = `<span class="badge-rating" style="background:#f8f5f5; color:var(--text-muted); border:1px solid rgba(0,0,0,0.05);">Vino de Autor</span>`;
+                ratingsHtml = `<span class="badge-rating" style="background:rgba(0,0,0,0.03); color:var(--text-muted);">Selección de Autor</span>`;
             }
 
-            // Recopilar una Reseña de Usuario si existe
+            // Recopilar una Reseña de Usuario con diseño de burbuja
             let userReviewHtml = '';
             if (w.user_reviews && w.user_reviews.length > 0) {
                 const rev = w.user_reviews[0];
                 userReviewHtml = `
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(0,0,0,0.1);">
-                        <p style="font-weight: 700; font-size: 0.75rem; color: var(--text-muted); text-transform:uppercase; margin-bottom: 0.5rem; display:flex; align-items:center; gap:5px;">
-                            <span class="material-symbols-outlined" style="font-size:1rem;">verified_user</span> Opinión del Cliente
+                    <div style="margin-top: 1.5rem; background: #fafafa; padding: 1.25rem; border-radius: 1.5rem; position: relative; border: 1px solid #eee;">
+                        <p style="font-weight: 800; font-size: 0.7rem; color: #aaa; text-transform:uppercase; letter-spacing:0.1em; margin-bottom: 0.5rem; display:flex; align-items:center; gap:6px;">
+                            <span class="material-symbols-outlined" style="font-size:1.1rem; color: #4caf50;">verified</span> Opinión Verificada
                         </p>
-                        <p style="font-style: italic; font-size: 0.9rem; color: var(--text-secondary);">"${rev.text}"</p>
-                        <p style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--primary);">— ${rev.author}</p>
-                    </div>
-                `;
-            } else {
-                // Fallback si no hay reseña de usuario
-                userReviewHtml = `
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(0,0,0,0.05);">
-                        <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic;">
-                            "Excelente equilibrio y muy valorado por nuestros sumilleres locales."
-                        </p>
+                        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #333;">"${rev.text}"</p>
+                        <p style="font-size: 0.8rem; font-weight: 700; margin-top: 0.75rem; color: var(--primary);">— ${rev.author}</p>
                     </div>
                 `;
             }
 
             return `
-                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2rem;">
+                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2.5rem;">
                     <div class="wine-image-container">
-                        ${isTop ? '<div class="wine-badge">MEJOR ELECCIÓN</div>' : ''}
+                        ${isTop ? '<div class="wine-badge">MEJOR VALORADO</div>' : ''}
                         <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=400" class="wine-image" alt="${w.name}">
                     </div>
-                    <div class="wine-info">
-                        <h4 class="wine-name">${w.name}</h4>
-                        <p class="wine-meta">${w.do} · Selección Especial</p>
-                        <p class="wine-price">${w.price}</p>
-                        <div class="ratings-container">${ratingsHtml}</div>
+                    <div class="wine-info" style="padding: 1.8rem;">
+                        <h4 class="wine-name" style="font-size: 1.7rem; margin-bottom: 0.4rem;">${w.name}</h4>
+                        <p class="wine-meta" style="font-size: 1rem; margin-bottom: 1.2rem;">${w.do}</p>
+                        <p class="wine-price" style="font-size: 1.6rem; color: #1a1a1a;">${w.price}</p>
+                        <div class="ratings-container" style="margin: 1.2rem 0;">${ratingsHtml}</div>
                         
-                        <div class="sommelier-review-box">
+                        <div class="sommelier-review-box" style="margin: 1.5rem 0;">
                             <p>${w.review}</p>
                         </div>
 
                         ${userReviewHtml}
                         
-                        <button class="btn-primary">
+                        <button class="btn-primary" style="margin-top: 1.5rem;">
                             Elegir este vino
                         </button>
                     </div>
