@@ -207,32 +207,32 @@ class SommelierApp {
 
     renderOccasionSelection() {
         this.state.currentStep = 'occasion';
-        this.stepTitle.textContent = "Presupuesto aproximado";
+        this.stepTitle.textContent = "¿Qué buscas en este vino?";
         this.updateProgress(2);
 
         const options = [
             {
-                label: "Selección Diaria",
+                label: "Placer Diario",
                 sublabel: "Hasta 30€",
                 range: [0, 30],
-                icon: "euro_symbol",
-                desc: "Vinos del día a día, excelente relación calidad-precio",
+                icon: "sunny",
+                desc: "Disfrutar sin complicaciones, vinos accesibles y versátiles",
                 gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
             },
             {
-                label: "Ocasión Especial",
+                label: "Experiencia Especial",
                 sublabel: "30€ - 70€",
                 range: [30, 70],
-                icon: "celebration",
-                desc: "Reservas y crianzas para momentos especiales",
+                icon: "auto_awesome",
+                desc: "Sorprender y deleitar, reservas y crianzas memorables",
                 gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
             },
             {
-                label: "Joyas de la Bodega",
+                label: "Vino de Autor",
                 sublabel: "+70€",
                 range: [70, 2000],
-                icon: "diamond",
-                desc: "Gran Reserva y vinos de autor exclusivos",
+                icon: "workspace_premium",
+                desc: "Exclusividad y prestigio, gran reserva y ediciones limitadas",
                 gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
             }
         ];
