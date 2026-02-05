@@ -104,14 +104,103 @@
             cursor: pointer;
         }
 
-        /* Grid */
+        /* Layout Principal con Sidebar */
+        .admin-main-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        @media (max-width: 1024px) {
+            .admin-main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                order: -1;
+                /* Sidebar arriba en móvil */
+            }
+        }
+
+        /* Sidebar de Filtros */
+        .admin-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+
+        .filter-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .filter-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #374151;
+            transition: color 0.2s;
+        }
+
+        .filter-checkbox-label:hover {
+            color: var(--primary);
+        }
+
+        .filter-checkbox-label input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .do-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        /* Scrollbar para la lista de D.O. */
+        .do-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .do-list::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+
+        /* Grid (Actualizado para el nuevo contenedor) */
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
-            padding: 0 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         /* Card Item */
@@ -363,25 +452,67 @@
         </div>
     </nav>
 
-    <!-- Tools -->
-    <div class="toolbar">
-        <div class="search-box">
-            <span class="material-symbols-outlined" style="color:#9ca3af;">search</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar vino, plato o precio...">
-        </div>
-        <select id="categoryFilter" class="filter-select">
-            <option value="ALL">Todo el Menú</option>
-            <option value="VINOS TINTOS">Vinos Tintos</option>
-            <option value="VINOS BLANCOS">Vinos Blancos</option>
-            <option value="ESPUMOSOS">Espumosos</option>
-            <option value="DE TAPEO">Tapeo y Comida</option>
-        </select>
-    </div>
+    <!-- Contenedor Principal -->
+    <main class="admin-main-container">
 
-    <!-- Grid de Items -->
-    <div id="itemsGrid" class="items-grid">
-        <!-- Se rellena con JS -->
-    </div>
+        <!-- Contenido Izquierdo: Buscador y Grid -->
+        <section>
+            <div class="toolbar" style="padding: 1.5rem 0; max-width: 100%;">
+                <div class="search-box">
+                    <span class="material-symbols-outlined" style="color:#9ca3af;">search</span>
+                    <input type="text" id="searchInput" class="search-input"
+                        placeholder="Buscar por nombre o precio...">
+                </div>
+            </div>
+
+            <div id="itemsGrid" class="items-grid">
+                <!-- Se rellena con JS -->
+            </div>
+        </section>
+
+        <!-- Barra Lateral Derecha: Filtros Avanzados -->
+        <aside class="admin-sidebar">
+            <div class="filter-section">
+                <h3 class="filter-section-title">
+                    <span class="material-symbols-outlined" style="font-size:1.2rem;">category</span>
+                    Categorías
+                </h3>
+                <div class="filter-options" id="categoryOptions">
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" value="VINOS TINTOS" checked onchange="renderItems()"> Vinos Tintos
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" value="VINOS BLANCOS" checked onchange="renderItems()"> Vinos Blancos
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" value="ESPUMOSOS" checked onchange="renderItems()"> Espumosos
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" value="DE TAPEO" checked onchange="renderItems()"> Tapeo y Comida
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-section-title">
+                    <span class="material-symbols-outlined" style="font-size:1.2rem;">map</span>
+                    Denominación de Origen
+                </h3>
+                <div class="do-list filter-options" id="doOptions">
+                    <!-- Se rellena dinámicamente -->
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f3f4f6;">
+                <button onclick="resetFilters()"
+                    style="background:none; border:none; color:var(--primary); font-size:0.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:0.4rem;">
+                    <span class="material-symbols-outlined" style="font-size:1rem;">restart_alt</span>
+                    Restablecer Filtros
+                </button>
+            </div>
+        </aside>
+
+    </main>
 
     <!-- Botón Flotante Añadir -->
     <button class="fab" onclick="openEditor()">
@@ -475,28 +606,71 @@
             .then(res => res.json())
             .then(data => {
                 menuData = data;
+                renderDOFilters();
                 renderItems();
             })
             .catch(err => alert("Error cargando datos: " + err));
 
-        // Renderizado
+        // Extraer y Renderizar Filtros de D.O.
+        function renderDOFilters() {
+            const doOptions = document.getElementById('doOptions');
+            const uniqueDOs = [...new Set(menuData
+                .map(item => item.do)
+                .filter(do_name => do_name && do_name.trim() !== "")
+            )].sort();
+
+            doOptions.innerHTML = uniqueDOs.map(do_name => `
+                <label class="filter-checkbox-label">
+                    <input type="checkbox" class="do-checkbox" value="${do_name}" onchange="renderItems()"> ${do_name}
+                </label>
+            `).join('');
+        }
+
+        // Renderizado con Filtros Múltiples
         function renderItems() {
             const grid = document.getElementById('itemsGrid');
             const search = document.getElementById('searchInput').value.toLowerCase();
-            const filter = document.getElementById('categoryFilter').value;
+
+            // Obtener categorías seleccionadas
+            const selectedCategories = Array.from(document.querySelectorAll('#categoryOptions input:checked'))
+                .map(cb => cb.value);
+
+            // Obtener D.O.s seleccionadas
+            const selectedDOs = Array.from(document.querySelectorAll('.do-checkbox:checked'))
+                .map(cb => cb.value);
 
             grid.innerHTML = '';
 
             const filtered = menuData.filter(item => {
-                const matchesSearch = item.name.toLowerCase().includes(search) || (item.price && item.price.includes(search));
-                const matchesFilter = filter === 'ALL' || (item.category && item.category.includes(filter));
-                // Fix para categorías compuestas o sucias
-                if (filter === 'DE TAPEO' && item.category && item.category.includes('TAPEO')) return matchesSearch;
-                return matchesSearch && matchesFilter;
+                const matchesSearch = item.name.toLowerCase().includes(search) || (item.price && item.price.toString().includes(search));
+
+                // Filtro de Categoría
+                const itemCategory = item.category || "";
+                let matchesCategory = selectedCategories.length === 0; // Si no hay nada marcado, no mostramos nada o todo? (Mejor si no hay nada marcado, mostramos todo lo que coincida con otros filtros)
+
+                // Si hay categorías seleccionadas, el item debe pertenecer a una
+                if (selectedCategories.length > 0) {
+                    matchesCategory = selectedCategories.some(cat => {
+                        if (cat === 'DE TAPEO') return itemCategory.includes('TAPEO');
+                        return itemCategory === cat;
+                    });
+                }
+
+                // Filtro de D.O.
+                let matchesDO = selectedDOs.length === 0 || selectedDOs.includes(item.do);
+
+                return matchesSearch && matchesCategory && matchesDO;
             });
 
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: #6b7280;">
+                    <span class="material-symbols-outlined" style="font-size: 3rem; margin-bottom: 1rem;">search_off</span>
+                    <p>No se encontraron productos con esos filtros.</p>
+                </div>`;
+                return;
+            }
+
             filtered.forEach(item => {
-                // Determinar badge de color
                 let badgeClass = 'badge-tinto';
                 if (item.category && item.category.includes('BLANCO')) badgeClass = 'badge-blanco';
                 if (item.category && item.category.includes('ESPUMOSO')) badgeClass = 'badge-espumoso';
@@ -504,34 +678,38 @@
 
                 const card = document.createElement('div');
                 card.className = 'item-card';
+                card.onclick = () => openEditor(item.id);
 
-                // Usar addEventListener o propiedad directa para evitar problemas de comillas en el HTML
-                card.onclick = (e) => {
-                    // Si el clic viene del botón de acción, no hagas nada (ya tiene su propio handler si existiera)
-                    // En este caso, queremos que TODA la tarjeta abra el editor
-                    openEditor(item.id);
-                };
+                // Miniatura de imagen si existe
+                let imgTag = item.image ? `<div style="width:100%; height:80px; overflow:hidden; border-radius:8px; margin-bottom:1rem; background:#f9fafb;">
+                    <img src="fotos/${item.image}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.style.display='none'">
+                </div>` : '';
 
                 card.innerHTML = `
+                    ${imgTag}
                     <span class="item-badge ${badgeClass}">${item.category || 'General'}</span>
                     <h3 class="item-title">${item.name}</h3>
-                    <p class="item-price">${item.price}</p>
-                    <p style="font-size:0.85rem; color:#6b7280; margin-top:0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                        ${item.do || ''} - ${item.review || item.description || ''}
-                    </p>
-                    <div class="item-actions">
-                        <button class="action-btn" title="Editar">
-                            <span class="material-symbols-outlined">edit</span>
-                        </button>
+                    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                        <p class="item-price">${item.price}</p>
+                        ${item.glass_price ? `<span style="font-size:0.75rem; color:#6b7280;">Copa: ${item.glass_price}</span>` : ''}
                     </div>
+                    <p style="font-size:0.8rem; color:#6b7280; margin-top:0.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height:1.4;">
+                        ${item.do ? `<b>${item.do}</b> - ` : ''}${item.review || item.description || ''}
+                    </p>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Event Listeners para filtros
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.querySelectorAll('#categoryOptions input').forEach(cb => cb.checked = true);
+            document.querySelectorAll('.do-checkbox').forEach(cb => cb.checked = false);
+            renderItems();
+        }
+
+        // Event Listeners
         document.getElementById('searchInput').addEventListener('input', renderItems);
-        document.getElementById('categoryFilter').addEventListener('change', renderItems);
 
         // Lógica del Editor
         function openEditor(id = null) {
@@ -625,6 +803,7 @@
             }
 
             closeEditor();
+            renderDOFilters();
             renderItems();
         }
 
@@ -632,6 +811,7 @@
             if (confirm("¿Seguro que quieres borrar este producto?")) {
                 menuData = menuData.filter(i => i.id !== currentEditingId);
                 closeEditor();
+                renderDOFilters();
                 renderItems();
             }
         }
