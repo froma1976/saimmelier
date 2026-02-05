@@ -2,33 +2,37 @@
    SIAmmelier Dobao - French Haute Cuisine Design
    ============================================ */
 :root {
-    /* Parker-Worthy Premium Palette */
-    --burgundy-deep: #4a0e0e;
-    --burgundy: #6b1a1a;
-    --burgundy-light: #8b2e2e;
+    /* Modern Vibrant Palette */
+    --burgundy-deep: #4a0e4a;
+    --burgundy: #6b1a4e;
+    --burgundy-light: #8b2e5e;
+    --magenta: #c41e5a;
+    --purple-electric: #7c2d8e;
 
-    --champagne-gold: #d4af37;
-    --champagne-light: #f4d03f;
-    --champagne-dim: rgba(212, 175, 55, 0.15);
+    --champagne-gold: #ffd700;
+    --champagne-light: #ffed4e;
+    --champagne-dim: rgba(255, 215, 0, 0.15);
+    --gold-glow: rgba(255, 215, 0, 0.3);
 
-    --charcoal: #1a1a1a;
-    --charcoal-light: #2d2d2d;
+    --charcoal: #1a0a1a;
+    --charcoal-light: #2d1a2d;
 
     --ivory: #faf8f3;
     --ivory-warm: #f5f1e8;
 
     --white: #ffffff;
 
-    /* Gradientes premium */
-    --gradient-wine: linear-gradient(135deg, #4a0e0e 0%, #6b1a1a 50%, #8b2e2e 100%);
-    --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
-    --gradient-luxury: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(74, 14, 14, 0.9) 100%);
+    /* Modern Gradients */
+    --gradient-wine: linear-gradient(135deg, #4a0e4a 0%, #6b1a4e 40%, #8b2e5e 70%, #c41e5a 100%);
+    --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+    --gradient-luxury: linear-gradient(180deg, rgba(26, 10, 26, 0.98) 0%, rgba(74, 30, 74, 0.95) 50%, rgba(107, 26, 78, 0.92) 100%);
+    --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 
     /* Spacing & Transitions */
     --spacing: 2rem;
-    --radius: 0px;
+    --radius: 16px;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --transition: 0.7s var(--ease);
+    --transition: 0.5s var(--ease);
 }
 
 /* Base Setup */
@@ -88,7 +92,7 @@ h3,
 .app-header {
     text-align: center;
     padding: 3rem 0;
-    border-bottom: 2px solid var(--champagne-dim);
+    border-bottom: 2px solid rgba(255, 215, 0, 0.2);
     margin-bottom: 4rem;
     position: relative;
 }
@@ -100,8 +104,9 @@ h3,
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
-    height: 2px;
+    height: 3px;
     background: var(--gradient-gold);
+    box-shadow: 0 0 20px var(--gold-glow);
 }
 
 .app-header h1 {
@@ -111,7 +116,9 @@ h3,
     text-transform: uppercase;
     margin-bottom: 0.5rem;
     font-weight: 400;
-    text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+    text-shadow:
+        0 2px 20px rgba(255, 215, 0, 0.4),
+        0 0 40px rgba(255, 215, 0, 0.2);
 }
 
 .app-header p {
@@ -161,16 +168,21 @@ h3,
 .visual-option {
     position: relative;
     height: 220px;
-    background: rgba(107, 26, 26, 0.15);
-    backdrop-filter: blur(15px);
+    background: var(--gradient-card);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 2px solid var(--champagne-dim);
+    border: 2px solid rgba(255, 215, 0, 0.15);
+    border-radius: var(--radius);
     transition: var(--transition);
     padding: 2rem;
     overflow: hidden;
+    box-shadow:
+        0 4px 20px rgba(74, 14, 74, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .visual-option::before {
@@ -191,8 +203,12 @@ h3,
 
 .visual-option:hover {
     border-color: var(--champagne-gold);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.25), 0 0 40px rgba(107, 26, 26, 0.3);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow:
+        0 25px 60px rgba(255, 215, 0, 0.25),
+        0 0 40px rgba(196, 30, 90, 0.3),
+        0 0 0 2px var(--champagne-gold),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .visual-option h3 {
@@ -238,15 +254,21 @@ h3,
 }
 
 .wine-card {
-    background: linear-gradient(135deg, rgba(74, 14, 14, 0.4) 0%, rgba(45, 45, 45, 0.3) 100%);
-    backdrop-filter: blur(25px);
-    border: 2px solid var(--champagne-dim);
+    background: var(--gradient-card);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    border-radius: var(--radius);
     margin-bottom: 2rem;
     padding: 4.5rem;
     width: 100%;
     max-width: 850px;
     position: relative;
     overflow: hidden;
+    box-shadow:
+        0 8px 32px rgba(74, 14, 74, 0.4),
+        0 0 0 1px rgba(255, 215, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .wine-card::before {
@@ -255,8 +277,9 @@ h3,
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 4px;
     background: var(--gradient-gold);
+    box-shadow: 0 2px 15px var(--gold-glow);
 }
 
 .wine-info {
@@ -351,6 +374,7 @@ h3,
     background: var(--gradient-gold);
     color: var(--charcoal);
     border: 2px solid transparent;
+    border-radius: calc(var(--radius) / 2);
     padding: 1.6rem 3.5rem;
     font-size: 0.95rem;
     letter-spacing: 4px;
@@ -361,7 +385,9 @@ h3,
     margin-top: 2.5rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    box-shadow:
+        0 8px 25px var(--gold-glow),
+        0 0 40px rgba(255, 215, 0, 0.2);
 }
 
 .btn-formal::before {
@@ -383,8 +409,11 @@ h3,
 .btn-formal:hover {
     color: var(--champagne-gold);
     border-color: var(--champagne-gold);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4), 0 0 30px rgba(107, 26, 26, 0.3);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+        0 15px 40px rgba(255, 215, 0, 0.4),
+        0 0 60px rgba(196, 30, 90, 0.3),
+        0 0 0 2px var(--champagne-gold);
 }
 
 .btn-back {
