@@ -582,8 +582,43 @@ class SommelierApp {
             item.category === 'ESPUMOSOS'
         );
 
-        this.optionsGrid.className = "wine-results slide-up";
-        this.optionsGrid.innerHTML = wines.map(wine => {
+        // Obtener D.O.s únicas
+        const uniqueDOs = [...new Set(wines.map(w => w.do).filter(doName => doName))].sort();
+
+        // Crear contenedor de filtros y grid
+        this.optionsGrid.className = "wine-bodega-container slide-up";
+        this.optionsGrid.innerHTML = `
+            <div class="filter-chips-wrapper">
+                <div class="filter-chips" id="wineFilterChips">
+                    <button class="chip active" onclick="app.filterBodega('ALL')">Todos</button>
+                    ${uniqueDOs.map(doName => `
+                        <button class="chip" onclick="app.filterBodega('${doName}')">${doName}</button>
+                    `).join('')}
+                </div>
+            </div>
+            <div id="wineGrid" class="wine-results" style="margin-top: 2rem;">
+                <!-- Se rellena con renderWineGrid -->
+            </div>
+        `;
+
+        // Guardar vinos para filtrar luego
+        this.currentWines = wines;
+        this.filterBodega('ALL');
+    }
+
+    filterBodega(doName) {
+        // Actualizar chips activos
+        const chips = document.querySelectorAll('.chip');
+        chips.forEach(c => {
+            c.classList.toggle('active', c.textContent === doName || (doName === 'ALL' && c.textContent === 'Todos'));
+        });
+
+        const filtered = doName === 'ALL'
+            ? this.currentWines
+            : this.currentWines.filter(w => w.do === doName);
+
+        const grid = document.getElementById('wineGrid');
+        grid.innerHTML = filtered.map(wine => {
             let imgHtml = wine.image ? `<img src="fotos/${wine.image}" style="width:100%; height:200px; object-fit:cover; border-radius:12px 12px 0 0;" onerror="this.style.display='none'">` : '';
             let glassHtml = wine.glass_price ? `<span style="font-size: 0.85rem; color: #666; margin-left: 0.5rem;"> | Copa: <b>${wine.glass_price}</b></span>` : '';
 
@@ -594,7 +629,7 @@ class SommelierApp {
                     <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; font-size: 0.7rem;">${wine.category}</span>
                     <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.25rem;">${wine.name}</h4>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">${wine.do}</p>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${wine.review}</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${wine.review || ''}</p>
                     <div>
                         <span class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${wine.price}</span>
                         ${glassHtml}
@@ -611,9 +646,9 @@ class SommelierApp {
     }
 }
 
-// Estilo extra para los badges de puntuación
-const styleRatings = document.createElement('style');
-styleRatings.textContent = `
+// Estilos extra para los chips de filtro y ratings
+const extraStyles = document.createElement('style');
+extraStyles.textContent = `
     .badge-rating {
         font-size: 0.65rem;
         font-weight: 700;
@@ -623,11 +658,51 @@ styleRatings.textContent = `
         letter-spacing: 0.05em;
         white-space: nowrap;
     }
+
+    .filter-chips-wrapper {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        overflow-x: auto;
+        padding: 0 1rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-chips {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        min-width: max-content;
+    }
+
+    .chip {
+        padding: 0.6rem 1.25rem;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 100px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #4b5563;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .chip.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        box-shadow: 0 4px 12px rgba(75, 1, 1, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .filter-chips-wrapper {
+            margin-bottom: 1rem;
+        }
+    }
 `;
-document.head.appendChild(styleRatings);
+document.head.appendChild(extraStyles);
 
 // Inicializar
 window.addEventListener('DOMContentLoaded', () => {
     window.app = new SommelierApp();
     window.app.init();
-});
