@@ -1,38 +1,40 @@
 /* ============================================
-   SIAmmelier Dobao - French Haute Cuisine Design
+   SIAmmelier Dobao - Stitch Minimal Design
    ============================================ */
 :root {
-    /* Modern Vibrant Palette */
-    --burgundy-deep: #4a0e4a;
-    --burgundy: #6b1a4e;
-    --burgundy-light: #8b2e5e;
-    --magenta: #c41e5a;
-    --purple-electric: #7c2d8e;
+    /* Stitch-style Minimal Palette */
+    --burgundy-deep: #3d0814;
+    --burgundy: #5c1a1a;
+    --burgundy-light: #8b3a3a;
+    --burgundy-soft: #a05555;
 
-    --champagne-gold: #ffd700;
-    --champagne-light: #ffed4e;
-    --champagne-dim: rgba(255, 215, 0, 0.15);
-    --gold-glow: rgba(255, 215, 0, 0.3);
+    --cream: #faf7f2;
+    --cream-dark: #f0ebe3;
+    --cream-light: #ffffff;
 
-    --charcoal: #1a0a1a;
-    --charcoal-light: #2d1a2d;
+    --accent-burgundy: #5c1a1a;
+    --accent-gold: #c9a961;
+    --text-primary: #2d1810;
+    --text-secondary: #6b5d54;
+    --text-muted: #9a8c82;
 
-    --ivory: #faf8f3;
-    --ivory-warm: #f5f1e8;
+    --badge-ai: #5c1a1a;
+    --badge-top: #d4631f;
 
-    --white: #ffffff;
+    /* Minimal Design System */
+    --bg-primary: #faf7f2;
+    --bg-card: #ffffff;
+    --border-color: #e8dfd5;
+    --shadow-light: rgba(93, 26, 26, 0.08);
+    --shadow-medium: rgba(93, 26, 26, 0.12);
 
-    /* Modern Gradients */
-    --gradient-wine: linear-gradient(135deg, #4a0e4a 0%, #6b1a4e 40%, #8b2e5e 70%, #c41e5a 100%);
-    --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    --gradient-luxury: linear-gradient(180deg, rgba(26, 10, 26, 0.98) 0%, rgba(74, 30, 74, 0.95) 50%, rgba(107, 26, 78, 0.92) 100%);
-    --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-
-    /* Spacing & Transitions */
-    --spacing: 2rem;
-    --radius: 16px;
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --transition: 0.5s var(--ease);
+    /* Spacing & Borders */
+    --spacing: 1.5rem;
+    --radius-small: 12px;
+    --radius-medium: 20px;
+    --radius-large: 28px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: 0.3s var(--ease);
 }
 
 /* Base Setup */
@@ -43,11 +45,10 @@
 }
 
 body {
-    background: var(--gradient-luxury);
-    background-attachment: fixed;
-    color: var(--ivory);
-    font-family: 'Raleway', sans-serif;
-    line-height: 1.7;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
     position: relative;
 }
@@ -59,9 +60,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image:
-        radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(107, 26, 26, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 20%, rgba(92, 26, 26, 0.02) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
 }
@@ -71,161 +70,117 @@ h2,
 h3,
 .serif {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Desktop Frame */
+/* Container */
 .app-container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     min-height: 100vh;
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
 }
 
-/* Navigation Header */
+/* Header - Stitch Style */
 .app-header {
     text-align: center;
-    padding: 3rem 0;
-    border-bottom: 2px solid rgba(255, 215, 0, 0.2);
-    margin-bottom: 4rem;
+    padding: 2rem 0 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 2rem;
     position: relative;
 }
 
-.app-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 3px;
-    background: var(--gradient-gold);
-    box-shadow: 0 0 20px var(--gold-glow);
-}
-
 .app-header h1 {
-    font-size: 3.8rem;
-    letter-spacing: 14px;
-    color: var(--champagne-gold);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    font-weight: 400;
-    text-shadow:
-        0 2px 20px rgba(255, 215, 0, 0.4),
-        0 0 40px rgba(255, 215, 0, 0.2);
+    font-size: 1.8rem;
+    letter-spacing: -0.3px;
+    color: var(--burgundy);
+    text-transform: none;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
 }
 
 .app-header p {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.3rem;
-    color: var(--champagne-light);
-    letter-spacing: 3px;
-    opacity: 0.9;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.2px;
+    font-weight: 400;
 }
 
-/* Progressive Steps Container */
+/* Steps */
 .step-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fadeIn 0.8s var(--ease);
+    animation: fadeIn 0.5s var(--ease);
 }
 
 .step-title {
-    font-size: 2.2rem;
-    color: var(--champagne-gold);
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    color: var(--burgundy);
+    margin-bottom: 0.5rem;
     text-align: center;
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: -0.3px;
 }
 
 .step-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    color: var(--champagne-light);
-    margin-bottom: 3rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
     text-align: center;
-    opacity: 0.85;
-    font-style: italic;
+    font-style: normal;
 }
 
-/* Visual Grid - French Terroir Style */
+/* Options Grid - Stitch Cards */
 .options-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 1.25rem;
     width: 100%;
+    max-width: 900px;
 }
 
 .visual-option {
     position: relative;
-    height: 220px;
-    background: var(--gradient-card);
-    backdrop-filter: blur(15px) saturate(180%);
-    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    height: 180px;
+    background: var(--bg-card);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 2px solid rgba(255, 215, 0, 0.15);
-    border-radius: var(--radius);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-medium);
     transition: var(--transition);
-    padding: 2rem;
+    padding: 1.5rem;
     overflow: hidden;
-    box-shadow:
-        0 4px 20px rgba(74, 14, 74, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.visual-option::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-wine);
-    transition: var(--transition);
-    z-index: -1;
-}
-
-.visual-option:hover::before {
-    left: 0;
+    box-shadow: 0 2px 8px var(--shadow-light);
 }
 
 .visual-option:hover {
-    border-color: var(--champagne-gold);
-    transform: translateY(-8px) scale(1.03);
-    box-shadow:
-        0 25px 60px rgba(255, 215, 0, 0.25),
-        0 0 40px rgba(196, 30, 90, 0.3),
-        0 0 0 2px var(--champagne-gold),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-color: var(--burgundy);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-medium);
 }
 
 .visual-option h3 {
-    font-size: 1.9rem;
-    color: var(--ivory);
-    letter-spacing: 5px;
-    font-weight: 300;
-    text-transform: uppercase;
+    font-size: 1.1rem;
+    color: var(--burgundy);
+    letter-spacing: 0px;
+    font-weight: 600;
+    text-transform: none;
     transition: var(--transition);
     position: relative;
     z-index: 1;
-}
-
-.visual-option:hover h3 {
-    color: var(--champagne-gold);
-    font-weight: 500;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
 }
 
 .option-overlay {
@@ -236,7 +191,6 @@ h3,
     align-items: center;
     width: 100%;
     height: 100%;
-    overflow: visible;
 }
 
 .option-overlay h3 {
@@ -246,40 +200,23 @@ h3,
     max-width: 100%;
 }
 
-
-/* Wine Results Area */
+/* Wine Results */
 .wine-results {
     width: 100%;
-    animation: slideUp 0.8s var(--ease);
+    max-width: 900px;
+    animation: slideUp 0.5s var(--ease);
 }
 
 .wine-card {
-    background: var(--gradient-card);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 2px solid rgba(255, 215, 0, 0.2);
-    border-radius: var(--radius);
-    margin-bottom: 2rem;
-    padding: 4.5rem;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-large);
+    margin-bottom: 1.5rem;
+    padding: 3rem 2.5rem;
     width: 100%;
-    max-width: 850px;
     position: relative;
     overflow: hidden;
-    box-shadow:
-        0 8px 32px rgba(74, 14, 74, 0.4),
-        0 0 0 1px rgba(255, 215, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.wine-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--gradient-gold);
-    box-shadow: 0 2px 15px var(--gold-glow);
+    box-shadow: 0 4px 16px var(--shadow-light);
 }
 
 .wine-info {
@@ -287,144 +224,83 @@ h3,
 }
 
 .wine-category {
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    color: var(--champagne-gold);
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
 }
 
 .wine-name {
-    font-size: 3.2rem;
-    color: var(--ivory);
-    margin-bottom: 1rem;
-    line-height: 1.1;
-    font-weight: 400;
+    font-size: 2.2rem;
+    color: var(--burgundy);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 .wine-do {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: italic;
-    font-size: 1.6rem;
-    color: var(--champagne-light);
-    margin-bottom: 2rem;
-    opacity: 0.95;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
 }
 
 .wine-review {
-    font-size: 1.15rem;
-    line-height: 1.9;
-    color: var(--ivory-warm);
-    margin-bottom: 2.5rem;
-    border-left: 3px solid var(--champagne-dim);
-    padding-left: 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--burgundy-light);
+    padding-left: 1.5rem;
     font-style: italic;
 }
 
 .wine-price {
-    font-size: 2.3rem;
-    color: var(--champagne-gold);
+    font-size: 2rem;
+    color: var(--burgundy);
     font-weight: 700;
-    text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
 }
 
-/* Pairing Presentation */
-.pairing-section {
-    margin-top: 4rem;
-    padding-top: 4rem;
-    border-top: 1px solid var(--gold-dim);
-}
-
-.pairing-section h4 {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 2rem;
-}
-
-.pairing-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.pairing-img-container {
-    height: 350px;
-}
-
-.pairing-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 1px solid var(--gold-dim);
-}
-
-.pairing-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-style: italic;
-    color: var(--navy);
-}
-
-/* Buttons */
+/* Buttons - Stitch Style */
 .btn-formal {
-    background: var(--gradient-gold);
-    color: var(--charcoal);
-    border: 2px solid transparent;
-    border-radius: calc(var(--radius) / 2);
-    padding: 1.6rem 3.5rem;
+    background: var(--burgundy);
+    color: var(--cream);
+    border: none;
+    border-radius: var(--radius-small);
+    padding: 1.25rem 3rem;
     font-size: 0.95rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-transform: none;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 600;
     transition: var(--transition);
-    margin-top: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-        0 8px 25px var(--gold-glow),
-        0 0 40px rgba(255, 215, 0, 0.2);
-}
-
-.btn-formal::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-wine);
-    transition: var(--transition);
-    z-index: -1;
-}
-
-.btn-formal:hover::before {
-    left: 0;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(92, 26, 26, 0.2);
 }
 
 .btn-formal:hover {
-    color: var(--champagne-gold);
-    border-color: var(--champagne-gold);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow:
-        0 15px 40px rgba(255, 215, 0, 0.4),
-        0 0 60px rgba(196, 30, 90, 0.3),
-        0 0 0 2px var(--champagne-gold);
+    background: var(--burgundy-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(92, 26, 26, 0.3);
 }
 
 .btn-back {
     background: transparent;
-    color: var(--champagne-light);
+    color: var(--text-secondary);
     border: none;
     cursor: pointer;
-    margin-bottom: 2rem;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0px;
+    padding: 0.5rem 1rem;
+}
+
+.btn-back:hover {
+    color: var(--burgundy);
 }
 
 /* Animations */
@@ -441,7 +317,7 @@ h3,
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
 
     to {
@@ -452,213 +328,110 @@ h3,
 
 /* Tablet Optimization */
 @media (max-width: 1024px) {
-    .app-container {
-        padding: 1.5rem;
-    }
-
     .options-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-
-    .app-header h1 {
-        font-size: 3rem;
-        letter-spacing: 10px;
-    }
-
-    .step-title {
-        font-size: 2rem;
-    }
-
-    .wine-card {
-        padding: 3rem;
+        gap: 1rem;
     }
 }
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-
-    /* Container */
     .app-container {
         padding: 1rem;
-        min-height: 100vh;
     }
 
-    /* Header */
     .app-header {
-        padding: 2rem 0 1.5rem;
-        margin-bottom: 2rem;
+        padding: 1.5rem 0 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .app-header h1 {
-        font-size: 2rem;
-        letter-spacing: 6px;
-        margin-bottom: 0.3rem;
+        font-size: 1.5rem;
     }
 
     .app-header p {
-        font-size: 1rem;
-        letter-spacing: 2px;
-    }
-
-    .app-header::after {
-        width: 120px;
-    }
-
-    /* Steps */
-    .step-title {
-        font-size: 1.6rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .step-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Grid - Una columna en móvil */
-    .options-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .visual-option {
-        height: 160px;
-        padding: 1.5rem;
-        /* Mejor experiencia táctil */
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    .visual-option h3 {
-        font-size: 1.3rem;
-        letter-spacing: 3px;
-    }
-
-    /* Tarjetas de comida - altura automática para textos largos */
-    .food-option {
-        height: auto !important;
-        min-height: 140px;
-        padding: 1.2rem !important;
-    }
-
-    .food-option h3 {
-        font-size: 1.1rem !important;
-        letter-spacing: 1px !important;
-        line-height: 1.4 !important;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-
-
-    /* Eliminar efectos hover en móvil */
-    .visual-option:hover {
-        transform: none;
-    }
-
-    .visual-option:active {
-        transform: scale(0.98);
-        opacity: 0.9;
-    }
-
-    /* Wine Cards */
-    .wine-card {
-        padding: 2rem 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .wine-name {
-        font-size: 1.8rem;
-        margin-bottom: 0.8rem;
-        line-height: 1.2;
-    }
-
-    .wine-category {
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-    }
-
-    .wine-do {
-        font-size: 1.2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .wine-review {
-        font-size: 1rem;
-        line-height: 1.7;
-        padding-left: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .wine-price {
-        font-size: 1.8rem;
-    }
-
-    /* Buttons - Más grandes para touch */
-    .btn-formal {
-        padding: 1.2rem 2rem;
         font-size: 0.85rem;
-        letter-spacing: 3px;
-        width: 100%;
-        margin-top: 1.5rem;
-    }
-
-    .btn-back {
-        font-size: 0.8rem;
-        margin-bottom: 1rem;
-        padding: 0.8rem;
-    }
-
-    /* Pairing */
-    .pairing-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .pairing-section {
-        margin-top: 2rem;
-        padding-top: 2rem;
-    }
-
-    .pairing-img-container {
-        height: 250px;
-    }
-
-    .pairing-text {
-        font-size: 1.1rem;
-    }
-}
-
-/* Small Mobile (iPhone SE, etc) */
-@media (max-width: 375px) {
-    .app-header h1 {
-        font-size: 1.6rem;
-        letter-spacing: 4px;
     }
 
     .step-title {
         font-size: 1.4rem;
     }
 
+    .step-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
     .visual-option {
         height: 140px;
+        padding: 1.25rem;
     }
 
     .visual-option h3 {
-        font-size: 1.1rem;
-        letter-spacing: 2px;
+        font-size: 1rem;
     }
 
-    .wine-name {
-        font-size: 1.5rem;
+    .food-option {
+        height: auto !important;
+        min-height: 120px;
+        padding: 1rem !important;
+    }
+
+    .food-option h3 {
+        font-size: 0.95rem !important;
+        letter-spacing: 0px !important;
+        line-height: 1.4 !important;
     }
 
     .wine-card {
-        padding: 1.5rem 1rem;
+        padding: 2rem 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .wine-name {
+        font-size: 1.6rem;
+    }
+
+    .wine-do {
+        font-size: 1rem;
+    }
+
+    .wine-review {
+        font-size: 0.95rem;
+        padding-left: 1rem;
+    }
+
+    .wine-price {
+        font-size: 1.6rem;
     }
 
     .btn-formal {
-        padding: 1rem 1.5rem;
-        font-size: 0.75rem;
-        letter-spacing: 2px;
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 375px) {
+    .app-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .step-title {
+        font-size: 1.2rem;
+    }
+
+    .visual-option {
+        height: 120px;
+    }
+
+    .wine-name {
+        font-size: 1.4rem;
     }
 }
