@@ -369,37 +369,60 @@ class SommelierApp {
         // Buscar platos que mariden con este vino
         let foodSuggestions = [];
 
-        // Obtener tags de maridaje del vino
+        // ESTRATEGIA 1: Buscar por tags de maridaje del vino
         const pairingTags = wine.pairing_tags || wine.vivino_food || [];
 
         if (pairingTags.length > 0) {
-            // Filtrar platos de comida del menú que tengan tags coincidentes
             const foodItems = this.menu.filter(item => item.category && item.category.includes('TAPEO'));
 
             foodSuggestions = foodItems.filter(food => {
                 if (!food.pairing_tags) return false;
-                // Verificar si hay algún tag en común
                 return food.pairing_tags.some(tag =>
                     pairingTags.some(wineTag =>
                         wineTag.toLowerCase().includes(tag.toLowerCase()) ||
                         tag.toLowerCase().includes(wineTag.toLowerCase())
                     )
                 );
-            }).slice(0, 4); // Máximo 4 sugerencias
+            });
         }
 
-        // Si no hay coincidencias, ofrecer platos populares
+        // ESTRATEGIA 2: Si no hay tags o no hay suficientes coincidencias, usar reglas por categoría
+        if (foodSuggestions.length < 3) {
+            const allFood = this.menu.filter(item => item.category && item.category.includes('TAPEO'));
+
+            if (wine.category === "VINOS TINTOS") {
+                // Tintos: Carnes, embutidos, quesos curados
+                const tintoKeywords = ['jamón', 'ibérico', 'cecina', 'queso', 'tabla', 'lacón', 'oreja', 'croqueta', 'rabo'];
+                foodSuggestions = allFood.filter(f =>
+                    tintoKeywords.some(kw => f.name.toLowerCase().includes(kw))
+                ).slice(0, 4);
+
+            } else if (wine.category === "VINOS BLANCOS") {
+                // Blancos: Pescados, mariscos, ensaladas, quesos frescos
+                const blancoKeywords = ['salmón', 'anchoa', 'sardina', 'ventresca', 'ensalada', 'burrata', 'tosta'];
+                foodSuggestions = allFood.filter(f =>
+                    blancoKeywords.some(kw => f.name.toLowerCase().includes(kw))
+                ).slice(0, 4);
+
+            } else if (wine.category === "ESPUMOSOS") {
+                // Espumosos: Aperitivos, tostas, ensaladas, quesos suaves
+                const espumosoKeywords = ['tosta', 'ensalada', 'burrata', 'salmón', 'anchoa', 'jamón'];
+                foodSuggestions = allFood.filter(f =>
+                    espumosoKeywords.some(kw => f.name.toLowerCase().includes(kw))
+                ).slice(0, 4);
+            }
+        }
+
+        // ESTRATEGIA 3: Fallback - platos populares si aún no hay suficientes
         if (foodSuggestions.length === 0) {
-            const popularDishes = [
-                'FOOD_005', // Jamón ibérico
-                'FOOD_003', // Tabla de Quesos
-                'FOOD_001', // Tabla Mixta pueblo
-                'FOOD_011'  // Ración de Croquetas
-            ];
-            foodSuggestions = popularDishes
+            const fallbackIds = ['FOOD_005', 'FOOD_003', 'FOOD_001', 'FOOD_011'];
+            foodSuggestions = fallbackIds
                 .map(id => this.menu.find(item => item.id === id))
                 .filter(item => item);
         }
+
+        // Limitar a 4 sugerencias únicas
+        foodSuggestions = [...new Map(foodSuggestions.map(f => [f.id, f])).values()].slice(0, 4);
 
         this.finalDisplay.innerHTML = `
             <div class="wine-card" style="margin-bottom: 2rem; border-color: var(--primary); max-width: 100%;">
@@ -410,7 +433,7 @@ class SommelierApp {
                 </div>
             </div>
             <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem;">¿Con qué maridamos?</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; padding: 0 1rem;">Recomendación del Chef</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; padding: 0 1rem;">Recomendación del Chef para este ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
             <div class="options-grid">
                 ${foodSuggestions.map(food => `
                     <button class="option-button" onclick="app.selectFood('${food.name}')" style="text-align: left;">
