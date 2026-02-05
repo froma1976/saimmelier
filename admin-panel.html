@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Panel de Administración - Vinoteca Dobao</title>
+    <title>Gestor de Bodega - Vinoteca Dobao</title>
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
@@ -12,167 +12,592 @@
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <!-- Stitch CSS -->
+    <!-- Stitch CSS Reuse -->
     <link rel="stylesheet" href="style-v7.css">
     <style>
+        :root {
+            --bg-admin: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+        }
+
         body {
-            background: #f9f9f9;
-            padding: 2rem;
+            background: var(--bg-admin);
+            color: var(--text-main);
+            padding: 0;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Top Bar */
+        .admin-topbar {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-admin {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .title-admin {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            padding: 1.5rem 2rem;
+            display: flex;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            min-width: 250px;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Grid */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0 2rem 4rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .editor-container {
+        /* Card Item */
+        .item-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
+            padding: 1.5rem;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
         }
 
-        textarea {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            resize: none;
-            outline: none;
-        }
-
-        textarea:focus {
+        .item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border-color: var(--primary);
         }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
+        .item-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-tinto {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .badge-blanco {
+            background: #f0f9ff;
+            color: #075985;
+        }
+
+        .badge-espumoso {
+            background: #fffbeb;
+            color: #92400e;
+        }
+
+        .badge-food {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .item-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .item-actions {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #f3f4f6;
             display: flex;
-            align-items: center;
+            justify-content: flex-end;
             gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            color: #6b7280;
             transition: all 0.2s;
         }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
+        .action-btn:hover {
+            background: #f3f4f6;
+            color: var(--primary);
         }
 
-        .btn-secondary {
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(75, 1, 1, 0.4);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+            z-index: 50;
+        }
+
+        .fab:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal Editor */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .editor-modal {
             background: white;
-            color: var(--text-primary);
-            border: 1px solid #ddd;
-            padding: 0.75rem 1.5rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(75, 1, 1, 0.05);
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            background: #f9fafb;
+        }
+
+        .btn-cancel {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 8px;
+            color: #374151;
             font-weight: 600;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        }
+
+        .btn-save {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(75, 1, 1, 0.2);
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="admin-header">
-        <div>
-            <h1 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 0;">Panel de Gestión</h1>
-            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Edición del Menú y Vinos (menu.json)</p>
+    <!-- Nav -->
+    <nav class="admin-topbar">
+        <div class="brand-admin">
+            <span class="material-symbols-outlined"
+                style="color: var(--primary); font-size: 2rem;">settings_applications</span>
+            <h1 class="title-admin">Gestor de Bodega</h1>
         </div>
-        <a href="app.html" class="btn-secondary">
-            <span class="material-symbols-outlined">logout</span>
-            Salir
-        </a>
+        <div style="display:flex; gap:1rem;">
+            <button onclick="downloadJSON()" class="btn-save"
+                style="background:#059669; display:flex; align-items:center; gap:0.5rem;">
+                <span class="material-symbols-outlined">download</span>
+                Descargar Cambios
+            </button>
+            <a href="app.html" class="btn-cancel"
+                style="text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+                <span class="material-symbols-outlined">logout</span>
+                Salir
+            </a>
+        </div>
+    </nav>
+
+    <!-- Tools -->
+    <div class="toolbar">
+        <div class="search-box">
+            <span class="material-symbols-outlined" style="color:#9ca3af;">search</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar vino, plato o precio...">
+        </div>
+        <select id="categoryFilter" class="filter-select">
+            <option value="ALL">Todo el Menú</option>
+            <option value="VINOS TINTOS">Vinos Tintos</option>
+            <option value="VINOS BLANCOS">Vinos Blancos</option>
+            <option value="ESPUMOSOS">Espumosos</option>
+            <option value="DE TAPEO">Tapeo y Comida</option>
+        </select>
     </div>
 
-    <div class="editor-container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <h3 style="margin: 0; display:flex; align-items:center; gap:0.5rem;">
-                <span class="material-symbols-outlined" style="color:var(--primary);">code</span>
-                Editor JSON
-            </h3>
-            <div style="display: flex; gap: 1rem;">
-                <button class="btn-secondary" onclick="formatJSON()">
-                    <span class="material-symbols-outlined">format_align_left</span>
-                    Formatear
-                </button>
-                <button class="btn-primary" onclick="saveChanges()">
-                    <span class="material-symbols-outlined">save</span>
-                    Guardar Cambios
+    <!-- Grid de Items -->
+    <div id="itemsGrid" class="items-grid">
+        <!-- Se rellena con JS -->
+    </div>
+
+    <!-- Botón Flotante Añadir -->
+    <button class="fab" onclick="openEditor()">
+        <span class="material-symbols-outlined" style="font-size: 2rem;">add</span>
+    </button>
+
+    <!-- Modal Editor -->
+    <div class="modal-overlay" id="editorModal">
+        <div class="editor-modal">
+            <div class="modal-header">
+                <h3 style="margin:0; font-size:1.25rem;">Editar Producto</h3>
+                <button onclick="closeEditor()" style="background:none; border:none; cursor:pointer;">
+                    <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
+            <div class="modal-body">
+                <input type="hidden" id="edit-id">
+
+                <div class="form-group">
+                    <label class="form-label">Nombre del Producto</label>
+                    <input type="text" id="edit-name" class="form-input" placeholder="Ej: Ramón Bilbao Crianza">
+                </div>
+
+                <div class="form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label class="form-label">Precio</label>
+                        <input type="text" id="edit-price" class="form-input" placeholder="Ej: 18,00 €">
+                    </div>
+                    <div>
+                        <label class="form-label">Categoría</label>
+                        <select id="edit-category" class="form-select">
+                            <option value="VINOS TINTOS">Vinos Tintos</option>
+                            <option value="VINOS BLANCOS">Vinos Blancos</option>
+                            <option value="ESPUMOSOS">Espumosos</option>
+                            <option value="DE TAPEO">Tapeo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Origen / Subtítulo</label>
+                    <input type="text" id="edit-do" class="form-input" placeholder="Ej: D.O.Ca Rioja | Nuestra Cocina">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descripción / Reseña</label>
+                    <textarea id="edit-desc" class="form-textarea" rows="4"
+                        placeholder="Descripción atractiva del producto..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="deleteItem()" id="btnDelete"
+                    style="color:#dc2626; border-color:#fee2e2; margin-right:auto;">Eliminar</button>
+                <button class="btn-cancel" onclick="closeEditor()">Cancelar</button>
+                <button class="btn-save" onclick="saveItem()">Guardar</button>
+            </div>
         </div>
-        <textarea id="jsonEditor" spellcheck="false">Cargando datos...</textarea>
     </div>
 
     <script>
-        // Cargar menu.json
+        let menuData = [];
+        let currentEditingId = null;
+
+        // Validar acceso
+        if (localStorage.getItem('admin_access') !== 'granted') {
+            window.location.href = 'admin.html';
+        }
+
+        // Cargar datos al inicio
         fetch('menu.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
-                const textarea = document.getElementById('jsonEditor');
-                textarea.value = JSON.stringify(data, null, 4);
+                menuData = data;
+                renderItems();
             })
-            .catch(error => {
-                document.getElementById('jsonEditor').value = "Error cargando menu.json: " + error;
+            .catch(err => alert("Error cargando datos: " + err));
+
+        // Renderizado
+        function renderItems() {
+            const grid = document.getElementById('itemsGrid');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const filter = document.getElementById('categoryFilter').value;
+
+            grid.innerHTML = '';
+
+            const filtered = menuData.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(search) || (item.price && item.price.includes(search));
+                const matchesFilter = filter === 'ALL' || (item.category && item.category.includes(filter));
+                // Fix para categorías compuestas o sucias
+                if (filter === 'DE TAPEO' && item.category && item.category.includes('TAPEO')) return matchesSearch;
+                return matchesSearch && matchesFilter;
             });
 
-        function formatJSON() {
-            const textarea = document.getElementById('jsonEditor');
-            try {
-                const current = JSON.parse(textarea.value);
-                textarea.value = JSON.stringify(current, null, 4);
-            } catch (e) {
-                alert("JSON inválido: " + e.message);
+            filtered.forEach(item => {
+                // Determinar badge de color
+                let badgeClass = 'badge-tinto';
+                if (item.category.includes('BLANCO')) badgeClass = 'badge-blanco';
+                if (item.category.includes('ESPUMOSO')) badgeClass = 'badge-espumoso';
+                if (item.category.includes('TAPEO')) badgeClass = 'badge-food';
+
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.onclick = (e) => {
+                    if (!e.target.closest('.action-btn')) openEditor(item.id);
+                };
+
+                card.innerHTML = `
+                    <span class="item-badge ${badgeClass}">${item.category || 'General'}</span>
+                    <h3 class="item-title">${item.name}</h3>
+                    <p class="item-price">${item.price}</p>
+                    <p style="font-size:0.85rem; color:#6b7280; margin-top:0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                        ${item.do || ''} - ${item.review || item.description || ''}
+                    </p>
+                    <div class="item-actions">
+                        <button class="action-btn" title="Editar"><span class="material-symbols-outlined">edit</span></button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Event Listeners para filtros
+        document.getElementById('searchInput').addEventListener('input', renderItems);
+        document.getElementById('categoryFilter').addEventListener('change', renderItems);
+
+        // Lógica del Editor
+        function openEditor(id = null) {
+            const modal = document.getElementById('editorModal');
+            const deleteBtn = document.getElementById('btnDelete');
+
+            if (id) {
+                // Editar existente
+                const item = menuData.find(i => i.id === id);
+                currentEditingId = id;
+                document.getElementById('edit-id').value = item.id;
+                document.getElementById('edit-name').value = item.name;
+                document.getElementById('edit-price').value = item.price;
+                document.getElementById('edit-category').value = item.category.includes('TAPEO') ? 'DE TAPEO' : item.category;
+                document.getElementById('edit-do').value = item.do || '';
+                document.getElementById('edit-desc').value = item.review || item.description || '';
+                deleteBtn.style.display = 'block';
+            } else {
+                // Nuevo item
+                currentEditingId = null;
+                document.getElementById('edit-time').value = Date.now(); // Temp ID generator
+                document.getElementById('edit-name').value = '';
+                document.getElementById('edit-price').value = '';
+                document.getElementById('edit-do').value = '';
+                document.getElementById('edit-desc').value = '';
+                deleteBtn.style.display = 'none';
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeEditor() {
+            document.getElementById('editorModal').classList.remove('active');
+            currentEditingId = null;
+        }
+
+        function saveItem() {
+            const name = document.getElementById('edit-name').value;
+            const price = document.getElementById('edit-price').value;
+            const category = document.getElementById('edit-category').value;
+            const origin = document.getElementById('edit-do').value;
+            const desc = document.getElementById('edit-desc').value;
+
+            if (!name || !price) {
+                alert("Por favor, pon al menos nombre y precio.");
+                return;
+            }
+
+            if (currentEditingId) {
+                // Actualizar
+                const index = menuData.findIndex(i => i.id === currentEditingId);
+                if (index !== -1) {
+                    menuData[index] = {
+                        ...menuData[index],
+                        name: name,
+                        price: price,
+                        category: category,
+                        do: origin,
+                        review: desc, // Unificamos en review para vinos
+                        description: desc // Para comida
+                    };
+                }
+            } else {
+                // Crear nuevo
+                const newItem = {
+                    id: "ITEM_" + Date.now(),
+                    name: name,
+                    price: price,
+                    category: category,
+                    do: origin,
+                    review: desc,
+                    description: desc
+                };
+                menuData.push(newItem);
+            }
+
+            closeEditor();
+            renderItems();
+        }
+
+        function deleteItem() {
+            if (confirm("¿Seguro que quieres borrar este producto?")) {
+                menuData = menuData.filter(i => i.id !== currentEditingId);
+                closeEditor();
+                renderItems();
             }
         }
 
-        function saveChanges() {
-            // Nota: En un entorno estático como este, no podemos escribir directamente al archivo en el servidor.
-            // Simularíamos el guardado o ofreceríamos descargar el archivo.
-            try {
-                const content = document.getElementById('jsonEditor').value;
-                JSON.parse(content); // Validar
-
-                // Crear blob para descargar
-                const blob = new Blob([content], { type: "application/json" });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = "menu.json";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-
-                alert("¡Archivo preparado! Descarga el nuevo menu.json y súbelo al servidor.");
-            } catch (e) {
-                alert("Error en el JSON: " + e.message);
-            }
-        }
-
-        // Verificar autenticación básica (simple check de localStorage del paso anterior)
-        if (localStorage.getItem('admin_access') !== 'granted') {
-            // Si no viene logueado, fuera
-            window.location.href = 'admin.html';
+        function downloadJSON() {
+            const dataStr = JSON.stringify(menuData, null, 4);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "menu.json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert("✅ Archivo descargado. Ahora súbelo a tu hosting para aplicar los cambios.");
         }
     </script>
 </body>
