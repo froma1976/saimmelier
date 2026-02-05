@@ -406,31 +406,199 @@ h3,
     }
 }
 
-/* Mobile Optimization */
-@media (max-width: 768px) {
+/* Tablet Optimization */
+@media (max-width: 1024px) {
+    .app-container {
+        padding: 1.5rem;
+    }
+
     .options-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
-    .visual-option {
-        height: 350px;
+    .app-header h1 {
+        font-size: 3rem;
+        letter-spacing: 10px;
     }
 
-    .wine-card {
-        flex-direction: column;
-        padding: 2rem;
-    }
-
-    .wine-info {
-        padding-right: 0;
-        margin-bottom: 3rem;
-    }
-
-    .wine-name {
+    .step-title {
         font-size: 2rem;
     }
 
+    .wine-card {
+        padding: 3rem;
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+
+    /* Container */
+    .app-container {
+        padding: 1rem;
+        min-height: 100vh;
+    }
+
+    /* Header */
+    .app-header {
+        padding: 2rem 0 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .app-header h1 {
+        font-size: 2rem;
+        letter-spacing: 6px;
+        margin-bottom: 0.3rem;
+    }
+
+    .app-header p {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .app-header::after {
+        width: 120px;
+    }
+
+    /* Steps */
+    .step-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .step-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Grid - Una columna en móvil */
+    .options-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .visual-option {
+        height: 160px;
+        padding: 1.5rem;
+        /* Mejor experiencia táctil */
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .visual-option h3 {
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+    }
+
+    /* Eliminar efectos hover en móvil */
+    .visual-option:hover {
+        transform: none;
+    }
+
+    .visual-option:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+
+    /* Wine Cards */
+    .wine-card {
+        padding: 2rem 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .wine-name {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.2;
+    }
+
+    .wine-category {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    .wine-do {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .wine-review {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding-left: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .wine-price {
+        font-size: 1.8rem;
+    }
+
+    /* Buttons - Más grandes para touch */
+    .btn-formal {
+        padding: 1.2rem 2rem;
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .btn-back {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+    }
+
+    /* Pairing */
     .pairing-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .pairing-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+    }
+
+    .pairing-img-container {
+        height: 250px;
+    }
+
+    .pairing-text {
+        font-size: 1.1rem;
+    }
+}
+
+/* Small Mobile (iPhone SE, etc) */
+@media (max-width: 375px) {
+    .app-header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+    }
+
+    .step-title {
+        font-size: 1.4rem;
+    }
+
+    .visual-option {
+        height: 140px;
+    }
+
+    .visual-option h3 {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+
+    .wine-name {
+        font-size: 1.5rem;
+    }
+
+    .wine-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .btn-formal {
+        padding: 1rem 1.5rem;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
     }
 }
