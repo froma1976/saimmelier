@@ -232,21 +232,26 @@ class SommelierApp {
             }
 
             return `
-                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 1.5rem;">
-                    <div class="wine-image-container">
-                        ${isTop ? '<div class="wine-badge">AI Pick</div>' : ''}
-                        <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&q=80&w=400" class="wine-image" alt="${w.name}">
+                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2rem; border-width: 2px;">
+                    <div class="wine-image-container" style="background: #f8f5f5; height: 180px;">
+                        ${isTop ? '<div class="wine-badge">RECOMENDADO</div>' : ''}
+                        <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=400" class="wine-image" style="object-fit: contain; padding: 10px;" alt="${w.name}">
                     </div>
-                    <div class="wine-info">
-                        <h4 class="wine-name" style="font-size: 1.2rem; margin-bottom: 0.25rem;">${w.name}</h4>
-                        <p class="wine-meta">${w.do} ${w.year ? '· ' + w.year : ''}</p>
-                        <div class="ratings-container" style="margin: 0.75rem 0; display:flex; flex-wrap:wrap; gap:4px;">${ratingsHtml}</div>
-                        <p class="wine-price" style="font-size: 1.1rem; color: var(--primary); font-weight: 700;">${w.price}</p>
-                        <p class="wine-notes" style="font-size: 0.85rem; margin-top: 0.5rem; color: var(--text-primary);">${w.review}</p>
-                        ${userReviewHtml}
-                        <div style="margin-top: 1rem; text-align: center;">
-                            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Seleccionar este vino</button>
+                    <div class="wine-info" style="padding: 1.5rem;">
+                        <h4 class="wine-name" style="font-size: 1.4rem; color: var(--primary);">${w.name}</h4>
+                        <p class="wine-meta" style="font-weight: 600;">${w.do} ${w.year ? '· ' + w.year : ''}</p>
+                        <div class="ratings-container" style="margin: 1rem 0;">${ratingsHtml}</div>
+                        <p class="wine-price" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem;">${w.price}</p>
+                        
+                        <div style="background: var(--background-light); padding: 1rem; border-radius: 12px; border-left: 4px solid var(--primary);">
+                            <p style="font-size: 0.9rem; line-height: 1.5;">${w.review}</p>
                         </div>
+
+                        ${userReviewHtml}
+                        
+                        <button class="btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                            Elegir este vino
+                        </button>
                     </div>
                 </div>
             `;
