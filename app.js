@@ -35,16 +35,38 @@ class SommelierApp {
             summary: document.getElementById('step-summary')
         };
 
+        // Verificación de seguridad
+        if (!this.optionsGrid) console.warn("Falta elemento: optionsGrid");
+        if (!this.headerTitle) console.warn("Falta elemento: headerTitle");
+        if (!this.stepTitle) console.warn("Falta elemento: stepTitle");
+        if (!this.wineResults) console.warn("Falta elemento: wineResults");
+        if (!this.finalDisplay) console.warn("Falta elemento: finalDisplay");
+        if (!this.btnBack) console.warn("Falta elemento: btnBack");
+        if (!this.btnNext) console.warn("Falta elemento: btnNext");
+        if (!this.currentStepText) console.warn("Falta elemento: currentStepText");
+        if (!this.pairingConfirmArea) console.warn("Falta elemento: pairingConfirmArea");
+        if (!this.sections.selection) console.warn("Falta elemento: sections.selection");
+        if (!this.sections.results) console.warn("Falta elemento: sections.results");
+        if (!this.sections.final) console.warn("Falta elemento: sections.final");
+        if (!this.sections.summary) console.warn("Falta elemento: sections.summary");
+
         this.init();
     }
 
     async init() {
         try {
+            console.log("Iniciando Sommelier...");
             const response = await fetch('menu.json');
+            if (!response.ok) throw new Error("No se pudo cargar menu.json");
             this.menu = await response.json();
+            console.log("Menú cargado:", this.menu.length, "vinos.");
             this.renderFamilySelection();
         } catch (error) {
             console.error('Error al iniciar:', error);
+            // Fallback si falla la carga
+            if (this.optionsGrid) {
+                this.optionsGrid.innerHTML = '<p style="text-align:center; padding:2rem;">Error al cargar los datos. Por favor, recarga la página.</p>';
+            }
         }
     }
 
@@ -311,6 +333,7 @@ class SommelierApp {
     }
 }
 
-// Exponer la instancia de la aplicación al objeto global window
-// Esto es necesario para que los atributos onclick="app.method()" funcionen.
-window.app = new SommelierApp();
+// Inicializar cuando el DOM esté listo
+window.addEventListener('DOMContentLoaded', () => {
+    window.app = new SommelierApp();
+});
