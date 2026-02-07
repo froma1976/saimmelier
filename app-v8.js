@@ -234,27 +234,27 @@ class SommelierApp {
         const options = [
             {
                 label: "Placer Diario",
-                sublabel: "Hasta 30€",
+                sublabel: "Vinos Versátiles",
                 range: [0, 30],
                 type: "diario",
                 icon: "sunny",
-                desc: "Disfrutar sin complicaciones, vinos accesibles y versátiles"
+                desc: "Disfrutar sin complicaciones, vinos accesibles para cualquier momento"
             },
             {
                 label: "Experiencia Especial",
-                sublabel: "30€ - 70€",
+                sublabel: "Reservas y Crianzas",
                 range: [30, 70],
                 type: "especial",
                 icon: "auto_awesome",
-                desc: "Sorprender y deleitar, reservas y crianzas memorables"
+                desc: "Sorprender y deleitar, selecciones memorables de mayor complejidad"
             },
             {
                 label: "Vino de Autor",
-                sublabel: "+70€",
+                sublabel: "Exclusividad",
                 range: [70, 2000],
                 type: "autor",
                 icon: "workspace_premium",
-                desc: "Exclusividad y prestigio, gran reserva y ediciones limitadas"
+                desc: "Joyas únicas, grandes reservas y ediciones limitadas de prestigio"
             }
         ];
 
