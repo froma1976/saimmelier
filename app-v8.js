@@ -67,37 +67,37 @@ class SommelierApp {
         this.showSection('selection');
         this.updateProgress(1);
         if (this.btnBack) this.btnBack.style.display = 'none';
-        this.headerTitle.textContent = "Asesor Sommelier AI";
+        this.headerTitle.textContent = "SIAmmelier Dobao";
         this.stepTitle.textContent = "¿Qué vamos a descorchar hoy?";
 
         const families = [
             {
                 label: "Tinto",
                 key: "VINOS TINTOS",
+                type: "tinto",
                 icon: "wine_bar",
-                desc: "Cuerpo, estructura y carácter",
-                gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                desc: "Cuerpo, estructura y carácter"
             },
             {
                 label: "Blanco",
                 key: "VINOS BLANCOS",
+                type: "blanco",
                 icon: "glass_cup",
-                desc: "Frescura, mineralidad y elegancia",
-                gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+                desc: "Frescura, mineralidad y elegancia"
             },
             {
                 label: "Espumoso",
                 key: "ESPUMOSOS",
+                type: "espumoso",
                 icon: "liquor",
-                desc: "Burbujas, celebración y finura",
-                gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+                desc: "Burbujas, celebración y finura"
             }
         ];
 
         this.optionsGrid.className = "character-grid-v2 slide-up";
         this.optionsGrid.innerHTML = families.map(f => `
-            <button class="character-card" onclick="app.selectFamily('${f.key}')">
-                <div class="character-gradient" style="background: ${f.gradient};"></div>
+            <button class="character-card" data-type="${f.type}" onclick="app.selectFamily('${f.key}')">
+                <div class="character-gradient"></div>
                 <div class="character-content">
                     <span class="material-symbols-outlined character-icon">${f.icon}</span>
                     <h3 class="character-title">${f.label}</h3>

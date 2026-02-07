@@ -1,0 +1,548 @@
+/* DISEÑO PREMIUM BODEGA - SIAmmelier Dobao */
+
+:root {
+    --primary: #8b4513;
+    --primary-dark: #5d2f0e;
+    --gold: #d4af37;
+    --cream: #f5f5dc;
+    --wood: #3e2723;
+    --text-light: #f5f5dc;
+    --text-dark: #2c1810;
+    --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('assets/bodega_background.png') center/cover fixed;
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+}
+
+/* Contenedor Principal */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background: rgba(30, 20, 10, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 100px;
+}
+
+/* Header Elegante */
+.app-header {
+    background: linear-gradient(180deg, rgba(139, 69, 19, 0.9) 0%, rgba(62, 39, 35, 0.9) 100%);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#headerTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.back-button {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(212, 175, 55, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Contenedor de Pasos */
+.step-container {
+    padding: 2rem 1.5rem;
+}
+
+.progress-indicator {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+}
+
+.progress-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.step-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.step-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(245, 245, 220, 0.7);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* BOTONES CON IMÁGENES - ESTILO PREMIUM */
+.character-grid-v2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.character-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(62, 39, 35, 0.9) 0%, rgba(30, 20, 10, 0.9) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-soft);
+    min-height: 180px;
+}
+
+.character-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+}
+
+.character-card:active {
+    transform: translateY(-4px);
+}
+
+/* Imagen de fondo para cada botón */
+.character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.character-card:hover::before {
+    opacity: 0.5;
+}
+
+/* Imágenes específicas para cada tipo */
+.character-card[data-type="tinto"]::before {
+    background-image: url('assets/vino_tinto.png');
+}
+
+.character-card[data-type="blanco"]::before {
+    background-image: url('assets/vino_blanco.png');
+}
+
+.character-card[data-type="espumoso"]::before {
+    background-image: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 255, 255, 0.2));
+}
+
+.character-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
+    z-index: 1;
+}
+
+.character-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.character-icon {
+    font-size: 3rem !important;
+    color: var(--gold);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.character-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+    margin: 0;
+}
+
+.character-sublabel {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 0;
+}
+
+.character-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(245, 245, 220, 0.8);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Botones de Acción */
+.btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+    color: var(--wood);
+    padding: 1.2rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(212, 175, 55, 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(212, 175, 55, 0.2);
+}
+
+/* Tarjetas de Vino */
+.wine-results {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.wine-card {
+    background: linear-gradient(135deg, rgba(62, 39, 35, 0.95) 0%, rgba(30, 20, 10, 0.95) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.wine-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+}
+
+.wine-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--gold);
+    color: var(--wood);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.wine-info {
+    padding: 2rem;
+}
+
+.wine-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.wine-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.wine-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.sommelier-review-box {
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid var(--gold);
+    padding: 1.25rem;
+    border-radius: 0 12px 12px 0;
+    margin: 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(245, 245, 220, 0.9);
+}
+
+/* Tab Bar Premium */
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: linear-gradient(180deg, rgba(62, 39, 35, 0.98) 0%, rgba(30, 20, 10, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    border-top: 2px solid var(--gold);
+    padding: 0.75rem 1rem 1.5rem;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tab-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: rgba(212, 175, 55, 0.6);
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.tab-item:hover {
+    color: var(--gold);
+}
+
+.tab-item .material-symbols-outlined {
+    font-size: 1.5rem;
+}
+
+.tab-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.tab-item-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -30px;
+    cursor: pointer;
+}
+
+.tab-center-button {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+    color: var(--wood);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    border: 4px solid rgba(30, 20, 10, 0.98);
+    transition: all 0.3s ease;
+}
+
+.tab-center-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7);
+}
+
+.tab-center-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-top: 4px;
+}
+
+/* Panel de Acción */
+.action-panel {
+    background: linear-gradient(135deg, rgba(62, 39, 35, 0.9) 0%, rgba(30, 20, 10, 0.9) 100%);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-soft);
+}
+
+.panel-icon {
+    font-size: 4rem !important;
+    color: var(--gold);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.panel-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin: 1rem 0;
+}
+
+.panel-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(245, 245, 220, 0.8);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Animaciones */
+.slide-up {
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Utilidades */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .character-card {
+        min-height: 160px;
+    }
+
+    .character-title {
+        font-size: 1.4rem;
+    }
+
+    .step-title {
+        font-size: 1.4rem;
+    }
+}
