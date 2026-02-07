@@ -303,7 +303,7 @@ class SommelierApp {
         if (this.btnBack) this.btnBack.style.display = 'flex';
 
         if (wines.length === 0) {
-            this.wineResults.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-secondary);">No se han encontrado vinos que coincidan exactamente. Pruebe a ampliar el presupuesto.</p>`;
+            this.wineResults.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem;">Lo sentimos, no hemos encontrado vinos con estos criterios.<br><span style="font-size: 1rem; color: var(--text-cream); font-family: 'Inter', sans-serif;">Pruebe a cambiar el presupuesto o el perfil.</span></p>`;
             return;
         }
 
@@ -319,7 +319,7 @@ class SommelierApp {
                 if (r.penin) ratingsHtml += `<span class="badge-rating" style="background:#000; color:gold;">Peñín ${r.penin}</span> `;
                 if (r.spectator) ratingsHtml += `<span class="badge-rating" style="background:#8b0000; color:white;">WS ${r.spectator}</span> `;
             } else {
-                ratingsHtml = `<span class="badge-rating" style="background:rgba(0,0,0,0.03); color:var(--text-muted);">Selección de Autor</span>`;
+                ratingsHtml = `<span class="badge-rating" style="background:rgba(212,175,55,0.1); color:var(--gold); border: 1px solid var(--gold);">Selección de Autor</span>`;
             }
 
             // Recopilar una Reseña de Usuario con diseño de burbuja
@@ -327,20 +327,20 @@ class SommelierApp {
             if (w.user_reviews && w.user_reviews.length > 0) {
                 const rev = w.user_reviews[0];
                 userReviewHtml = `
-                    <div style="margin-top: 1.5rem; background: #fafafa; padding: 1.25rem; border-radius: 1.5rem; position: relative; border: 1px solid #eee;">
-                        <p style="font-weight: 800; font-size: 0.7rem; color: #aaa; text-transform:uppercase; letter-spacing:0.1em; margin-bottom: 0.5rem; display:flex; align-items:center; gap:6px;">
-                            <span class="material-symbols-outlined" style="font-size:1.1rem; color: #4caf50;">verified</span> Opinión Verificada
+                    <div class="user-review-bubble">
+                        <p style="font-weight: 800; font-size: 0.7rem; color: var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom: 0.5rem; display:flex; align-items:center; gap:6px;">
+                            <span class="material-symbols-outlined" style="font-size:1.1rem;">verified</span> Opinión Verificada
                         </p>
-                        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #333;">"${rev.text}"</p>
-                        <p style="font-size: 0.8rem; font-weight: 700; margin-top: 0.75rem; color: var(--primary);">— ${rev.author}</p>
+                        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.5; color: var(--text-cream);">"${rev.text}"</p>
+                        <p style="font-size: 0.8rem; font-weight: 700; margin-top: 0.75rem; color: var(--gold);">— ${rev.author}</p>
                     </div>
                 `;
             }
 
-            // Imagen del Vino (Si existe, sino usar tarjeta standard)
+            // Imagen del Vino
             let imageHtml = '';
             if (w.image) {
-                imageHtml = `<div style="width:100%; height:250px; overflow:hidden; border-radius:12px 12px 0 0;">
+                imageHtml = `<div style="width:100%; height:280px; overflow:hidden; border-bottom: 1px solid rgba(212,175,55,0.2);">
                     <img src="fotos/${w.image}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
                 </div>`;
             }
@@ -348,32 +348,32 @@ class SommelierApp {
             // Precio por copa
             let glassPriceHtml = '';
             if (w.glass_price) {
-                glassPriceHtml = `<span style="font-size: 0.9rem; font-weight: 600; background: #f3f4f6; color: #4b5563; padding: 4px 8px; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle;">Copa: ${w.glass_price}</span>`;
+                glassPriceHtml = `<span class="glass-badge">Copa: ${w.glass_price}</span>`;
             }
 
             return `
-                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')" style="cursor:pointer; margin-bottom: 2rem;">
-                    ${isTop ? '<div class="wine-badge" style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">MEJOR VALORADO</div>' : ''}
+                <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')">
+                    ${isTop ? '<div class="wine-badge" style="position: absolute; top: 0; right: 0;">MEJOR VALORADO</div>' : ''}
                     ${imageHtml}
                     
-                    <div class="wine-info" style="padding: 2rem;">
-                        <h4 class="wine-name" style="font-size: 1.8rem; margin-bottom: 0.5rem; line-height: 1.2;">${w.name}</h4>
-                        <p class="wine-meta" style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--text-secondary);">${w.do}</p>
+                    <div class="wine-info">
+                        <h4 class="wine-name">${w.name}</h4>
+                        <p class="wine-meta">${w.do}</p>
                         
                         <div class="ratings-container" style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem;">${ratingsHtml}</div>
                         
                         <div style="margin-bottom: 1.5rem;">
-                            <span class="wine-price" style="font-size: 2rem; font-weight: 800; color: var(--primary);">${w.price}</span>
+                            <span class="wine-price">${w.price}</span>
                             ${glassPriceHtml}
                         </div>
                         
-                        <div class="sommelier-review-box" style="margin: 1.5rem 0;">
+                        <div class="sommelier-review-box">
                             <p style="margin: 0;">${w.review}</p>
                         </div>
 
                         ${userReviewHtml}
                         
-                        <button class="btn-primary" style="margin-top: 2rem; width: 100%;">
+                        <button class="btn-primary" style="margin-top: 2.5rem; width: 100%;">
                             <span class="material-symbols-outlined">check_circle</span>
                             Elegir este vino
                         </button>
@@ -417,21 +417,16 @@ class SommelierApp {
             const allFood = this.menu.filter(item => item.category && item.category.includes('TAPEO'));
 
             if (wine.category === "VINOS TINTOS") {
-                // Tintos: Carnes, embutidos, quesos curados
                 const tintoKeywords = ['jamón', 'ibérico', 'cecina', 'queso', 'tabla', 'lacón', 'oreja', 'croqueta', 'rabo'];
                 foodSuggestions = allFood.filter(f =>
                     tintoKeywords.some(kw => f.name.toLowerCase().includes(kw))
                 ).slice(0, 4);
-
             } else if (wine.category === "VINOS BLANCOS") {
-                // Blancos: Pescados, mariscos, ensaladas, quesos frescos
                 const blancoKeywords = ['salmón', 'anchoa', 'sardina', 'ventresca', 'ensalada', 'burrata', 'tosta'];
                 foodSuggestions = allFood.filter(f =>
                     blancoKeywords.some(kw => f.name.toLowerCase().includes(kw))
                 ).slice(0, 4);
-
             } else if (wine.category === "ESPUMOSOS") {
-                // Espumosos: Aperitivos, tostas, ensaladas, quesos suaves
                 const espumosoKeywords = ['tosta', 'ensalada', 'burrata', 'salmón', 'anchoa', 'jamón'];
                 foodSuggestions = allFood.filter(f =>
                     espumosoKeywords.some(kw => f.name.toLowerCase().includes(kw))
@@ -439,7 +434,6 @@ class SommelierApp {
             }
         }
 
-        // ESTRATEGIA 3: Fallback - platos populares si aún no hay suficientes
         if (foodSuggestions.length === 0) {
             const fallbackIds = ['FOOD_005', 'FOOD_003', 'FOOD_001', 'FOOD_011'];
             foodSuggestions = fallbackIds
@@ -447,38 +441,27 @@ class SommelierApp {
                 .filter(item => item);
         }
 
-        // Limitar a 4 sugerencias únicas
         foodSuggestions = [...new Map(foodSuggestions.map(f => [f.id, f])).values()].slice(0, 4);
 
         this.finalDisplay.innerHTML = `
-            <div class="wine-card" style="margin-bottom: 2rem; border: 2px solid var(--primary); max-width: 100%;">
+            <div class="wine-card" style="border: 2px solid var(--gold);">
                 <div class="wine-info" style="padding: 1.5rem;">
-                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.75rem;">✓ Su Elección</span>
+                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; border-radius: 4px;">✓ Su Elección</span>
                     <h4 class="wine-name" style="font-size: 1.5rem; margin: 0.5rem 0;">${wine.name}</h4>
-                    <p class="wine-price" style="font-size: 1.3rem; font-weight: 700; color: var(--primary); margin: 0;">${wine.price}</p>
+                    <p class="wine-price" style="font-size: 1.3rem;">${wine.price}</p>
                 </div>
             </div>
-            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 1rem; margin-bottom: 0.5rem;">¿Con qué maridamos?</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; font-size: 0.95rem;">Recomendación del Chef para este ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
-            <div class="character-grid-v2">
-                ${foodSuggestions.map((food, i) => {
-            const gradients = [
-                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
-            ];
-            return `
-                    <button class="character-card" onclick="app.selectFood('${food.name}')">
-                        <div class="character-gradient" style="background: ${gradients[i % 4]};"></div>
-                        <div class="character-content">
-                            <span class="material-symbols-outlined character-icon">restaurant</span>
-                            <h3 class="character-title" style="font-size: 1.2rem;">${food.name}</h3>
-                            <p class="character-sublabel">${food.price}</p>
-                        </div>
-                    </button>
-                `;
-        }).join('')}
+            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--gold);">¿Con qué maridamos?</h3>
+            <p style="color: var(--text-cream); margin-bottom: 2rem; font-size: 0.95rem; font-style: italic;">Sugerencia de nuestra carta para este ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
+            
+            <div class="food-grid slide-up">
+                ${foodSuggestions.map(food => `
+                    <div class="food-suggestion-card" onclick="app.selectFood('${food.name}')">
+                        <span class="material-symbols-outlined" style="color: var(--gold); font-size: 2rem; margin-bottom: 0.5rem;">restaurant</span>
+                        <h4 class="food-name">${food.name}</h4>
+                        <p class="food-price">${food.price}</p>
+                    </div>
+                `).join('')}
             </div>
         `;
     }
@@ -494,12 +477,9 @@ class SommelierApp {
 
     finalize() {
         const { selectedWine, selectedFood } = this.state.selection;
-
-        // Buscar el plato seleccionado en el menú para obtener su precio
         const foodItem = this.menu.find(item => item.name === selectedFood);
         const foodPrice = foodItem ? foodItem.price : '0,00 €';
 
-        // Calcular el total
         const winePrice = parseFloat(selectedWine.price.replace('€', '').trim().replace(',', '.'));
         const foodPriceNum = parseFloat(foodPrice.replace('€', '').trim().replace(',', '.'));
         const total = (winePrice + foodPriceNum).toFixed(2).replace('.', ',');
@@ -508,35 +488,37 @@ class SommelierApp {
         this.headerTitle.textContent = "Resumen del Sommelier";
 
         document.getElementById('summaryDisplay').innerHTML = `
-            <div class="action-panel fade-in">
-                <span class="material-symbols-outlined panel-icon" style="font-size: 4rem; color: var(--primary);">task_alt</span>
-                <h3 class="panel-title" style="font-size: 1.8rem; margin-bottom: 0.5rem; font-weight: 700;">Cata Confirmada</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem;">Su selección ha sido procesada</p>
-                
-                <div style="text-align: left; background: white; padding: 2rem; border-radius: var(--radius-lg); margin-top: 1.5rem; border: 1px solid rgba(0,0,0,0.08); box-shadow: var(--shadow-sm);">
-                    <div style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.08);">
-                        <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 800;">Vino Elegido</p>
-                        <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.25rem;">${selectedWine.name}</p>
-                        <p style="font-size: 1.1rem; color: var(--primary); font-weight: 700;">${selectedWine.price}</p>
-                    </div>
+            <div class="wine-card slide-up" style="background: rgba(30, 20, 10, 0.95);">
+                <div class="wine-info" style="text-align: center;">
+                    <span class="material-symbols-outlined" style="font-size: 4rem; color: var(--gold); margin-bottom: 1rem;">task_alt</span>
+                    <h3 class="wine-name" style="font-size: 1.8rem; margin-bottom: 1rem;">Selección Confirmada</h3>
                     
-                    <div style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.08);">
-                        <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 800;">Maridaje</p>
-                        <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.25rem;">${selectedFood}</p>
-                        <p style="font-size: 1.1rem; color: var(--primary); font-weight: 700;">${foodPrice}</p>
-                    </div>
-                    
-                    <div style="background: var(--primary-light); padding: 1.5rem; border-radius: var(--radius-md); border: 2px solid var(--primary);">
+                    <div style="text-align: left; background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; border: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(212, 175, 55, 0.1);">
+                            <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.5rem;">Vino Elegido</p>
+                            <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-cream);">${selectedWine.name}</p>
+                            <p style="color: var(--gold); font-weight: 700;">${selectedWine.price}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(212, 175, 55, 0.1);">
+                            <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.5rem;">Maridaje</p>
+                            <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-cream);">${selectedFood}</p>
+                            <p style="color: var(--gold); font-weight: 700;">${foodPrice}</p>
+                        </div>
+                        
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <p style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary); margin: 0; font-weight: 800;">Total a Pagar</p>
-                            <p style="font-size: 2rem; color: var(--primary); margin: 0; font-weight: 800;">${total} €</p>
+                            <span style="font-weight: 800; font-size: 1rem; color: var(--gold);">TOTAL ESTIMADO</span>
+                            <span style="font-weight: 800; font-size: 1.8rem; color: var(--gold);">${total} €</span>
                         </div>
                     </div>
+
+                    <button class="btn-primary" style="margin-top: 2rem; width: 100%;" onclick="app.finalizeSelection()">
+                        Finalizar y mostrar mesa
+                    </button>
+                    <button class="btn-secondary" style="margin-top: 1rem;" onclick="app.renderFamilySelection()">
+                        Cambiar selección
+                    </button>
                 </div>
-                
-                <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
-                    SIAmmelier Dobao ha procesado su selección. Disfrute de la experiencia.
-                </p>
             </div>
         `;
     }
@@ -568,10 +550,10 @@ class SommelierApp {
             return `
             <div class="wine-card">
                 ${imgHtml}
-                <div class="wine-info" style="padding: 1.5rem;">
+                <div class="wine-info">
                     <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.5rem;">${food.name}</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">${food.description || ''}</p>
-                    <p class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${food.price}</p>
+                    <p style="color: var(--text-cream); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${food.description || ''}</p>
+                    <p class="wine-price" style="font-size: 1.2rem;">${food.price}</p>
                 </div>
             </div>
             `;
