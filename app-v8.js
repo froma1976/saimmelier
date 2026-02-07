@@ -39,16 +39,31 @@ class SommelierApp {
         this.renderFamilySelection();
 
         try {
-            console.log("Cargando datos de menu.json...");
-            const response = await fetch('menu.json');
-            if (response.ok) {
-                this.menu = await response.json();
-                console.log("Datos cargados correctamente:", this.menu.length);
-            } else {
-                console.warn("No se pudo cargar menu.json, usando fallback local.");
+            console.log("Intentando cargar datos...");
+
+            // Priority 1: Fetch from JSON (Production)
+            try {
+                const response = await fetch('menu.json');
+                if (response.ok) {
+                    this.menu = await response.json();
+                    console.log("Datos cargados vía fetch:", this.menu.length);
+                    return;
+                }
+            } catch (e) {
+                console.warn("Fetch falló (probablemente local), intentando fallback variables...");
             }
+
+            // Priority 2: Use loaded script variable (Local/Fallback)
+            if (typeof MENU_DATA !== 'undefined' && Array.isArray(MENU_DATA)) {
+                this.menu = MENU_DATA;
+                console.log("Datos cargados vía MENU_DATA:", this.menu.length);
+            } else {
+                console.error("CRITICAL: No se pudieron cargar datos ni de JSON ni de MENU_DATA");
+                alert("Error: No se han podido cargar los vinos. Por favor contacte con soporte técnico.");
+            }
+
         } catch (error) {
-            console.error('Error al iniciar:', error);
+            console.error('Error fatal al iniciar:', error);
         }
     }
 
