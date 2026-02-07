@@ -857,3 +857,63 @@ body {
     background: rgba(212, 175, 55, 0.1);
     color: #fff;
 }
+
+/* Rating Badges Premium Override */
+.badge-rating {
+    padding: 0.5rem 0.9rem;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.badge-rating:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+/* Vivino: Clásico Rojo */
+.badge-vivino {
+    background-color: #be1e2d;
+    color: white;
+    border: 1px solid #a0101d;
+}
+
+/* Parker: Negro y Oro (Premium) */
+.badge-parker {
+    background-color: #101010;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+/* Peñín: Dorado con texto oscuro (Contraste) */
+.badge-penin {
+    background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%);
+    color: #1a0f00;
+    border: 1px solid #e5c048;
+    text-shadow: none;
+}
+
+/* Wine Spectator: Burdeos oscuro */
+.badge-ws {
+     background-color: #58181f;
+     color: white;
+     border: 1px solid #7a2323;
+}
+
+/* Autor: Transparente con borde */
+.badge-autor {
+     background: rgba(212, 175, 55, 0.1);
+     color: #d4af37;
+     border: 1px solid #d4af37;
+     backdrop-filter: blur(5px);
+}

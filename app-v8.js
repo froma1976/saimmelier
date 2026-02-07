@@ -351,12 +351,12 @@ class SommelierApp {
             let ratingsHtml = '';
             if (w.ratings) {
                 const r = w.ratings;
-                if (r.vivino) ratingsHtml += `<span class="badge-rating" style="background:#f0e9e9; color:#4b0101;">Vivino ${r.vivino}★</span> `;
-                if (r.parker) ratingsHtml += `<span class="badge-rating" style="background:#4b0101; color:white;">Parker ${r.parker}</span> `;
-                if (r.penin) ratingsHtml += `<span class="badge-rating" style="background:#000; color:gold;">Peñín ${r.penin}</span> `;
-                if (r.spectator) ratingsHtml += `<span class="badge-rating" style="background:#8b0000; color:white;">WS ${r.spectator}</span> `;
+                if (r.vivino) ratingsHtml += `<span class="badge-rating badge-vivino">Vivino ${r.vivino}★</span> `;
+                if (r.parker) ratingsHtml += `<span class="badge-rating badge-parker">Parker ${r.parker}</span> `;
+                if (r.penin) ratingsHtml += `<span class="badge-rating badge-penin">Peñín ${r.penin}</span> `;
+                if (r.spectator) ratingsHtml += `<span class="badge-rating badge-ws">WS ${r.spectator}</span> `;
             } else {
-                ratingsHtml = `<span class="badge-rating" style="background:rgba(212,175,55,0.1); color:var(--gold); border: 1px solid var(--gold);">Selección de Autor</span>`;
+                ratingsHtml = `<span class="badge-rating badge-autor">Selección de Autor</span>`;
             }
 
             // Recopilar una Reseña de Usuario
