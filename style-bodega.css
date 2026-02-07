@@ -803,3 +803,57 @@ body {
         font-size: 1.4rem;
     }
 }
+/* Buttons Premium Style - Added Fix */
+.btn-primary {
+    background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%);
+    color: #1e140a;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+    background: linear-gradient(135deg, #e5c048 0%, #d4af37 100%);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+.btn-secondary {
+    background: rgba(30, 20, 10, 0.4);
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-secondary:hover {
+    border-color: #d4af37;
+    background: rgba(212, 175, 55, 0.1);
+    color: #fff;
+}
