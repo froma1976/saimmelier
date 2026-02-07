@@ -222,8 +222,8 @@ body {
 }
 
 .character-card[data-type="equilibrado"]::before {
-    background-image: url('assets/perfil_elegante.png');
-    opacity: 0.2;
+    background-image: url('assets/perfil_equilibrado.png');
+    opacity: 0.4;
 }
 
 /* Diferente opacidad temporalmente */

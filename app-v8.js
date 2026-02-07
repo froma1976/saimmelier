@@ -214,7 +214,7 @@ class SommelierApp {
     renderOccasionSelection() {
         this.state.currentStep = 'occasion';
         this.stepTitle.textContent = "¿Qué buscas en este vino?";
-        this.updateProgress(2);
+        this.updateProgress(3);
 
         const options = [
             {
@@ -303,15 +303,25 @@ class SommelierApp {
         const maxScore = winesWithScores.length > 0 ? winesWithScores[0].score : 0;
         const topCandidates = winesWithScores.filter(w => w.score >= maxScore - 2);
 
-        // SELECCIÓN ALEATORIA
+        // SELECCIÓN ALEATORIA - Asegurar únicos
         const shuffled = topCandidates.sort(() => Math.random() - 0.5);
-        const selectedWines = shuffled.slice(0, 2).map(w => w.wine);
+        const uniqueWines = [];
+        const seenIds = new Set();
+        for (const candidate of shuffled) {
+            if (!seenIds.has(candidate.wine.id)) {
+                uniqueWines.push(candidate.wine);
+                seenIds.add(candidate.wine.id);
+            }
+        }
+
+        const selectedWines = uniqueWines.slice(0, 2);
 
         this.renderWineResults(selectedWines);
     }
 
     renderWineResults(wines) {
         this.showSection('results');
+        this.updateProgress(4);
         if (this.btnBack) this.btnBack.style.display = 'flex';
 
         if (wines.length === 0) {
@@ -502,6 +512,7 @@ class SommelierApp {
         const total = (winePrice + foodPriceNum).toFixed(2).replace('.', ',');
 
         this.showSection('summary');
+        this.updateProgress(6);
         this.headerTitle.textContent = "Resumen del Sommelier";
 
         document.getElementById('summaryDisplay').innerHTML = `
@@ -539,6 +550,11 @@ class SommelierApp {
                 </div>
             </div>
         `;
+    }
+
+    finalizeSelection() {
+        alert("¡Su selección ha sido enviada al equipo! En breves instantes le serviremos su elección. ¡Que lo disfrute!");
+        this.restart();
     }
 
     goBack() {
