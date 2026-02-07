@@ -221,6 +221,12 @@ body {
     background-image: url('assets/perfil_elegante.png');
 }
 
+.character-card[data-type="equilibrado"]::before {
+    background-image: url('assets/perfil_elegante.png');
+    opacity: 0.2;
+}
+
+/* Diferente opacidad temporalmente */
 .character-card[data-type="robusto"]::before {
     background-image: url('assets/perfil_robusto.png');
 }
@@ -236,6 +242,61 @@ body {
 
 .character-card[data-type="autor"]::before {
     background-image: url('assets/vino_autor.png');
+}
+
+.character-content {
+    position: relative;
+    z-index: 2;
+    padding: 2.5rem 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(30, 20, 10, 0.5);
+    /* Overlay oscuro para legibilidad */
+    transition: all 0.3s ease;
+}
+
+.character-card:hover .character-content {
+    background: rgba(30, 20, 10, 0.3);
+}
+
+.character-icon {
+    font-size: 3rem !important;
+    color: var(--gold) !important;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.character-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff !important;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+    display: block !important;
+}
+
+.character-sublabel {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.character-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.95) !important;
+    line-height: 1.4;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 1);
 }
 
 /* Wine Cards & Results */
@@ -680,6 +741,52 @@ body {
 /* Utilidades */
 .hidden {
     display: none !important;
+}
+
+/* Chips de Filtro (Carta de Bodega) */
+.filter-chips-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-chips {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.5rem;
+}
+
+.chip {
+    padding: 0.6rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.chip.active {
+    background: var(--gold);
+    color: var(--wood);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.badge-rating {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive */

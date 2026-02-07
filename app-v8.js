@@ -35,12 +35,18 @@ class SommelierApp {
     }
 
     async init() {
+        // Cargar UI inmediatamente para evitar pantallas vacías
+        this.renderFamilySelection();
+
         try {
             console.log("Cargando datos de menu.json...");
             const response = await fetch('menu.json');
-            if (!response.ok) throw new Error("No se pudo cargar menu.json");
-            this.menu = await response.json();
-            this.renderFamilySelection();
+            if (response.ok) {
+                this.menu = await response.json();
+                console.log("Datos cargados correctamente:", this.menu.length);
+            } else {
+                console.warn("No se pudo cargar menu.json, usando fallback local.");
+            }
         } catch (error) {
             console.error('Error al iniciar:', error);
         }
@@ -132,7 +138,7 @@ class SommelierApp {
                 {
                     label: "Equilibrado",
                     keys: ["crianza", "reserva", "equilibrado"],
-                    type: "robusto",
+                    type: "equilibrado",
                     icon: "balance",
                     desc: "Armonía entre fruta y madera"
                 },
@@ -261,20 +267,31 @@ class SommelierApp {
 
         let filtered = this.menu.filter(w => w.category === family);
 
+        // Si no hay vinos en la categoría, intentamos corregir (por si hay inconsistencia en mayúsculas/minúsculas)
+        if (filtered.length === 0) {
+            filtered = this.menu.filter(w => w.category && w.category.toUpperCase() === family.toUpperCase());
+        }
+
         // Filtro por precio
-        filtered = filtered.filter(w => {
+        let priceFiltered = filtered.filter(w => {
             const priceNum = parseFloat(w.price.replace('€', '').trim().replace(',', '.'));
             return priceNum >= occasion[0] && priceNum <= occasion[1];
         });
 
+        // ROBUSTEZ: Si no hay nada en el rango de precio, ensanchamos la búsqueda o mostramos los de la categoría
+        if (priceFiltered.length === 0 && filtered.length > 0) {
+            console.warn("No hay vinos en este rango de precio, mostrando selección general de la categoría");
+            priceFiltered = filtered;
+        }
+
         // Calcular puntuación para cada vino
-        const winesWithScores = filtered.map(wine => {
+        const winesWithScores = priceFiltered.map(wine => {
             let score = profileKeys.reduce((acc, k) => {
                 const searchStr = (wine.name + " " + wine.review + " " + (wine.do || "")).toLowerCase();
                 return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
             }, 0);
 
-            // BOOST CRÍTICO: Si tiene ratings o si tiene reviews de usuarios, subirlo al top
+            // BOOST CRÍTICO
             if (wine.ratings) score += 10;
             if (wine.user_reviews && wine.user_reviews.length > 0) score += 10;
 
@@ -283,15 +300,10 @@ class SommelierApp {
 
         // Ordenar por puntuación
         winesWithScores.sort((a, b) => b.score - a.score);
-
-        // Encontrar la puntuación máxima
         const maxScore = winesWithScores.length > 0 ? winesWithScores[0].score : 0;
-
-        // Obtener TODOS los vinos con la puntuación máxima (o cercana)
-        // Permitimos vinos con puntuación >= maxScore - 2 para tener más variedad
         const topCandidates = winesWithScores.filter(w => w.score >= maxScore - 2);
 
-        // SELECCIÓN ALEATORIA: Mezclar los candidatos y elegir 2 al azar
+        // SELECCIÓN ALEATORIA
         const shuffled = topCandidates.sort(() => Math.random() - 0.5);
         const selectedWines = shuffled.slice(0, 2).map(w => w.wine);
 
@@ -652,61 +664,7 @@ class SommelierApp {
     }
 }
 
-// Estilos extra para los chips de filtro y ratings
-const extraStyles = document.createElement('style');
-extraStyles.textContent = `
-    .badge-rating {
-        font-size: 0.65rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 6px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
-    }
-
-    .filter-chips-wrapper {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        overflow-x: auto;
-        padding: 0 1rem;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .filter-chips {
-        display: flex;
-        gap: 0.75rem;
-        padding: 0.5rem 0;
-        min-width: max-content;
-    }
-
-    .chip {
-        padding: 0.6rem 1.25rem;
-        background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 100px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #4b5563;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        white-space: nowrap;
-    }
-
-    .chip.active {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-        box-shadow: 0 4px 12px rgba(75, 1, 1, 0.2);
-    }
-
-    @media (max-width: 768px) {
-        .filter-chips-wrapper {
-            margin-bottom: 1rem;
-        }
-    }
-`;
-document.head.appendChild(extraStyles);
+// Estilos extra eliminados y movidos a style-bodega.css
 
 // Inicializar
 window.addEventListener('DOMContentLoaded', () => {
