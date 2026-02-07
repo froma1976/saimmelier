@@ -171,27 +171,35 @@ class SommelierApp {
             return priceNum >= occasion[0] && priceNum <= occasion[1];
         });
 
-        // Ranking por afinidad + Prioridad de Datos (Ratings y Reviews)
-        filtered.sort((a, b) => {
-            let scoreA = profileKeys.reduce((acc, k) => {
-                const searchStr = (a.name + " " + a.review + " " + (a.do || "")).toLowerCase();
-                return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
-            }, 0);
-            let scoreB = profileKeys.reduce((acc, k) => {
-                const searchStr = (b.name + " " + b.review + " " + (b.do || "")).toLowerCase();
+        // Calcular puntuación para cada vino
+        const winesWithScores = filtered.map(wine => {
+            let score = profileKeys.reduce((acc, k) => {
+                const searchStr = (wine.name + " " + wine.review + " " + (wine.do || "")).toLowerCase();
                 return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
             }, 0);
 
             // BOOST CRÍTICO: Si tiene ratings o si tiene reviews de usuarios, subirlo al top
-            if (a.ratings) scoreA += 10;
-            if (b.ratings) scoreB += 10;
-            if (a.user_reviews && a.user_reviews.length > 0) scoreA += 10;
-            if (b.user_reviews && b.user_reviews.length > 0) scoreB += 10;
+            if (wine.ratings) score += 10;
+            if (wine.user_reviews && wine.user_reviews.length > 0) score += 10;
 
-            return scoreB - scoreA;
+            return { wine, score };
         });
 
-        this.renderWineResults(filtered.slice(0, 2));
+        // Ordenar por puntuación
+        winesWithScores.sort((a, b) => b.score - a.score);
+
+        // Encontrar la puntuación máxima
+        const maxScore = winesWithScores.length > 0 ? winesWithScores[0].score : 0;
+
+        // Obtener TODOS los vinos con la puntuación máxima (o cercana)
+        // Permitimos vinos con puntuación >= maxScore - 2 para tener más variedad
+        const topCandidates = winesWithScores.filter(w => w.score >= maxScore - 2);
+
+        // SELECCIÓN ALEATORIA: Mezclar los candidatos y elegir 2 al azar
+        const shuffled = topCandidates.sort(() => Math.random() - 0.5);
+        const selectedWines = shuffled.slice(0, 2).map(w => w.wine);
+
+        this.renderWineResults(selectedWines);
     }
 
     renderWineResults(wines) {
