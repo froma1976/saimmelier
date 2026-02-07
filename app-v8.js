@@ -411,7 +411,8 @@ class SommelierApp {
                         <div class="ratings-container">${ratingsHtml}</div>
                         
                         <div class="price-container">
-                            <span class="wine-price">${w.price}</span>
+                            <!-- Precio Oculto a petición (Estrategia Premium) -->
+                            <!-- <span class="wine-price">${w.price}</span> -->
                             ${glassPriceHtml}
                         </div>
                         
