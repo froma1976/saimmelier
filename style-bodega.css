@@ -225,6 +225,19 @@ body {
     background-image: url('assets/perfil_robusto.png');
 }
 
+/* Presupuesto / Ocasión */
+.character-card[data-type="diario"]::before {
+    background-image: url('assets/ocio_diario.png');
+}
+
+.character-card[data-type="especial"]::before {
+    background-image: url('assets/experiencia_especial.png');
+}
+
+.character-card[data-type="autor"]::before {
+    background-image: url('assets/vino_autor.png');
+}
+
 .character-gradient {
     position: absolute;
     top: 0;

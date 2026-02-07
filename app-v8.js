@@ -215,32 +215,32 @@ class SommelierApp {
                 label: "Placer Diario",
                 sublabel: "Hasta 30€",
                 range: [0, 30],
+                type: "diario",
                 icon: "sunny",
-                desc: "Disfrutar sin complicaciones, vinos accesibles y versátiles",
-                gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+                desc: "Disfrutar sin complicaciones, vinos accesibles y versátiles"
             },
             {
                 label: "Experiencia Especial",
                 sublabel: "30€ - 70€",
                 range: [30, 70],
+                type: "especial",
                 icon: "auto_awesome",
-                desc: "Sorprender y deleitar, reservas y crianzas memorables",
-                gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                desc: "Sorprender y deleitar, reservas y crianzas memorables"
             },
             {
                 label: "Vino de Autor",
                 sublabel: "+70€",
                 range: [70, 2000],
+                type: "autor",
                 icon: "workspace_premium",
-                desc: "Exclusividad y prestigio, gran reserva y ediciones limitadas",
-                gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+                desc: "Exclusividad y prestigio, gran reserva y ediciones limitadas"
             }
         ];
 
         this.optionsGrid.className = "character-grid-v2 slide-up";
         this.optionsGrid.innerHTML = options.map(o => `
-            <button class="character-card" onclick="app.selectOccasion(${o.range[0]}, ${o.range[1]})">
-                <div class="character-gradient" style="background: ${o.gradient};"></div>
+            <button class="character-card" data-type="${o.type}" onclick="app.selectOccasion(${o.range[0]}, ${o.range[1]})">
+                <div class="character-gradient"></div>
                 <div class="character-content">
                     <span class="material-symbols-outlined character-icon">${o.icon}</span>
                     <h3 class="character-title">${o.label}</h3>
