@@ -322,17 +322,17 @@ class SommelierApp {
                 ratingsHtml = `<span class="badge-rating" style="background:rgba(212,175,55,0.1); color:var(--gold); border: 1px solid var(--gold);">Selección de Autor</span>`;
             }
 
-            // Recopilar una Reseña de Usuario con diseño de burbuja
+            // Recopilar una Reseña de Usuario
             let userReviewHtml = '';
             if (w.user_reviews && w.user_reviews.length > 0) {
                 const rev = w.user_reviews[0];
                 userReviewHtml = `
                     <div class="user-review-bubble">
-                        <p style="font-weight: 800; font-size: 0.7rem; color: var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom: 0.5rem; display:flex; align-items:center; gap:6px;">
+                        <div class="user-review-header">
                             <span class="material-symbols-outlined" style="font-size:1.1rem;">verified</span> Opinión Verificada
-                        </p>
-                        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.5; color: var(--text-cream);">"${rev.text}"</p>
-                        <p style="font-size: 0.8rem; font-weight: 700; margin-top: 0.75rem; color: var(--gold);">— ${rev.author}</p>
+                        </div>
+                        <p class="user-review-text">"${rev.text}"</p>
+                        <span class="user-review-author">— ${rev.author}</span>
                     </div>
                 `;
             }
@@ -340,9 +340,11 @@ class SommelierApp {
             // Imagen del Vino
             let imageHtml = '';
             if (w.image) {
-                imageHtml = `<div style="width:100%; height:280px; overflow:hidden; border-bottom: 1px solid rgba(212,175,55,0.2);">
-                    <img src="fotos/${w.image}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
-                </div>`;
+                imageHtml = `
+                    <div class="wine-image-container">
+                        <img src="fotos/${w.image}" onerror="this.parentElement.style.display='none'">
+                    </div>
+                `;
             }
 
             // Precio por copa
@@ -353,16 +355,16 @@ class SommelierApp {
 
             return `
                 <div class="wine-card slide-up" onclick="app.selectWine('${w.id}')">
-                    ${isTop ? '<div class="wine-badge" style="position: absolute; top: 0; right: 0;">MEJOR VALORADO</div>' : ''}
+                    ${isTop ? '<div class="wine-badge">MEJOR VALORADO</div>' : ''}
                     ${imageHtml}
                     
                     <div class="wine-info">
                         <h4 class="wine-name">${w.name}</h4>
-                        <p class="wine-meta">${w.do}</p>
+                        <span class="wine-meta">${w.do}</span>
                         
-                        <div class="ratings-container" style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem;">${ratingsHtml}</div>
+                        <div class="ratings-container">${ratingsHtml}</div>
                         
-                        <div style="margin-bottom: 1.5rem;">
+                        <div class="price-container">
                             <span class="wine-price">${w.price}</span>
                             ${glassPriceHtml}
                         </div>
@@ -375,7 +377,7 @@ class SommelierApp {
                         
                         <button class="btn-primary" style="margin-top: 2.5rem; width: 100%;">
                             <span class="material-symbols-outlined">check_circle</span>
-                            Elegir este vino
+                            Seleccionar este vino
                         </button>
                     </div>
                 </div>
@@ -444,20 +446,23 @@ class SommelierApp {
         foodSuggestions = [...new Map(foodSuggestions.map(f => [f.id, f])).values()].slice(0, 4);
 
         this.finalDisplay.innerHTML = `
-            <div class="wine-card" style="border: 2px solid var(--gold);">
-                <div class="wine-info" style="padding: 1.5rem;">
-                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; border-radius: 4px;">✓ Su Elección</span>
+            <div class="wine-card" style="border: 2px solid var(--gold); margin-bottom: 3rem;">
+                <div class="wine-info" style="padding: 1.5rem; text-align: center;">
+                    <span class="wine-badge" style="position:static; margin-bottom:1rem; display:inline-block;">✓ Su Elección</span>
                     <h4 class="wine-name" style="font-size: 1.5rem; margin: 0.5rem 0;">${wine.name}</h4>
-                    <p class="wine-price" style="font-size: 1.3rem;">${wine.price}</p>
+                    <p class="wine-price" style="font-size: 1.5rem;">${wine.price}</p>
                 </div>
             </div>
-            <h3 class="step-title" style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--gold);">¿Con qué maridamos?</h3>
-            <p style="color: var(--text-cream); margin-bottom: 2rem; font-size: 0.95rem; font-style: italic;">Sugerencia de nuestra carta para este ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
+
+            <div class="pairing-header" style="text-align: center; margin-bottom: 2rem;">
+                <h3 class="step-title" style="font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--gold);">El Maridaje Perfecto</h3>
+                <p style="color: rgba(245, 245, 220, 0.7); font-size: 0.95rem; font-style: italic;">Sugerencias artesanales de nuestra cocina para un ${wine.category === 'VINOS TINTOS' ? 'tinto' : wine.category === 'VINOS BLANCOS' ? 'blanco' : 'espumoso'}</p>
+            </div>
             
             <div class="food-grid slide-up">
                 ${foodSuggestions.map(food => `
                     <div class="food-suggestion-card" onclick="app.selectFood('${food.name}')">
-                        <span class="material-symbols-outlined" style="color: var(--gold); font-size: 2rem; margin-bottom: 0.5rem;">restaurant</span>
+                        <span class="material-symbols-outlined" style="color: var(--gold); font-size: 2.5rem; margin-bottom: 1rem;">restaurant</span>
                         <h4 class="food-name">${food.name}</h4>
                         <p class="food-price">${food.price}</p>
                     </div>
@@ -488,35 +493,36 @@ class SommelierApp {
         this.headerTitle.textContent = "Resumen del Sommelier";
 
         document.getElementById('summaryDisplay').innerHTML = `
-            <div class="wine-card slide-up" style="background: rgba(30, 20, 10, 0.95);">
-                <div class="wine-info" style="text-align: center;">
-                    <span class="material-symbols-outlined" style="font-size: 4rem; color: var(--gold); margin-bottom: 1rem;">task_alt</span>
-                    <h3 class="wine-name" style="font-size: 1.8rem; margin-bottom: 1rem;">Selección Confirmada</h3>
-                    
-                    <div style="text-align: left; background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; border: 1px solid rgba(212, 175, 55, 0.2);">
-                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(212, 175, 55, 0.1);">
-                            <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.5rem;">Vino Elegido</p>
-                            <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-cream);">${selectedWine.name}</p>
-                            <p style="color: var(--gold); font-weight: 700;">${selectedWine.price}</p>
-                        </div>
-                        
-                        <div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(212, 175, 55, 0.1);">
-                            <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.5rem;">Maridaje</p>
-                            <p style="font-weight: 700; font-size: 1.2rem; color: var(--text-cream);">${selectedFood}</p>
-                            <p style="color: var(--gold); font-weight: 700;">${foodPrice}</p>
-                        </div>
-                        
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 800; font-size: 1rem; color: var(--gold);">TOTAL ESTIMADO</span>
-                            <span style="font-weight: 800; font-size: 1.8rem; color: var(--gold);">${total} €</span>
-                        </div>
+            <div class="summary-card slide-up">
+                <span class="material-symbols-outlined summary-icon-large">task_alt</span>
+                <h3 class="wine-name" style="font-size: 2rem; margin-bottom: 0.5rem;">Selección Completa</h3>
+                <p style="color: rgba(245, 245, 220, 0.6); font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;">Experiencia SIAmmelier</p>
+                
+                <div class="summary-details">
+                    <div class="summary-item">
+                        <p class="summary-label">Vino Seleccionado</p>
+                        <p class="summary-value">${selectedWine.name}</p>
+                        <p class="summary-price">${selectedWine.price}</p>
                     </div>
+                    
+                    <div class="summary-item">
+                        <p class="summary-label">Maridaje</p>
+                        <p class="summary-value">${selectedFood}</p>
+                        <p class="summary-price">${foodPrice}</p>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span class="total-label">TOTAL ESTIMADO</span>
+                        <span class="total-value">${total} €</span>
+                    </div>
+                </div>
 
-                    <button class="btn-primary" style="margin-top: 2rem; width: 100%;" onclick="app.finalizeSelection()">
-                        Finalizar y mostrar mesa
+                <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <button class="btn-primary" style="width: 100%;" onclick="app.finalizeSelection()">
+                        Confirmar y Servir en Mesa
                     </button>
-                    <button class="btn-secondary" style="margin-top: 1rem;" onclick="app.renderFamilySelection()">
-                        Cambiar selección
+                    <button class="btn-secondary" style="width: 100%; border-color: rgba(212, 175, 55, 0.4); color: rgba(212, 175, 55, 0.6);" onclick="app.renderFamilySelection()">
+                        Modificar Selección
                     </button>
                 </div>
             </div>
@@ -546,14 +552,17 @@ class SommelierApp {
 
         this.optionsGrid.className = "wine-results slide-up";
         this.optionsGrid.innerHTML = foodItems.map(food => {
-            let imgHtml = food.image ? `<img src="fotos/${food.image}" style="width:100%; height:180px; object-fit:cover; border-radius:12px 12px 0 0;" onerror="this.style.display='none'">` : '';
+            let imgHtml = food.image ? `
+                <div class="wine-image-container" style="height: 180px;">
+                    <img src="fotos/${food.image}" onerror="this.parentElement.style.display='none'">
+                </div>` : '';
             return `
             <div class="wine-card">
                 ${imgHtml}
                 <div class="wine-info">
-                    <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.5rem;">${food.name}</h4>
-                    <p style="color: var(--text-cream); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${food.description || ''}</p>
-                    <p class="wine-price" style="font-size: 1.2rem;">${food.price}</p>
+                    <h4 class="wine-name" style="font-size: 1.5rem;">${food.name}</h4>
+                    <p class="wine-meta">${food.description || ''}</p>
+                    <span class="wine-price" style="font-size: 1.5rem;">${food.price}</span>
                 </div>
             </div>
             `;
@@ -609,19 +618,26 @@ class SommelierApp {
 
         const grid = document.getElementById('wineGrid');
         grid.innerHTML = filtered.map(wine => {
-            let imgHtml = wine.image ? `<img src="fotos/${wine.image}" style="width:100%; height:200px; object-fit:cover; border-radius:12px 12px 0 0;" onerror="this.style.display='none'">` : '';
-            let glassHtml = wine.glass_price ? `<span style="font-size: 0.85rem; color: #666; margin-left: 0.5rem;"> | Copa: <b>${wine.glass_price}</b></span>` : '';
+            let imgHtml = wine.image ? `
+                <div class="wine-image-container" style="height: 200px;">
+                    <img src="fotos/${wine.image}" onerror="this.parentElement.style.display='none'">
+                </div>` : '';
+            let glassHtml = wine.glass_price ? `<span class="glass-badge">Copa: ${wine.glass_price}</span>` : '';
 
             return `
             <div class="wine-card">
                 ${imgHtml}
-                <div class="wine-info" style="padding: 1.5rem;">
-                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block; font-size: 0.7rem;">${wine.category}</span>
-                    <h4 class="wine-name" style="font-size: 1.3rem; margin-bottom: 0.25rem;">${wine.name}</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">${wine.do}</p>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic;">${wine.review || ''}</p>
-                    <div>
-                        <span class="wine-price" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${wine.price}</span>
+                <div class="wine-info">
+                    <span class="wine-badge" style="position:static; margin-bottom:0.5rem; display:inline-block;">${wine.category}</span>
+                    <h4 class="wine-name" style="font-size: 1.5rem;">${wine.name}</h4>
+                    <span class="wine-meta">${wine.do}</span>
+                    
+                    <div class="sommelier-review-box" style="margin: 1rem 0; padding: 1rem;">
+                        <p style="margin: 0; font-size: 0.85rem;">${wine.review || ''}</p>
+                    </div>
+
+                    <div class="price-container" style="margin-bottom: 0;">
+                        <span class="wine-price" style="font-size: 1.5rem;">${wine.price}</span>
                         ${glassHtml}
                     </div>
                 </div>
