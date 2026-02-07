@@ -303,12 +303,21 @@ class SommelierApp {
         const winesWithScores = priceFiltered.map(wine => {
             let score = profileKeys.reduce((acc, k) => {
                 const searchStr = (wine.name + " " + wine.review + " " + (wine.do || "")).toLowerCase();
-                return acc + (searchStr.includes(k.toLowerCase()) ? 2 : 0);
+                let points = searchStr.includes(k.toLowerCase()) ? 2 : 0;
+
+                // MEJORA: Buscar también en las reseñas de usuarios (si existen)
+                if (wine.user_reviews && Array.isArray(wine.user_reviews)) {
+                    const reviewsText = wine.user_reviews.map(r => r.text || "").join(" ").toLowerCase();
+                    if (reviewsText.includes(k.toLowerCase())) {
+                        points += 1; // Damos un punto extra si los usuarios lo mencionan
+                    }
+                }
+                return acc + points;
             }, 0);
 
-            // BOOST CRÍTICO
+            // BOOST CRÍTICO (Mantener lógica existente)
             if (wine.ratings) score += 10;
-            if (wine.user_reviews && wine.user_reviews.length > 0) score += 10;
+            if (wine.user_reviews && wine.user_reviews.length > 0) score += 5; // Ajustado a 5 para valorar más el contenido
 
             return { wine, score };
         });
