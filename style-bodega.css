@@ -201,7 +201,28 @@ body {
 }
 
 .character-card[data-type="espumoso"]::before {
-    background-image: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 255, 255, 0.2));
+    background-image: url('assets/vino_espumoso.png');
+}
+
+/* Perfiles de carácter */
+.character-card[data-type="mineral"]::before {
+    background-image: url('assets/perfil_mineral.png');
+}
+
+.character-card[data-type="aromatico"]::before {
+    background-image: url('assets/perfil_aromatico.png');
+}
+
+.character-card[data-type="frutal"]::before {
+    background-image: url('assets/perfil_frutal.png');
+}
+
+.character-card[data-type="elegante"]::before {
+    background-image: url('assets/perfil_elegante.png');
+}
+
+.character-card[data-type="robusto"]::before {
+    background-image: url('assets/perfil_robusto.png');
 }
 
 .character-gradient {

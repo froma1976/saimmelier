@@ -125,23 +125,23 @@ class SommelierApp {
                 {
                     label: "Fresco & Elegante",
                     keys: ["rioja", "elegante", "fino", "mencía"],
+                    type: "elegante",
                     icon: "eco",
-                    desc: "Tintos ligeros con acidez vibrante",
-                    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                    desc: "Tintos ligeros con acidez vibrante"
                 },
                 {
                     label: "Equilibrado",
                     keys: ["crianza", "reserva", "equilibrado"],
+                    type: "robusto",
                     icon: "balance",
-                    desc: "Armonía entre fruta y madera",
-                    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                    desc: "Armonía entre fruta y madera"
                 },
                 {
                     label: "Potente & Robusto",
                     keys: ["ribera", "toro", "cuerpo", "estructura"],
+                    type: "robusto",
                     icon: "star",
-                    desc: "Gran cuerpo y concentración",
-                    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+                    desc: "Gran cuerpo y concentración"
                 }
             ];
         } else if (this.state.selection.family === "VINOS BLANCOS") {
@@ -149,23 +149,23 @@ class SommelierApp {
                 {
                     label: "Seco & Mineral",
                     keys: ["seco", "mineral", "godello"],
+                    type: "mineral",
                     icon: "water_drop",
-                    desc: "Frescura atlántica y salinidad",
-                    gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+                    desc: "Frescura atlántica y salinidad"
                 },
                 {
                     label: "Aromático",
                     keys: ["aromático", "floral", "albariño"],
+                    type: "aromatico",
                     icon: "local_florist",
-                    desc: "Expresión frutal y flores blancas",
-                    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+                    desc: "Expresión frutal y flores blancas"
                 },
                 {
                     label: "Frutal & Goloso",
                     keys: ["frutal", "albariño", "treixadura"],
+                    type: "frutal",
                     icon: "bakery_dining",
-                    desc: "Untuoso con fruta madura",
-                    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
+                    desc: "Untuoso con fruta madura"
                 }
             ];
         } else {
@@ -173,24 +173,24 @@ class SommelierApp {
                 {
                     label: "Clásico Brut",
                     keys: ["brut", "reserva"],
+                    type: "espumoso",
                     icon: "auto_awesome",
-                    desc: "Elegancia y burbuja fina",
-                    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+                    desc: "Elegancia y burbuja fina"
                 },
                 {
                     label: "Rosé & Moderno",
                     keys: ["rosé", "fresco"],
+                    type: "frutal",
                     icon: "local_florist",
-                    desc: "Frutas rojas y frescura",
-                    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)"
+                    desc: "Frutas rojas y frescura"
                 }
             ];
         }
 
         this.optionsGrid.className = "character-grid-v2 slide-up";
         this.optionsGrid.innerHTML = profiles.map(p => `
-            <button class="character-card" onclick="app.selectProfile('${p.keys.join(',')}')">
-                <div class="character-gradient" style="background: ${p.gradient};"></div>
+            <button class="character-card" data-type="${p.type}" onclick="app.selectProfile('${p.keys.join(',')}')">
+                <div class="character-gradient"></div>
                 <div class="character-content">
                     <span class="material-symbols-outlined character-icon">${p.icon}</span>
                     <h3 class="character-title">${p.label}</h3>
