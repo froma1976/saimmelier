@@ -32,6 +32,156 @@ class SommelierApp {
             final: document.getElementById('step-final'),
             summary: document.getElementById('step-summary')
         };
+
+        this.recommendationMeta = new Map();
+        this.analyticsStorageKey = 'siammelier_ranking_logs_v1';
+        this.weightsStorageKey = 'siammelier_adaptive_weights_v1';
+        this.experimentStorageKey = 'siammelier_ab_group_v1';
+        this.experimentGroup = this.getOrCreateExperimentGroup();
+        this.baseWeights = {
+            lexical: 7,
+            semantic: 3,
+            ratings: 1.5,
+            reviews: 1,
+            budget: 1,
+            occasion: 1
+        };
+        this.adaptiveMultipliers = this.loadAdaptiveMultipliers();
+        this.lastRecommendationRun = null;
+    }
+
+    safeStorageGet(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    safeStorageSet(key, value) {
+        try {
+            localStorage.setItem(key, value);
+        } catch (error) {
+            // Ignore storage errors in restricted contexts
+        }
+    }
+
+    getOrCreateExperimentGroup() {
+        const existing = this.safeStorageGet(this.experimentStorageKey);
+        if (existing === 'A' || existing === 'B') return existing;
+
+        const assigned = Math.random() < 0.5 ? 'A' : 'B';
+        this.safeStorageSet(this.experimentStorageKey, assigned);
+        return assigned;
+    }
+
+    loadAdaptiveMultipliers() {
+        const raw = this.safeStorageGet(this.weightsStorageKey);
+        if (!raw) {
+            return {
+                lexical: 1,
+                semantic: 1,
+                ratings: 1,
+                reviews: 1,
+                budget: 1,
+                occasion: 1
+            };
+        }
+
+        try {
+            const parsed = JSON.parse(raw);
+            return {
+                lexical: Number(parsed.lexical) || 1,
+                semantic: Number(parsed.semantic) || 1,
+                ratings: Number(parsed.ratings) || 1,
+                reviews: Number(parsed.reviews) || 1,
+                budget: Number(parsed.budget) || 1,
+                occasion: Number(parsed.occasion) || 1
+            };
+        } catch (error) {
+            return {
+                lexical: 1,
+                semantic: 1,
+                ratings: 1,
+                reviews: 1,
+                budget: 1,
+                occasion: 1
+            };
+        }
+    }
+
+    saveAdaptiveMultipliers() {
+        this.safeStorageSet(this.weightsStorageKey, JSON.stringify(this.adaptiveMultipliers));
+    }
+
+    getScoringWeights() {
+        if (this.experimentGroup === 'A') {
+            return {
+                lexical: 7,
+                semantic: 1,
+                ratings: 1.1,
+                reviews: 0.8,
+                budget: 1.2,
+                occasion: 0.8
+            };
+        }
+
+        return {
+            lexical: this.baseWeights.lexical * this.adaptiveMultipliers.lexical,
+            semantic: this.baseWeights.semantic * this.adaptiveMultipliers.semantic,
+            ratings: this.baseWeights.ratings * this.adaptiveMultipliers.ratings,
+            reviews: this.baseWeights.reviews * this.adaptiveMultipliers.reviews,
+            budget: this.baseWeights.budget * this.adaptiveMultipliers.budget,
+            occasion: this.baseWeights.occasion * this.adaptiveMultipliers.occasion
+        };
+    }
+
+    clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    adaptMultiplier(current, positiveSignal) {
+        const next = positiveSignal ? current + 0.03 : current - 0.01;
+        return this.clamp(next, 0.7, 1.8);
+    }
+
+    learnFromSelection(selectionFeatures) {
+        if (!selectionFeatures || this.experimentGroup !== 'B') return;
+
+        const hasLexical = selectionFeatures.lexicalHits > 0;
+        const hasSemantic = selectionFeatures.semanticHits > 0;
+        const hasRatings = selectionFeatures.ratingsScore > 6;
+        const hasReviews = selectionFeatures.reviewsCount > 0;
+        const goodBudgetFit = selectionFeatures.budgetFitScore >= 6;
+        const goodOccasionFit = selectionFeatures.occasionAdjustment >= 2;
+
+        this.adaptiveMultipliers.lexical = this.adaptMultiplier(this.adaptiveMultipliers.lexical, hasLexical);
+        this.adaptiveMultipliers.semantic = this.adaptMultiplier(this.adaptiveMultipliers.semantic, hasSemantic);
+        this.adaptiveMultipliers.ratings = this.adaptMultiplier(this.adaptiveMultipliers.ratings, hasRatings);
+        this.adaptiveMultipliers.reviews = this.adaptMultiplier(this.adaptiveMultipliers.reviews, hasReviews);
+        this.adaptiveMultipliers.budget = this.adaptMultiplier(this.adaptiveMultipliers.budget, goodBudgetFit);
+        this.adaptiveMultipliers.occasion = this.adaptMultiplier(this.adaptiveMultipliers.occasion, goodOccasionFit);
+
+        this.saveAdaptiveMultipliers();
+    }
+
+    appendRankingLog(eventData) {
+        const raw = this.safeStorageGet(this.analyticsStorageKey);
+        let logs = [];
+        if (raw) {
+            try {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) logs = parsed;
+            } catch (error) {
+                logs = [];
+            }
+        }
+
+        logs.push(eventData);
+        if (logs.length > 200) {
+            logs = logs.slice(logs.length - 200);
+        }
+        this.safeStorageSet(this.analyticsStorageKey, JSON.stringify(logs));
     }
 
     async init() {
@@ -117,6 +267,122 @@ class SommelierApp {
             const sample = invalidItems.slice(0, 5).map(it => `${it.id} [faltan: ${it.missing.join(', ')}]`).join(' | ');
             console.warn(`Se detectaron ${invalidItems.length} items con datos incompletos. Ejemplos: ${sample}`);
         }
+    }
+
+    parsePriceToNumber(price) {
+        if (typeof price !== 'string') return NaN;
+        return parseFloat(price.replace('€', '').trim().replace(',', '.'));
+    }
+
+    normalizeText(value) {
+        return (value || '')
+            .toString()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    buildWineSearchText(wine) {
+        const reviewText = Array.isArray(wine.user_reviews)
+            ? wine.user_reviews.map(r => r.text || '').join(' ')
+            : '';
+        const pairingText = Array.isArray(wine.pairing_tags) ? wine.pairing_tags.join(' ') : '';
+        const vivinoFoodText = Array.isArray(wine.vivino_food) ? wine.vivino_food.join(' ') : '';
+
+        return this.normalizeText([
+            wine.name,
+            wine.do,
+            wine.review,
+            reviewText,
+            pairingText,
+            vivinoFoodText
+        ].join(' '));
+    }
+
+    getSemanticTerms(profileKeys = []) {
+        const map = {
+            rioja: ['tempranillo', 'crianza', 'reserva', 'fruta roja', 'especias'],
+            elegante: ['fino', 'sedoso', 'floral', 'fresco', 'equilibrado'],
+            fino: ['ligero', 'delicado', 'elegante'],
+            mencia: ['fruta roja', 'floral', 'atlantico', 'mineral'],
+            crianza: ['roble', 'vainilla', 'especias', 'estructura'],
+            reserva: ['complejo', 'estructura', 'profundo'],
+            equilibrado: ['armonico', 'redondo', 'fresco'],
+            ribera: ['tempranillo', 'estructura', 'cuerpo', 'fruta negra'],
+            toro: ['potente', 'concentrado', 'tanino'],
+            cuerpo: ['estructura', 'volumen', 'intenso'],
+            estructura: ['tanino', 'persistente', 'profundo'],
+            seco: ['fresco', 'acidez', 'citricos', 'salino'],
+            mineral: ['pizarra', 'salino', 'piedra', 'atlantico'],
+            godello: ['valdeorras', 'fruta blanca', 'volumen', 'untuoso'],
+            aromatico: ['floral', 'jazmin', 'frutal', 'intenso'],
+            floral: ['jazmin', 'flores', 'aromatico'],
+            albarino: ['rias baixas', 'citricos', 'marisco', 'fresco'],
+            frutal: ['melocoton', 'pera', 'manzana', 'tropical'],
+            treixadura: ['ribeiro', 'fruta blanca', 'fresco'],
+            brut: ['espumoso', 'burbuja', 'fresco', 'aperitivo'],
+            rose: ['frutas rojas', 'fresa', 'fresco']
+        };
+
+        const terms = new Set();
+        profileKeys.forEach(rawKey => {
+            const key = this.normalizeText(rawKey);
+            terms.add(key);
+            (map[key] || []).forEach(term => terms.add(this.normalizeText(term)));
+        });
+
+        return [...terms].filter(Boolean);
+    }
+
+    getRatingsQualityScore(wine) {
+        if (!wine.ratings) return 0;
+        const values = Object.values(wine.ratings)
+            .map(v => (typeof v === 'number' ? v : NaN))
+            .filter(v => !Number.isNaN(v));
+
+        if (values.length === 0) return 0;
+
+        const normalized = values.map(v => {
+            if (v <= 5) return v * 20;
+            return v;
+        });
+
+        const avg = normalized.reduce((sum, v) => sum + v, 0) / normalized.length;
+        return Math.max(0, Math.min(20, (avg - 70) / 1.5));
+    }
+
+    getOccasionType(occasion) {
+        if (!Array.isArray(occasion)) return 'diario';
+        if (occasion[1] <= 30) return 'diario';
+        if (occasion[1] <= 70) return 'especial';
+        return 'autor';
+    }
+
+    pickDiverseRecommendations(candidates, targetCount) {
+        const selected = [];
+        const selectedIds = new Set();
+        const usedDO = new Set();
+
+        for (const candidate of candidates) {
+            if (selected.length >= targetCount) break;
+            if (selectedIds.has(candidate.wine.id)) continue;
+            const wineDO = candidate.wine.do || 'SIN_DO';
+            if (usedDO.has(wineDO)) continue;
+
+            selected.push(candidate);
+            selectedIds.add(candidate.wine.id);
+            usedDO.add(wineDO);
+        }
+
+        for (const candidate of candidates) {
+            if (selected.length >= targetCount) break;
+            if (selectedIds.has(candidate.wine.id)) continue;
+
+            selected.push(candidate);
+            selectedIds.add(candidate.wine.id);
+        }
+
+        return selected;
     }
 
     getItemImageSrc(item) {
@@ -353,67 +619,173 @@ class SommelierApp {
     getRecommendations() {
         const { family, profileKeys, occasion } = this.state.selection;
 
-        let filtered = this.menu.filter(w => w.category === family);
-
-        // Si no hay vinos en la categoría, intentamos corregir (por si hay inconsistencia en mayúsculas/minúsculas)
-        if (filtered.length === 0) {
-            filtered = this.menu.filter(w => w.category && w.category.toUpperCase() === family.toUpperCase());
+        // Filtro duro de categoría
+        let categoryCandidates = this.menu.filter(w => w.category === family);
+        if (categoryCandidates.length === 0) {
+            categoryCandidates = this.menu.filter(w => w.category && w.category.toUpperCase() === family.toUpperCase());
         }
 
-        // Filtro por precio
-        let priceFiltered = filtered.filter(w => {
-            const priceNum = parseFloat(w.price.replace('€', '').trim().replace(',', '.'));
-            return priceNum >= occasion[0] && priceNum <= occasion[1];
+        // Filtro duro de precio
+        const [minPrice, maxPrice] = occasion;
+        let priceCandidates = categoryCandidates.filter(w => {
+            const priceNum = this.parsePriceToNumber(w.price);
+            return !Number.isNaN(priceNum) && priceNum >= minPrice && priceNum <= maxPrice;
         });
 
-        // ROBUSTEZ: Si no hay nada en el rango de precio, ensanchamos la búsqueda o mostramos los de la categoría
-        if (priceFiltered.length === 0 && filtered.length > 0) {
-            console.warn("No hay vinos en este rango de precio, mostrando selección general de la categoría");
-            priceFiltered = filtered;
+        // Fallback de precio: ampliar margen manteniendo la categoría
+        let expandedPriceRange = false;
+        if (priceCandidates.length === 0 && categoryCandidates.length > 0) {
+            expandedPriceRange = true;
+            const expandedMin = Math.max(0, minPrice - 15);
+            const expandedMax = maxPrice + 15;
+            priceCandidates = categoryCandidates.filter(w => {
+                const priceNum = this.parsePriceToNumber(w.price);
+                return !Number.isNaN(priceNum) && priceNum >= expandedMin && priceNum <= expandedMax;
+            });
         }
 
-        // Calcular puntuación para cada vino
-        const winesWithScores = priceFiltered.map(wine => {
-            let score = profileKeys.reduce((acc, k) => {
-                const searchStr = (wine.name + " " + wine.review + " " + (wine.do || "")).toLowerCase();
-                let points = searchStr.includes(k.toLowerCase()) ? 2 : 0;
+        if (priceCandidates.length === 0) {
+            priceCandidates = categoryCandidates;
+        }
 
-                // MEJORA: Buscar también en las reseñas de usuarios (si existen)
-                if (wine.user_reviews && Array.isArray(wine.user_reviews)) {
-                    const reviewsText = wine.user_reviews.map(r => r.text || "").join(" ").toLowerCase();
-                    if (reviewsText.includes(k.toLowerCase())) {
-                        points += 1; // Damos un punto extra si los usuarios lo mencionan
-                    }
-                }
-                return acc + points;
+        if (priceCandidates.length === 0) {
+            this.recommendationMeta = new Map();
+            this.renderWineResults([]);
+            return;
+        }
+
+        // Búsqueda semántica ligera + lexical
+        const semanticTerms = this.getSemanticTerms(profileKeys || []);
+        const occasionType = this.getOccasionType(occasion);
+        const weights = this.getScoringWeights();
+        const budgetMidpoint = (minPrice + maxPrice) / 2;
+        const budgetHalfRange = Math.max(1, (maxPrice - minPrice) / 2);
+
+        const scoredCandidates = priceCandidates.map(wine => {
+            const searchText = this.buildWineSearchText(wine);
+            const priceNum = this.parsePriceToNumber(wine.price);
+
+            const lexicalHits = (profileKeys || []).reduce((acc, rawKey) => {
+                const key = this.normalizeText(rawKey);
+                return acc + (searchText.includes(key) ? 1 : 0);
             }, 0);
 
-            // BOOST CRÍTICO (Mantener lógica existente)
-            if (wine.ratings) score += 10;
-            if (wine.user_reviews && wine.user_reviews.length > 0) score += 5; // Ajustado a 5 para valorar más el contenido
+            const semanticHits = semanticTerms.reduce((acc, term) => {
+                return acc + (searchText.includes(term) ? 1 : 0);
+            }, 0);
 
-            return { wine, score };
+            const ratingsScore = this.getRatingsQualityScore(wine);
+            const reviewsScore = Math.min(6, (wine.user_reviews || []).length * 2);
+
+            const budgetDistance = Number.isNaN(priceNum)
+                ? 1
+                : Math.min(1, Math.abs(priceNum - budgetMidpoint) / budgetHalfRange);
+            const budgetFitScore = (1 - budgetDistance) * 10;
+
+            let occasionAdjustment = 0;
+            if (!Number.isNaN(priceNum)) {
+                if (occasionType === 'diario') {
+                    occasionAdjustment = Math.max(0, (maxPrice - priceNum) / Math.max(1, maxPrice)) * 5;
+                } else if (occasionType === 'especial') {
+                    occasionAdjustment = budgetFitScore * 0.4;
+                } else {
+                    occasionAdjustment = Math.max(0, (priceNum - minPrice) / Math.max(1, maxPrice - minPrice)) * 5;
+                }
+            }
+
+            const score =
+                lexicalHits * weights.lexical +
+                semanticHits * weights.semantic +
+                ratingsScore * weights.ratings +
+                reviewsScore * weights.reviews +
+                budgetFitScore * weights.budget +
+                occasionAdjustment * weights.occasion;
+
+            const reasons = [];
+            if (lexicalHits > 0) reasons.push(`encaja con ${lexicalHits} rasgos del perfil`);
+            if (semanticHits > 0) reasons.push(`coincide con ${semanticHits} señales semánticas`);
+            if (ratingsScore > 0) reasons.push('respaldado por puntuaciones externas');
+            if ((wine.user_reviews || []).length > 0) reasons.push('opiniones verificadas de clientes');
+            if (!Number.isNaN(priceNum) && priceNum >= minPrice && priceNum <= maxPrice) reasons.push('dentro del presupuesto');
+            if (expandedPriceRange && (!Number.isNaN(priceNum) && (priceNum < minPrice || priceNum > maxPrice))) {
+                reasons.push('rango ampliado para no perder opciones');
+            }
+
+            return {
+                wine,
+                score,
+                reasons,
+                lexicalHits,
+                semanticHits,
+                ratingsScore,
+                budgetFitScore,
+                reviewsCount: (wine.user_reviews || []).length,
+                occasionAdjustment
+            };
         });
 
-        // Ordenar por puntuación
-        winesWithScores.sort((a, b) => b.score - a.score);
-        const maxScore = winesWithScores.length > 0 ? winesWithScores[0].score : 0;
-        const topCandidates = winesWithScores.filter(w => w.score >= maxScore - 2);
+        // Reranking final de top candidatos
+        scoredCandidates.sort((a, b) => b.score - a.score);
+        const topCandidates = scoredCandidates.slice(0, 20);
 
-        // SELECCIÓN ALEATORIA - Asegurar únicos
-        const shuffled = topCandidates.sort(() => Math.random() - 0.5);
-        const uniqueWines = [];
-        const seenIds = new Set();
-        for (const candidate of shuffled) {
-            if (!seenIds.has(candidate.wine.id)) {
-                uniqueWines.push(candidate.wine);
-                seenIds.add(candidate.wine.id);
-            }
-        }
+        // Diversidad controlada para evitar recomendaciones demasiado parecidas
+        const selectedCandidates = this.pickDiverseRecommendations(topCandidates, 3);
 
-        const selectedWines = uniqueWines.slice(0, 2);
+        this.recommendationMeta = new Map(
+            selectedCandidates.map((entry, idx) => {
+                const positionTag = idx === 0 ? 'Recomendación principal' : idx === 1 ? 'Alternativa equilibrada' : 'Opción de contraste';
+                const reasonText = entry.reasons.length > 0
+                    ? entry.reasons.slice(0, 2).join(' + ')
+                    : 'selección recomendada por ajuste global';
 
-        this.renderWineResults(selectedWines);
+                return [
+                    entry.wine.id,
+                    {
+                        score: entry.score,
+                        rationale: `${positionTag}: ${reasonText}`
+                    }
+                ];
+            })
+        );
+
+        this.lastRecommendationRun = {
+            timestamp: new Date().toISOString(),
+            family,
+            profileKeys: [...(profileKeys || [])],
+            occasion,
+            experimentGroup: this.experimentGroup,
+            weights,
+            selected: selectedCandidates.map((entry, idx) => ({
+                id: entry.wine.id,
+                position: idx + 1,
+                score: Number(entry.score.toFixed(2)),
+                lexicalHits: entry.lexicalHits,
+                semanticHits: entry.semanticHits,
+                ratingsScore: Number(entry.ratingsScore.toFixed(2)),
+                reviewsCount: entry.reviewsCount,
+                budgetFitScore: Number(entry.budgetFitScore.toFixed(2)),
+                occasionAdjustment: Number(entry.occasionAdjustment.toFixed(2))
+            })),
+            topRanking: topCandidates.slice(0, 20).map((entry, idx) => ({
+                rank: idx + 1,
+                id: entry.wine.id,
+                name: entry.wine.name,
+                score: Number(entry.score.toFixed(2)),
+                lexicalHits: entry.lexicalHits,
+                semanticHits: entry.semanticHits,
+                ratingsScore: Number(entry.ratingsScore.toFixed(2)),
+                reviewsCount: entry.reviewsCount,
+                budgetFitScore: Number(entry.budgetFitScore.toFixed(2)),
+                occasionAdjustment: Number(entry.occasionAdjustment.toFixed(2))
+            }))
+        };
+
+        this.appendRankingLog({
+            type: 'ranking',
+            ...this.lastRecommendationRun
+        });
+
+        this.renderWineResults(selectedCandidates.map(entry => entry.wine));
     }
 
     renderWineResults(wines) {
@@ -428,6 +800,7 @@ class SommelierApp {
 
         this.wineResults.innerHTML = wines.map((w, i) => {
             const isTop = (i === 0);
+            const recommendationMeta = this.recommendationMeta.get(w.id);
 
             // Recopilar Puntuaciones
             let ratingsHtml = '';
@@ -494,6 +867,14 @@ class SommelierApp {
                             <p style="margin: 0;">${w.review}</p>
                         </div>
 
+                        ${recommendationMeta ? `
+                            <div class="sommelier-review-box" style="margin-top: 1rem; border-color: rgba(212, 175, 55, 0.4);">
+                                <p style="margin: 0; color: var(--gold); font-size: 0.85rem; letter-spacing: 0.02em;">
+                                    ${recommendationMeta.rationale}
+                                </p>
+                            </div>
+                        ` : ''}
+
                         ${userReviewHtml}
                         
                         <button class="btn-primary" style="margin-top: 2.5rem; width: 100%;">
@@ -507,6 +888,24 @@ class SommelierApp {
     }
 
     selectWine(id) {
+        if (this.lastRecommendationRun && Array.isArray(this.lastRecommendationRun.selected)) {
+            const chosen = this.lastRecommendationRun.selected.find(item => item.id === id);
+            if (chosen) {
+                this.learnFromSelection(chosen);
+                this.appendRankingLog({
+                    type: 'selection',
+                    timestamp: new Date().toISOString(),
+                    experimentGroup: this.experimentGroup,
+                    selectedWineId: id,
+                    selectedPosition: chosen.position,
+                    selectedScore: chosen.score,
+                    family: this.lastRecommendationRun.family,
+                    profileKeys: this.lastRecommendationRun.profileKeys,
+                    occasion: this.lastRecommendationRun.occasion
+                });
+            }
+        }
+
         this.state.selection.selectedWine = this.menu.find(w => w.id === id);
         this.renderFoodSuggestions();
     }
