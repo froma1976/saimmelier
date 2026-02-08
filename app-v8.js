@@ -37,6 +37,7 @@ class SommelierApp {
         this.analyticsStorageKey = 'siammelier_ranking_logs_v1';
         this.weightsStorageKey = 'siammelier_adaptive_weights_v1';
         this.experimentStorageKey = 'siammelier_ab_group_v1';
+        this.recommendationHistoryStorageKey = 'siammelier_recent_recommendations_v1';
         this.experimentGroup = this.getOrCreateExperimentGroup();
         this.baseWeights = {
             lexical: 7,
@@ -182,6 +183,44 @@ class SommelierApp {
             logs = logs.slice(logs.length - 200);
         }
         this.safeStorageSet(this.analyticsStorageKey, JSON.stringify(logs));
+    }
+
+    buildRecommendationQueryKey(family, profileKeys, occasion) {
+        const normalizedProfiles = (profileKeys || []).map(k => this.normalizeText(k)).sort().join('|');
+        const occasionKey = Array.isArray(occasion) ? `${occasion[0]}-${occasion[1]}` : 'na';
+        return `${this.normalizeText(family)}::${normalizedProfiles}::${occasionKey}`;
+    }
+
+    loadRecommendationHistory() {
+        const raw = this.safeStorageGet(this.recommendationHistoryStorageKey);
+        if (!raw) return {};
+
+        try {
+            const parsed = JSON.parse(raw);
+            return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (error) {
+            return {};
+        }
+    }
+
+    getRecentRecommendationIds(queryKey) {
+        const history = this.loadRecommendationHistory();
+        const list = Array.isArray(history[queryKey]) ? history[queryKey] : [];
+        return list.slice(0, 12);
+    }
+
+    updateRecommendationHistory(queryKey, selectedWineIds) {
+        const history = this.loadRecommendationHistory();
+        const existing = Array.isArray(history[queryKey]) ? history[queryKey] : [];
+        const merged = [...selectedWineIds, ...existing.filter(id => !selectedWineIds.includes(id))].slice(0, 12);
+        history[queryKey] = merged;
+        this.safeStorageSet(this.recommendationHistoryStorageKey, JSON.stringify(history));
+    }
+
+    getRecencyPenalty(wineId, recentIds) {
+        const idx = recentIds.indexOf(wineId);
+        if (idx === -1) return 0;
+        return Math.max(0, 12 - idx * 2);
     }
 
     async init() {
@@ -359,11 +398,25 @@ class SommelierApp {
     }
 
     pickDiverseRecommendations(candidates, targetCount) {
+        if (!Array.isArray(candidates) || candidates.length === 0) return [];
+
+        const poolSize = Math.min(12, candidates.length);
+        const randomizedPool = candidates
+            .slice(0, poolSize)
+            .map(candidate => ({
+                ...candidate,
+                randomizedScore: candidate.score + Math.random() * 6
+            }))
+            .sort((a, b) => b.randomizedScore - a.randomizedScore);
+
+        const fallbackPool = candidates.slice(poolSize);
+        const candidatePool = [...randomizedPool, ...fallbackPool];
+
         const selected = [];
         const selectedIds = new Set();
         const usedDO = new Set();
 
-        for (const candidate of candidates) {
+        for (const candidate of candidatePool) {
             if (selected.length >= targetCount) break;
             if (selectedIds.has(candidate.wine.id)) continue;
             const wineDO = candidate.wine.do || 'SIN_DO';
@@ -374,7 +427,7 @@ class SommelierApp {
             usedDO.add(wineDO);
         }
 
-        for (const candidate of candidates) {
+        for (const candidate of candidatePool) {
             if (selected.length >= targetCount) break;
             if (selectedIds.has(candidate.wine.id)) continue;
 
@@ -618,6 +671,8 @@ class SommelierApp {
 
     getRecommendations() {
         const { family, profileKeys, occasion } = this.state.selection;
+        const queryKey = this.buildRecommendationQueryKey(family, profileKeys, occasion);
+        const recentIds = this.getRecentRecommendationIds(queryKey);
 
         // Filtro duro de categoría
         let categoryCandidates = this.menu.filter(w => w.category === family);
@@ -701,6 +756,9 @@ class SommelierApp {
                 budgetFitScore * weights.budget +
                 occasionAdjustment * weights.occasion;
 
+            const recencyPenalty = this.getRecencyPenalty(wine.id, recentIds);
+            const finalScore = score - recencyPenalty;
+
             const reasons = [];
             if (lexicalHits > 0) reasons.push(`encaja con ${lexicalHits} rasgos del perfil`);
             if (semanticHits > 0) reasons.push(`coincide con ${semanticHits} señales semánticas`);
@@ -713,14 +771,15 @@ class SommelierApp {
 
             return {
                 wine,
-                score,
+                score: finalScore,
                 reasons,
                 lexicalHits,
                 semanticHits,
                 ratingsScore,
                 budgetFitScore,
                 reviewsCount: (wine.user_reviews || []).length,
-                occasionAdjustment
+                occasionAdjustment,
+                recencyPenalty
             };
         });
 
@@ -730,6 +789,7 @@ class SommelierApp {
 
         // Diversidad controlada para evitar recomendaciones demasiado parecidas
         const selectedCandidates = this.pickDiverseRecommendations(topCandidates, 3);
+        this.updateRecommendationHistory(queryKey, selectedCandidates.map(entry => entry.wine.id));
 
         this.recommendationMeta = new Map(
             selectedCandidates.map((entry, idx) => {
@@ -776,7 +836,8 @@ class SommelierApp {
                 ratingsScore: Number(entry.ratingsScore.toFixed(2)),
                 reviewsCount: entry.reviewsCount,
                 budgetFitScore: Number(entry.budgetFitScore.toFixed(2)),
-                occasionAdjustment: Number(entry.occasionAdjustment.toFixed(2))
+                occasionAdjustment: Number(entry.occasionAdjustment.toFixed(2)),
+                recencyPenalty: Number(entry.recencyPenalty.toFixed(2))
             }))
         };
 
