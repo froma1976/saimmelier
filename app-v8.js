@@ -40,6 +40,7 @@ class SommelierApp {
 
         try {
             console.log("Intentando cargar datos...");
+            let menuLoaded = false;
 
             // Priority 1: Fetch from JSON (Production)
             try {
@@ -47,24 +48,82 @@ class SommelierApp {
                 if (response.ok) {
                     this.menu = await response.json();
                     console.log("Datos cargados vía fetch:", this.menu.length);
-                    return;
+                    menuLoaded = true;
+                } else {
+                    console.warn(`Fetch de menu.json devolvió estado ${response.status}. Activando fallback local...`);
                 }
             } catch (e) {
                 console.warn("Fetch falló (probablemente local), intentando fallback variables...");
             }
 
-            // Priority 2: Use loaded script variable (Local/Fallback)
-            if (typeof MENU_DATA !== 'undefined' && Array.isArray(MENU_DATA)) {
-                this.menu = MENU_DATA;
-                console.log("Datos cargados vía MENU_DATA:", this.menu.length);
-            } else {
+            // Priority 2: Load fallback script only if fetch did not work
+            if (!menuLoaded) {
+                const fallbackLoaded = await this.loadFallbackMenuData();
+                if (fallbackLoaded && typeof MENU_DATA !== 'undefined' && Array.isArray(MENU_DATA)) {
+                    this.menu = MENU_DATA;
+                    console.log("Datos cargados vía MENU_DATA (fallback):", this.menu.length);
+                    menuLoaded = true;
+                }
+            }
+
+            if (!menuLoaded) {
                 console.error("CRITICAL: No se pudieron cargar datos ni de JSON ni de MENU_DATA");
                 alert("Error: No se han podido cargar los vinos. Por favor contacte con soporte técnico.");
+                return;
             }
+
+            this.validateMenuData();
 
         } catch (error) {
             console.error('Error fatal al iniciar:', error);
         }
+    }
+
+    loadFallbackMenuData() {
+        return new Promise((resolve) => {
+            if (typeof MENU_DATA !== 'undefined' && Array.isArray(MENU_DATA)) {
+                resolve(true);
+                return;
+            }
+
+            const existing = document.getElementById('menuDataFallbackScript');
+            if (existing) {
+                existing.addEventListener('load', () => resolve(true), { once: true });
+                existing.addEventListener('error', () => resolve(false), { once: true });
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.id = 'menuDataFallbackScript';
+            script.src = 'menu-data.js';
+            script.onload = () => resolve(true);
+            script.onerror = () => resolve(false);
+            document.head.appendChild(script);
+        });
+    }
+
+    validateMenuData() {
+        const requiredFields = ['id', 'name', 'price', 'category'];
+        const invalidItems = [];
+
+        this.menu.forEach((item, index) => {
+            const missing = requiredFields.filter(field => !item || item[field] === undefined || item[field] === null || item[field] === '');
+            if (missing.length > 0) {
+                invalidItems.push({ index, id: item && item.id ? item.id : 'SIN_ID', missing });
+            }
+        });
+
+        if (invalidItems.length > 0) {
+            const sample = invalidItems.slice(0, 5).map(it => `${it.id} [faltan: ${it.missing.join(', ')}]`).join(' | ');
+            console.warn(`Se detectaron ${invalidItems.length} items con datos incompletos. Ejemplos: ${sample}`);
+        }
+    }
+
+    getItemImageSrc(item) {
+        if (!item) return null;
+        if (item.image_url) return item.image_url;
+        if (item.image) return `fotos/${item.image}`;
+        return null;
     }
 
     showSection(key) {
@@ -131,6 +190,20 @@ class SommelierApp {
     selectFamily(key) {
         this.state.selection.family = key;
         this.renderProfileSelection();
+    }
+
+    handleNextStep() {
+        const step = this.state.currentStep;
+
+        if (step === 'family' && this.state.selection.family) {
+            this.renderProfileSelection();
+        } else if (step === 'profile' && this.state.selection.profileKeys) {
+            this.renderOccasionSelection();
+        } else if (step === 'occasion' && this.state.selection.occasion) {
+            this.getRecommendations();
+        } else if (step === 'final' && this.state.selection.selectedFood) {
+            this.finalize();
+        }
     }
 
     renderProfileSelection() {
@@ -385,10 +458,11 @@ class SommelierApp {
 
             // Imagen del Vino
             let imageHtml = '';
-            if (w.image) {
+            const imageSrc = this.getItemImageSrc(w);
+            if (imageSrc) {
                 imageHtml = `
                     <div class="wine-image-container">
-                        <img src="fotos/${w.image}" onerror="this.parentElement.style.display='none'">
+                        <img src="${imageSrc}" onerror="this.parentElement.style.display='none'">
                     </div>
                 `;
             }
@@ -605,9 +679,10 @@ class SommelierApp {
 
         this.optionsGrid.className = "wine-results slide-up";
         this.optionsGrid.innerHTML = foodItems.map(food => {
-            let imgHtml = food.image ? `
+            const imageSrc = this.getItemImageSrc(food);
+            let imgHtml = imageSrc ? `
                 <div class="wine-image-container" style="height: 180px;">
-                    <img src="fotos/${food.image}" onerror="this.parentElement.style.display='none'">
+                    <img src="${imageSrc}" onerror="this.parentElement.style.display='none'">
                 </div>` : '';
             return `
             <div class="wine-card">
@@ -671,9 +746,10 @@ class SommelierApp {
 
         const grid = document.getElementById('wineGrid');
         grid.innerHTML = filtered.map(wine => {
-            let imgHtml = wine.image ? `
+            const imageSrc = this.getItemImageSrc(wine);
+            let imgHtml = imageSrc ? `
                 <div class="wine-image-container" style="height: 200px;">
-                    <img src="fotos/${wine.image}" onerror="this.parentElement.style.display='none'">
+                    <img src="${imageSrc}" onerror="this.parentElement.style.display='none'">
                 </div>` : '';
             let glassHtml = wine.glass_price ? `<span class="glass-badge">Copa: ${wine.glass_price}</span>` : '';
 
