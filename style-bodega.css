@@ -751,6 +751,27 @@ body {
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: center;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.75) rgba(255, 255, 255, 0.08);
+}
+
+.filter-chips-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.filter-chips-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+}
+
+.filter-chips-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.7), rgba(197, 160, 40, 0.9));
+    border-radius: 999px;
+    border: 1px solid rgba(30, 20, 10, 0.5);
+}
+
+.filter-chips-wrapper::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, rgba(229, 192, 72, 0.85), rgba(212, 175, 55, 1));
 }
 
 .filter-chips {
@@ -880,7 +901,7 @@ body {
     box-shadow: 0 6px 15px rgba(0,0,0,0.5);
 }
 
-/* Vivino: Clásico Rojo */
+/* Vivino: Clï¿½sico Rojo */
 .badge-vivino {
     background-color: #be1e2d;
     color: white;
@@ -895,7 +916,7 @@ body {
     box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
 }
 
-/* Peñín: Dorado con texto oscuro (Contraste) */
+/* Peï¿½ï¿½n: Dorado con texto oscuro (Contraste) */
 .badge-penin {
     background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%);
     color: #1a0f00;
