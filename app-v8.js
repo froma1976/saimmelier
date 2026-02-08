@@ -788,12 +788,12 @@ class SommelierApp {
         const topCandidates = scoredCandidates.slice(0, 20);
 
         // Diversidad controlada para evitar recomendaciones demasiado parecidas
-        const selectedCandidates = this.pickDiverseRecommendations(topCandidates, 3);
+        const selectedCandidates = this.pickDiverseRecommendations(topCandidates, 2);
         this.updateRecommendationHistory(queryKey, selectedCandidates.map(entry => entry.wine.id));
 
         this.recommendationMeta = new Map(
             selectedCandidates.map((entry, idx) => {
-                const positionTag = idx === 0 ? 'Recomendación principal' : idx === 1 ? 'Alternativa equilibrada' : 'Opción de contraste';
+                const positionTag = idx === 0 ? 'Recomendación principal' : 'Alternativa equilibrada';
                 const reasonText = entry.reasons.length > 0
                     ? entry.reasons.slice(0, 2).join(' + ')
                     : 'selección recomendada por ajuste global';
