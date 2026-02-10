@@ -4,46 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAmmelier | La Excelencia del Maridaje Digital</title>
-    <meta name="description"
-        content="Descubra la armonía perfecta entre su paladar y los terruños más exclusivos. SIAmmelier es su experto privado en vinos de alta gama.">
-
-    <!-- Fonts -->
+    <title>SIAmmelier Dobao - Asesor Sommelier AI</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
         rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="landing.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <!-- Main Style -->
+    <link rel="stylesheet" href="style-bodega.css">
 </head>
 
 <body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="back-button" id="btnBack" style="display:none;" onclick="app.goBack()">
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </button>
+            <h1 id="headerTitle">Asesor Sommelier AI</h1>
+        </header>
 
-    <!-- Hero Section: Ultra-Minimalist -->
-    <header class="hero">
-        <div class="hero-bg">
-            <img src="hero.png" alt="">
-        </div>
+        <!-- Main Content -->
+        <main id="mainContent">
 
-        <div class="hero-content">
-            <span class="hero-subtitle" style="opacity: 0.8;">Selection Privée</span>
-            <h1 class="hero-title">SIAmmelier</h1>
-            <p
-                style="font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 3.5rem; font-family: 'Inter', sans-serif; letter-spacing: 3px; font-weight: 300; text-transform: uppercase;">
-                La esencia del terruño en su copa.
-            </p>
-            <a href="app.html" class="cta-btn">Entrar</a>
-        </div>
+            <!-- Step 1: Family Selection -->
+            <div id="step-selection" class="step-container">
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-dots">
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot"></div>
+                        <div class="progress-dot"></div>
+                    </div>
+                    <p class="progress-text">Paso <span id="currentStep">1</span> de 3</p>
+                </div>
 
+                <!-- Selection Area -->
+                <div class="selection-area">
+                    <h3 class="step-title" id="stepTitle">¿Qué vamos a descorchar hoy?</h3>
+
+                    <div class="options-grid" id="optionsGrid">
+                        <!-- Dynamic options will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div style="padding: 0 1rem; margin-top: 2rem;">
+                    <button class="btn-primary" id="btnNext" onclick="app.handleNextStep()" style="display:none;">
+                        <span>Siguiente Paso</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Wine Results -->
+            <div id="step-results" class="step-container hidden">
+                <div class="progress-indicator">
+                    <div class="progress-dots">
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot active"></div>
+                    </div>
+                    <p class="progress-text">Sugerencias de la Bodega</p>
+                </div>
+
+                <h3 class="step-title">La Selección del Sommelier</h3>
+                <p class="step-subtitle">Nuestras mejores recomendaciones basadas en tus preferencias</p>
+
+                <div class="wine-results" id="wineResults">
+                    <!-- Wine cards will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Step 3: Pairing Selection -->
+            <div id="step-final" class="step-container hidden">
+                <h3 class="step-title">La Armonía Gastronómica</h3>
+                <p class="step-subtitle">Seleccione el maridaje ideal para su elección</p>
+
+                <div id="finalDisplay" style="padding: 0 1.5rem;">
+                    <!-- Selected wine + pairing options will be inserted here -->
+                </div>
+
+                <!-- Action Panel -->
+                <div class="action-panel" id="pairingConfirmArea" style="display:none;">
+                    <span class="material-symbols-outlined panel-icon">restaurant</span>
+                    <p class="panel-title">Recomendación del Chef</p>
+                    <p class="panel-description">Esta selección ha sido diseñada para balancear los matices del vino con
+                        perfiles gastronómicos ideales.</p>
+                    <button class="btn-primary" onclick="app.finalize()">
+                        <span>Confirmar Selección Final</span>
+                    </button>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-secondary" onclick="app.restart()">Nueva Experiencia</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Summary -->
+            <div id="step-summary" class="step-container hidden">
+                <div id="summaryDisplay" style="width: 100%; padding: 1.5rem;">
+                    <!-- Order summary will appear here -->
+                </div>
+                <button class="btn-primary" onclick="app.restart()" style="margin: 2rem 1.5rem;">
+                    <span>Realizar Nueva Selección</span>
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Tab Bar Navigation -->
+        <nav class="tab-bar">
+            <div class="tab-bar-content">
+                <button class="tab-item" onclick="app.showFoodMenu()">
+                    <span class="material-symbols-outlined">restaurant</span>
+                    <span class="tab-label">Tapeo</span>
+                </button>
+                <button class="tab-item" onclick="app.showWineMenu()">
+                    <span class="material-symbols-outlined">wine_bar</span>
+                    <span class="tab-label">Bodega</span>
+                </button>
+                <div class="tab-item-center" onclick="app.restart()">
+                    <div class="tab-center-button">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                    </div>
+                    <span class="tab-center-label">SAImmelier</span>
+                </div>
+                <button class="tab-item" onclick="app.showAdminPanel()">
+                    <span class="material-symbols-outlined">admin_panel_settings</span>
+                    <span class="tab-label">Admin</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Footer -->
         <footer
-            style="position: absolute; bottom: 3rem; width: 100%; text-align: center; font-size: 0.7rem; letter-spacing: 4px; color: rgba(255,255,255,0.4); z-index: 2; text-transform: uppercase;">
-            &copy; 2026 SIAMMELIER DOBAO PRIVATE SELECTION
+            style="margin-top: auto; text-align: center; color: rgba(212, 175, 55, 0.6); font-size: 0.75rem; padding: 1rem; letter-spacing: 0.05em; text-transform: uppercase;">
+            SIAmmelier Dobao • Selección Privada
         </footer>
+    </div>
 
-    </header>
-
-
-
+    <script src="app-v8.js"></script>
 </body>
 
 </html>
